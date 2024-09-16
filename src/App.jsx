@@ -1,15 +1,17 @@
 import React from "react";
-import Footer from "./components/layouttemporal/Footer";
-import Navbar from "./components/Routers/Navbar";
-
+import Layout from "./components/layout/Layout";
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import Landing from "./views/Landing";
 
 const App = () => {
   return (
-    <div>
-    <Navbar />
-    <div className="h-screen"></div>
-    <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route path="/" element={<Landing/>}></Route>
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 
