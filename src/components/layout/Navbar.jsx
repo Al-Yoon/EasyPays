@@ -13,7 +13,7 @@ return (
         <ul className='hidden md:flex'>
             <li className='p-4'>Inicio</li>
             <li className='p-4'>Nosotros</li>
-            <li className='p-4'>Nuestros Servicios</li>
+            <li className='p-4'>Servicios</li>
             <li className='p-4'>Proyectos</li>
             <li className='p-4'>Usuario</li>
         </ul>
@@ -24,7 +24,7 @@ return (
             <h1 className='w-full text-3xl font-bold text-white m-4'>EasyPays.</h1>
             <li className='p-4 border-b border-gray-600'>Inicio</li>
             <li className='p-4 border-b border-gray-600'>Nosotros</li>
-            <li className='p-4 border-b border-gray-600'>Nuestros Servicios</li>
+            <li className='p-4 border-b border-gray-600'>Servicios</li>
             <li className='p-4 border-b border-gray-600'>Proyectos</li>
             <li className='p-4'>Usuario</li>
         </ul>
