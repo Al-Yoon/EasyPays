@@ -3,11 +3,6 @@ export const REDESSOCIALES = [
   { name: "Instagram y Linkedin"}
 ];
 
-export const ALGO = [
-  { name: ""},
-  { name: ""}
-];
-
 export const NAVEGACION = [
   { name: "Home", link: "#" },
   { name: "Nosotros", link: "#" },
