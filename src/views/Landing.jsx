@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactTyped } from "react-typed";
-import Logo from "../components/Assets/Easy.jpg";
+import Logo from "../components/Assets/Easy_2.png";
 
 
 const Landing = () =>{
@@ -31,10 +31,11 @@ const Landing = () =>{
                     <div className="flex flex-col pl-4 justify-center">
                         <p className="text-[#38bdf8] md:text-1xl sm:text-3xl text-2xl font-bold">Sobre nosotros</p>
                         <h1 className="text-black md:text-1xl sm:text-6xl text-4xl font-bold md:py-3"> Somos la mejor aplicacion de todo el mundo</h1>
-                        <p className="text-gray-500 md:text-2xl sm:text-1xl text-xl my-2">Soy el mejor programador de este grupo </p>
+                        <p className="text-gray-700 md:text-2xl sm:text-1xl text-xl my-2">Controla, Analiza y Comparte tus Gastos con Facilidad</p>
                         <p className="text-black md:text-1xl sm:text-1xl text-xl">
-                        Te brindamos soluciones para que puedas calcular tus gastos, analizarlos y compartirlo con demás personas con las que necesites dividir los mismos. 
-                        Realiza un seguimiento sencillo de tus compras del mes para mantener un buen control de tus finanzas    </p>
+                        Te brindamos soluciones integrales para que puedas calcular, gestionar y analizar tus gastos de manera eficiente. Nuestra plataforma te permite no solo visualizar y desglosar tus compras, 
+                        sino también compartir fácilmente la información con otras personas, facilitando la división de los gastos en grupo de manera justa y precisa. </p>
+                        
                     </div>
                 </div>
             </div>
