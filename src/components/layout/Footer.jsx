@@ -10,7 +10,7 @@ const Footer = () => {
         <h1
           className="lg:text-4xl text-3xl md:mb-0 mb-6 lg:leading-normal font-semibold md:w-2/5 text-center" 
         >
-          <span className="text-white">Cambiemos ahora manera de gestionar tus tickets</span>
+          <span className="text-[#38bdf8]">Cambiemos ahora manera de gestionar tus tickets</span>
         </h1>
       </div>
       <ItemsContainer />
