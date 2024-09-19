@@ -6,11 +6,11 @@ import { Icons } from "./Menus";
 const Footer = () => {
   return (
     <footer className="bg-black text-white">
-      <div className="md:flex md:justify-center md:items-center sm:px-12 px-4 bg-[#ffffff19] py-7">
+      <div className="md:flex md:justify-center md:items-center sm:px-12 px-4 bg-[#38bdf8] py-7">
         <h1
           className="lg:text-4xl text-3xl md:mb-0 mb-6 lg:leading-normal font-semibold md:w-2/5 text-center" 
         >
-          <span className="text-[#38bdf8]">Cambiemos ahora manera de gestionar tus tickets</span>
+          <h1 className="text-white md:text-1xl sm:text-1xl text-1xl md:py-6">Optimiza la gestión de tus tickets</h1>
         </h1>
       </div>
       <ItemsContainer />
