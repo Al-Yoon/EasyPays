@@ -1,7 +1,6 @@
 import React from "react";
 import ItemsContainer from "./ItemsContainer";
-import SocialIcons from "./SocialIcons";
-import { Icons } from "./Menus";
+import Linke from "../Assets/logo-linkedin.svg";
 
 const Footer = () => {
   return (
@@ -19,7 +18,7 @@ const Footer = () => {
       >
         <span>©EASY PAYS BUSINESS.</span>
         <span>Terminos · Politica de Privacidad</span>
-        <SocialIcons Icons={Icons} />
+        <img className='w-20 mx-auto mt-auto bg-transparent bg-white' src={Linke} alt="/" />
       </div>
     </footer>
   );
