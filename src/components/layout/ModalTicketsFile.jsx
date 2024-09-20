@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AddIcon from '@mui/icons-material/Add';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -23,14 +22,14 @@ const style = {
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function ModalTickets() {
+export default function ModalTicketsFile() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
 return (
     <div>
-    <Button onClick={handleOpen} className='border-4'>Carga Manual</Button>
+    <Button onClick={handleOpen}>Cargar Archivo</Button>
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
@@ -49,7 +48,7 @@ return (
             <div className=' mx-auto text-center flex flex-col justify-center'>
             <CloseIcon></CloseIcon>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-                Fecha:
+                Sube el Ticket
             </Typography>
                 <Box
                 component="form"
@@ -57,15 +56,7 @@ return (
                 noValidate
                 autoComplete="off"
                 >
-            <Input placeholder="Fecha" inputProps={ariaLabel} />
-            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                Descripción
-            </Typography>
-            <Input placeholder="Descripción" inputProps={ariaLabel}/>
-            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                Monto Total
-            </Typography>
-            <Input placeholder="Cargar Monto" inputProps={ariaLabel}/>
+            <Input inputProps={ariaLabel} type='file'/>
             <button className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">Aceptar</button>
                 </Box>
                 

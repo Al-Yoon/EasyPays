@@ -1,6 +1,6 @@
 import TransitionsModal from '../components/layout/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
-import React, { useState } from 'react';
+import React from 'react';
 
 const MyProyects = () =>{
     return(
