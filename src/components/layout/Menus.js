@@ -4,7 +4,7 @@ export const REDESSOCIALES = [
 ];
 
 export const NAVEGACION = [
-  { name: "Home", link: "#" },
+  { name: "Home", link: "https://open.spotify.com/intl-es/track/4PTG3Z6ehGkBFwjybzWkR8?si=59f43f249ca64800" },
   { name: "Nosotros", link: "#" },
   { name: "Servicios", link: "#" },
   { name: "Proyectos", link: "#" },
