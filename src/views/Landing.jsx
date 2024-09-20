@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactTyped } from "react-typed";
 import Logo from "../components/Assets/Easy_2.png";
-
+import MyProyects from "./MyProyects";
 
 const Landing = () =>{
     return(
@@ -35,7 +35,6 @@ const Landing = () =>{
                         <p className="text-black md:text-1xl sm:text-1xl text-xl">
                         Te brindamos soluciones integrales para que puedas calcular, gestionar y analizar tus gastos de manera eficiente. Nuestra plataforma te permite no solo visualizar y desglosar tus compras, 
                         sino también compartir fácilmente la información con otras personas, facilitando la división de los gastos en grupo de manera justa y precisa. </p>
-                        
                     </div>
                 </div>
             </div>
