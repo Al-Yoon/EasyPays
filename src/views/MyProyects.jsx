@@ -2,6 +2,7 @@ import TransitionsModal from '../components/layout/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import React from 'react';
 
+
 const MyProyects = () =>{
     return(
         <div className="w-full py-[10rem] bg-black px-4 text-white">
@@ -23,7 +24,7 @@ const MyProyects = () =>{
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Esta es la descripcion del Proyecto Guardada</p>
                     </div>
-                    <button className='bg-[#38bdf8] text-black w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
+                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
 
                 <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
@@ -32,7 +33,7 @@ const MyProyects = () =>{
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Pelicula del Joker division de gastos</p>
                     </div>
-                    <button className='bg-[#38bdf8] text-black w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
+                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
 
                 <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
@@ -41,7 +42,7 @@ const MyProyects = () =>{
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Gatos de Bayside</p>
                     </div>
-                    <button className='bg-[#38bdf8] text-black w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
+                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
             </div>
         </div>
