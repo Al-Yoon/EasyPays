@@ -5,7 +5,7 @@ export const REDESSOCIALES = [
 
 export const NAVEGACION = [
   { name: "Home", link: "https://open.spotify.com/intl-es/track/4PTG3Z6ehGkBFwjybzWkR8?si=c7839b915a554d41"},
-  { name: "Nosotros", link: "#" },
+  { name: "Nosotros", link: "/nosotros" },
   { name: "Servicios", link: "#" },
   { name: "Proyectos", link: "#" },
   { name: "Tickets", link: "#" },
@@ -16,7 +16,4 @@ export const CONTACTANOS = [
 ];
 
 export const Icons = [
-  { name: "logo-Instagram", link: "#" },
-  { name: "logo-X", link: "#" },
-  { name: "logo-github", link: "#" },
 ];

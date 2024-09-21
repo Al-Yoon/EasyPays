@@ -1,5 +1,5 @@
-import * as React from 'react';
-import ModalUser from '../components/layout/ModalUser';
+import React from 'react';
+import ModalUser from '../components//Body/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
 /* 
 const Profile = () => {
@@ -64,7 +64,7 @@ const UserPanel=()=>{
 
             <div className="w-full h-[30vh] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg justify-center">
                         <p className='text-center text-black text-2xl font-bold'>Modificar Usuario</p>
-                        <button className='bg-[#299ad78d] w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'><ModalUser></ModalUser></button>
+                        <button className='bg-[#299ad78d] w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'><ModalUser></ModalUser></button>
                             <div className='text-center font-medium'>
                             </div>
                     </div>

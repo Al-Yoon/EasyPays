@@ -114,8 +114,8 @@ ${props =>
 export const Overlay = styled.div`
 display:flexWrap;
 background: black;
-background: -webkit-linear-gradient(to right, black, black);
-background: linear-gradient(to right, black, black);
+background: -webkit-linear-gradient(to right, #38bdf8, #38bdf8);
+background: linear-gradient(to right, #38bdf8, #38bdf8);
 background-repeat: no-repeat;
 background-size: cover;
 background-position: 0 0;

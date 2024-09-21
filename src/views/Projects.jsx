@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-
-import ModalTickets from "../components/layout/ModalTickets.jsx";
-import ModalTicketsFile from "../components/layout/ModalTicketsFile.jsx";
-import ModalMiembros from "../components/layout/ModalMiembros.jsx";
+import ModalTickets from "../components/Body/ModalTickets.jsx";
+import ModalMiembros from "../components/Body/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
-import Ticket from "../components/Assets/tickets.svg";
-import Table from "../components/layout/Table.jsx";
-import TableUsers from '../components/layout/TableUsers.jsx';
+import Table from "../components/Body/Table.jsx";
+import TableUsers from '../components/Body/TableUsers.jsx';
 
 
 const Projects = () => {
