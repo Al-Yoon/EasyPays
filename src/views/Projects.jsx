@@ -4,6 +4,8 @@ import ModalTickets from "../components/layout/ModalTickets";
 import ModalTicketsFile from "../components/layout/ModalTicketsFile";
 import Cloud from "../components/Assets/cloud.svg";
 import Ticket from "../components/Assets/tickets.svg";
+import Table from "../components/layout/Table";
+import TableUsers from '../components/layout/TableUsers';
 
 const Projects = ()=>{
     return(
@@ -34,8 +36,12 @@ const Projects = ()=>{
                         <p className='text-center text-black text-2xl font-bold'>Sube una foto del Ticket</p>
                         <button className='bg-[#299ad78d] w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'><ModalTicketsFile></ModalTicketsFile></button>
                     </div>
-                    </div>
                 </div>
+            </div>
+            <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Tickets Seleccionados</p>
+            <Table></Table>
+            <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Añadir Miembros</p>
+            <TableUsers></TableUsers>
         </div>
     </div>
     )

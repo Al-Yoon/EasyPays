@@ -1,6 +1,49 @@
-import React from 'react';
+import * as React from 'react';
 import ModalUser from '../components/layout/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
+/* 
+const Profile = () => {
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+        setTempUserData(userData);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const [userData, setUserData] = React.useState({
+        Usuario: "UsuarioTest",
+        Nombre: "John",
+        Apellido: "Doe",
+        Mail: "usuario1@test.com"
+    });
+    
+
+}; */
+
+/* const [tempUserData, setTempUserData] = React.useState(userData);
+
+
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTempUserData((prevTempUserData) => ({
+        ...prevTempUserData,
+        [name]: value  
+    }));
+};
+
+const handleSave = () => {
+    setUserData(tempUserData);
+    console.log("Datos guardados:", userData);
+    setOpen(false); 
+}; */
+
+
+
+
 
 const UserPanel=()=>{
     return(
