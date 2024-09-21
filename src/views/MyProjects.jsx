@@ -41,6 +41,8 @@ const MyProjects = () =>{
                     <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: Finde pasado</h2>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Esta es la descripcion del Proyecto Guardada</p>
+                        <p className='py-2 my-5'>07/07/2024</p>
+                        <p className='py-2 my-5'>$5700</p>
                     </div>
                     <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
@@ -50,6 +52,8 @@ const MyProjects = () =>{
                     <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: Cine el Jueves</h2>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Pelicula del Joker division de gastos</p>
+                        <p className='py-2 my-5'>07/07/2024</p>
+                        <p className='py-2 my-5'>$5700</p>
                     </div>
                     <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
@@ -59,6 +63,8 @@ const MyProjects = () =>{
                     <h2 className='text-2xl font-bold text-center pt-8 '>Boliche Sabado: </h2>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Gatos de Bayside</p>
+                        <p className='py-2 my-5'>07/07/2024</p>
+                        <p className='py-2 my-5'>$5700</p>
                     </div>
                     <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
                 </div>
