@@ -1,17 +1,13 @@
 import React from "react";
 import { ReactTyped } from "react-typed";
 import Logo from "../components/Assets/Easy_2.png";
-import MyProyects from "./MyProyects";
 import Chats  from "../components/Assets/chat.svg";
 import Historial from "../components/Assets/historial.svg";
-import UploadTickets from "../views/Tickets";
 import Tickets from "../components/Assets/tickets.svg";
 
 const Landing = () =>{
     return(
         <div className="text-white bg-black">
-            <UploadTickets></UploadTickets>
-            <MyProyects></MyProyects>
             <div className="max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center p-5">
                 <p className="text-[#38bdf8] font-bold md:text-3xl sm:text-2xl text-xl pt-2">Bienvenido a Easy Pays</p>
                     <h1 className="md:text-1xl sm:text-6xl text-4xl font-bold md:py-6">
@@ -58,7 +54,7 @@ const Landing = () =>{
             </div>
 
             <div className="w-full py-[10rem] bg-white px-4 text-black">
-             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Cómo trabajamos</p>
+             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Servicios</p>
               <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4"> NUESTRO PROCEDIMIENTO DE TRABAJO</h1>
                 <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
 

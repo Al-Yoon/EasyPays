@@ -5,6 +5,7 @@ import Landing from "./views/Landing";
 import LoginRegister from "./views/Login-register";
 import UploadTickets from "./views/Tickets";
 import MyProyects from "./views/MyProyects";
+import UserPanel from "./views/UserPanel";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/login" element={<LoginRegister/>}></Route>
           <Route path="/mytickets" element={<UploadTickets/>}></Route>
           <Route path="/myprojects" element={<MyProyects/>}></Route>
+          <Route path="/userpanel" element={<UserPanel/>}></Route>
         </Route>
       </Routes>
     </Router>
