@@ -7,7 +7,7 @@ import DownArrow from '../components/Assets/arrow-down-outline.svg';
 
 const MyProjects = () =>{
     return(
-        <div className="w-full py-[10rem] bg-white px-4 text-white">
+        <div className="w-full py-auto pb-10 bg-white px-4 text-white">
             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>
             <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
