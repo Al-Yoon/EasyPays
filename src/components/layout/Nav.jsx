@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-const Navbar = () => {
+const Nav = () => {
     const [nav, setNav] = useState(false);
     
     const handleNav = () => {
     setNav(!nav);
 };
-
 return (
     <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
         <h1 className='w-full text-3xl font-bold text-[#38bdf8]'>EasyPays</h1>
@@ -33,4 +32,4 @@ return (
 );
 };
 
-export default Navbar;
+export default Nav;

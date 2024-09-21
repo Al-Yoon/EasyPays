@@ -1,4 +1,4 @@
-import TransitionsModal from '../components/layout/ModalProyects';
+import TransitionsModal from '../components/Body/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import React from 'react';
 

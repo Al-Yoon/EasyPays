@@ -18,5 +18,5 @@ export const CONTACTANOS = [
 export const Icons = [
   { name: "logo-Instagram", link: "#" },
   { name: "logo-X", link: "#" },
-  { name: "logo-github", link: "#" },
+  { name: "logo-linkedin.svg", link: "#" },
 ];
