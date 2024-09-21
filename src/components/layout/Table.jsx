@@ -1,50 +1,66 @@
-import DataTable from "react-data-table-component";
+import React, { useState } from 'react';
+import DataTable from 'react-data-table-component';
 
-function Table(){
+function Table({ data }) {
+    const [previewImage, setPreviewImage] = useState(null);
+
+    const handleImageClick = (image) => {
+        setPreviewImage(URL.createObjectURL(image));
+    };
 
     const columns = [
         {
-            name: "Ticket",
-            selector:row => row.name
+            name: "Ticket ID",
+            selector: row => row.ticketId,
+            sortable: true,
         },
         {
-            date: "Fecha",
-            selector:row => row.date
+            name: "Descripcion",
+            selector: row => row.name,
+            sortable: true,
         },
         {
-            total: "Monto",
-            selector:row => row.total
+            name: "Fecha",
+            selector: row => row.date,
+            sortable: true,
         },
-    ]
+        {
+            name: "Monto",
+            selector: row => row.total,
+            sortable: true,
+        },
+        {
+            name: "Imagen Ticket",
+            cell: row => row.image ? (
+                <a href="#!" onClick={() => handleImageClick(row.image)}>
+                    {row.image.name}
+                </a>
+            ) : "No Image",
+        },
+    ];
 
-    const data = [{
-            name:"Finde salida",
-            date:"11/06/2024",
-            total:5000
-        },
-        {
-            name:"Bayside",
-            date:"05/12/2024",
-            total:87000
-        },
-        {
-            name:"Cine",
-            date:"02/12/2024",
-            total:9000
-        },
-        {
-            name:"Bodegon",
-            date:"22/12/2024",
-            total:5500
-        },
-    ]
-
-    return(
+    return (
         <div>
-        <DataTable columns={columns}
-            data={data}/>
-    </div>
-    )
+            <DataTable columns={columns} data={data} />
+            {previewImage && (
+                <div style={{
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 1000,
+                    background: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0px 0px 15px rgba(0,0,0,0.5)'
+                }}>
+                    <img src={previewImage} alt="Preview" style={{ maxWidth: '500px', maxHeight: '500px' }} />
+                    <br />
+                    <button onClick={() => setPreviewImage(null)}>Cerrar</button>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Table;

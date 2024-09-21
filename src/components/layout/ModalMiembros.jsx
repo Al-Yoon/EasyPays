@@ -22,14 +22,13 @@ const style = {
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function ModalTickets({ addTicket }) {
+export default function ModalMiembros({ addMember }) {
     const [open, setOpen] = React.useState(false);
     const [formState, setFormState] = React.useState({
-        ticketId: "",
-        date: "",
-        name: "",
-        total: "",
-        image: null,
+        userId: "",
+        firstName: "",
+        lastName: "",
+        email: ""
     });
     const [error, setError] = React.useState("");
 
@@ -44,31 +43,25 @@ export default function ModalTickets({ addTicket }) {
         setFormState({ ...formState, [name]: value });
     };
 
-    const handleFileChange = (e) => {
-        setFormState({ ...formState, image: e.target.files[0] });
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        const success = addTicket({ 
-            ...formState, 
-            ticketId: parseInt(formState.ticketId), 
-            total: parseFloat(formState.total),
-            image: formState.image,
+        const success = addMember({
+            ...formState,
+            userId: parseInt(formState.userId)
         });
         if (success) {
-            // Si el ticket fue añadido correctamente, limpiar el formulario y cerrar el modal
-            setFormState({ ticketId: "", date: "", name: "", total: "", image: null });
+            // Si el miembro fue añadido correctamente, limpiar el formulario y cerrar el modal
+            setFormState({ userId: "", firstName: "", lastName: "", email: "" });
             handleClose();
         } else {
             // Si hay un error, mostrar el mensaje de error
-            setError("El ID ya existe.");
+            setError("El usuario ya existe.");
         }
     };
 
     return (
         <div>
-            <Button onClick={handleOpen} className='border-4'>Carga Manual</Button>
+            <Button onClick={handleOpen}>Añadir Miembro</Button>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -84,10 +77,10 @@ export default function ModalTickets({ addTicket }) {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <div className=' mx-auto text-center flex flex-col justify-center'>
+                        <div className='mx-auto text-center flex flex-col justify-center'>
                             <CloseIcon onClick={handleClose} />
                             <Typography id="transition-modal-title" variant="h6" component="h2">
-                                ID del Ticket:
+                                Usuario ID:
                             </Typography>
                             <Box
                                 component="form"
@@ -97,59 +90,49 @@ export default function ModalTickets({ addTicket }) {
                                 onSubmit={handleSubmit}
                             >
                                 <Input
-                                    name="ticketId"
-                                    value={formState.ticketId}
+                                    name="userId"
+                                    value={formState.userId}
                                     onChange={handleChange}
-                                    placeholder="ID del Ticket"
+                                    placeholder="Usuario ID"
                                     inputProps={ariaLabel}
                                     type="number"
                                     required
                                 />
                                 {error && <Typography variant="caption" color="error">{error}</Typography>}
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
-                                    Fecha:
+                                    Nombre:
                                 </Typography>
                                 <Input
-                                    name="date"
-                                    value={formState.date}
+                                    name="firstName"
+                                    value={formState.firstName}
                                     onChange={handleChange}
-                                    placeholder="Fecha"
+                                    placeholder="Nombre"
                                     inputProps={ariaLabel}
-                                    required
-                                />
-                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                    Descripción
-                                </Typography>
-                                <Input
-                                    name="name"
-                                    value={formState.name}
-                                    onChange={handleChange}
-                                    placeholder="Descripción"
-                                    inputProps={ariaLabel}
-                                    required
-                                />
-                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                    Monto Total
-                                </Typography>
-                                <Input
-                                    name="total"
-                                    value={formState.total}
-                                    onChange={handleChange}
-                                    placeholder="Cargar Monto"
-                                    inputProps={ariaLabel}
-                                    type="number"
                                     required
                                 />
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
-                                    Cargar Imagen:
+                                    Apellido:
                                 </Typography>
                                 <Input
-                                    type="file"
-                                    onChange={handleFileChange}
+                                    name="lastName"
+                                    value={formState.lastName}
+                                    onChange={handleChange}
+                                    placeholder="Apellido"
                                     inputProps={ariaLabel}
                                     required
                                 />
-                                <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">
+                                <Typography id="transition-modal-title" variant="h6" component="h2">
+                                    Email:
+                                </Typography>
+                                <Input
+                                    name="email"
+                                    value={formState.email}
+                                    onChange={handleChange}
+                                    placeholder="Email"
+                                    inputProps={ariaLabel}
+                                    required
+                                />
+                                <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-black">
                                     Aceptar
                                 </button>
                             </Box>

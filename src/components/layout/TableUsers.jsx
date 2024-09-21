@@ -1,56 +1,64 @@
+import React from 'react';
 import DataTable from "react-data-table-component";
 
-function TableUsers(){
+function TableUsers({ data, updatePercentage }) {
+    const handlePercentageChange = (e, rowIndex) => {
+        const newPercentage = parseFloat(e.target.value);
+        if (!isNaN(newPercentage)) {
+            updatePercentage(rowIndex, newPercentage);
+        }
+    };
 
     const columns = [
         {
+            name: "Usuario ID",
+            selector: row => row.userId,
+            sortable: true
+        },
+        {
             name: "Nombre",
-            selector:row => row.name
+            selector: row => row.firstName,
+            sortable: true
         },
         {
-            lastname: "Apellido",
-            selector:row => row.lastname
+            name: "Apellido",
+            selector: row => row.lastName,
+            sortable: true
         },
         {
-            email: "Email",
-            selector:row => row.email
+            name: "Email",
+            selector: row => row.email,
+            sortable: true
         },
-    ]
+        {
+            name: "Porcentaje",
+            cell: (row, index) => (
+                <input 
+                    type="number"
+                    value={row.percentage}
+                    onChange={(e) => handlePercentageChange(e, index)}
+                    style={{ width: '60px' }}
+                />
+            )
+        }
+    ];
 
-    const data = [{
-            name:"Fede",
-            lastname:"Gonzalo",
-            email:"fede@gmail.com"
-            
-        },
-        {
-            name:"Fede",
-            lastname:"Gonzalo",
-            email:"fede@gmail.com"
-        },
-        {
-            name:"Fede",
-            lastname:"Gonzalo",
-            email:"fede@gmail.com"
-        },
-        {
-            name:"Fede",
-            lastname:"Gonzalo",
-            email:"fede@gmail.com"
-        },
-    ]
+    const totalPercentage = data.reduce((total, member) => total + member.percentage, 0);
 
-    return(
+    return (
         <div>
-        <DataTable columns={columns}
-            data={data}
-            selectableRows
-            onSelectedRowsChange={rows => console.log(rows)}
-            pagination
-            fixedHeader
+            <DataTable 
+                columns={columns} 
+                data={data} 
+                selectableRows 
+                pagination 
+                fixedHeader 
             />
-    </div>
-    )
+            <div style={{ padding: '10px', fontWeight: 'bold' }}>
+                Total: {totalPercentage}% (Falta {100 - totalPercentage}%)
+            </div>
+        </div>
+    );
 }
 
 export default TableUsers;
