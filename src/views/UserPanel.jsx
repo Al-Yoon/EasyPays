@@ -1,7 +1,5 @@
-import TransitionsModal from '../components/layout/ModalProyects';
 import React from 'react';
 import ModalUser from '../components/layout/ModalUser';
-import { Avatar } from '@mui/material';
 import UserPic from '../components/Assets/user-avatar.svg';
 
 const UserPanel=()=>{
@@ -11,7 +9,7 @@ const UserPanel=()=>{
         <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Usuario</h1>
         <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
             
-            <div className="w-[full] shadow-2xl bg-white flex flex-col p-4 md:my-0 text-black rounded-lg h-[550px] flex justify-center">
+            <div className="w-[full] shadow-2xl bg-white flex flex-col p-4 md:my-0 text-black rounded-lg h-[550px] justify-center">
             <img className='w-20 mx-auto' src={UserPic} alt="/"/>
                 <h2 className='text-2xl font-bold text-center pt-8 '>Usuario: yon1567</h2>
                 <div className='text-center font-medium'>

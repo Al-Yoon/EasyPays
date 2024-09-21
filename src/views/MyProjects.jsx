@@ -1,9 +1,11 @@
 import TransitionsModal from '../components/layout/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import React from 'react';
+import UpArrow from '../components/Assets/arrow-up-outline.svg';
+import DownArrow from '../components/Assets/arrow-down-outline.svg';
 
 
-const MyProyects = () =>{
+const MyProjects = () =>{
     return(
         <div className="w-full py-[10rem] bg-black px-4 text-white">
             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
@@ -15,6 +17,22 @@ const MyProyects = () =>{
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal className="w-[50px]"></TransitionsModal></p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
+                    </div>
+                </div>
+
+                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo</h2>
+                    <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
+                    <div className='text-center font-medium'>
+                        <p className='py-2 my-5'>4500</p>
+                    </div>
+                </div>
+
+                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Gastos</h2>
+                    <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
+                    <div className='text-center font-medium'>
+                        <p className='py-2 my-5'>68000</p>
                     </div>
                 </div>
 
@@ -49,4 +67,4 @@ const MyProyects = () =>{
     )
 }
 
-export default MyProyects;
+export default MyProjects;
