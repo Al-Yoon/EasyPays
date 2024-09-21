@@ -25,7 +25,7 @@ const Landing = () =>{
                     <p className="md:text-1xl text-xl font-bold text-gray-500 pt-10">
                     una app web que calcula la parte de cada integrante de un grupo a partir de los tickets.
                     </p> */}
-                <button className="bg-[#38bdf8] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">Registrarse</button>
+                <button className="bg-[#38bdf8] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black  hover:bg-white duration-500">Registrarse</button>
                     <p className="border-b border-white w-[180px] font-medium mx-auto">Ya tenes una cuenta?</p>
             </div>
 
@@ -41,7 +41,7 @@ const Landing = () =>{
                                     Nuestra plataforma te permite no solo visualizar y desglosar tus compras, 
                                     sino también compartir fácilmente la información con otras personas, 
                                     facilitando la división de los gastos en grupo de manera justa y precisa. </p>
-                                    <button className="bg-[#38bdf8] w-[200px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">Conocer mas</button>
+                                    <button className="bg-[#38bdf8] w-[200px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black  hover:bg-gray-400 duration-500">Conocer mas</button>
                     </div>
                 </div>
             </div>

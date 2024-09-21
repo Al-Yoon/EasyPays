@@ -1,7 +1,6 @@
 import React from "react";
 import * as Components from '../components/Form/Components';
 import "../components/Form/Components";
-import { Hidden } from "@mui/material";
 
 function LoginRegister() {
     const [signIn, toggle] = React.useState(true);

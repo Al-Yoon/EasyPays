@@ -62,6 +62,10 @@ return (
                 Descripción:
             </Typography>
             <Input placeholder="Descripción" inputProps={ariaLabel}/>
+            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                Fecha:
+            </Typography>
+            <Input placeholder="Descripción" inputProps={ariaLabel} type='date'/>
             <button className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">Crear</button>
                 </Box>
                 
