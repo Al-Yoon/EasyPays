@@ -9,7 +9,7 @@ const Footer = () => {
         <h1
           className="lg:text-4xl text-3xl md:mb-0 mb-6 lg:leading-normal font-semibold md:w-2/5 text-center" 
         >
-          <h1 className="text-white md:text-1xl sm:text-1xl text-1xl md:py-6">Optimiza la gestión de tus tickets</h1>
+          <h1 className="text-white md:text-1xl sm:text-1xl text-1xl md:py-6">Facilidad y Sencillez Asegurada</h1>
         </h1>
       </div>
       <ItemsContainer />
