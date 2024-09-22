@@ -57,9 +57,9 @@ const Projects = () => {
                     </div>
                 </div>
 
-                <div className="w-auto py-[10rem] flex justify-center bg-white px-4 text-black h-auto">
+                <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
-                        <div className="w-full h-auto shadow-2xl bg-white flex flex-col p-4 text-black rounded-lg mx-auto">
+                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto ">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
                             <p className='text-center text-black text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
@@ -68,10 +68,10 @@ const Projects = () => {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className=''>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Tickets Seleccionados</p>
                     <Table data={tickets} />
-                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4 pt-10">Añadir Miembros</p>
+                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember}/>
                     <TableUsers data={members} updatePercentage={updatePercentage} />
                 </div>
