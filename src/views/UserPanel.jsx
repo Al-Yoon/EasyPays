@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalUser from '../components//Body/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
+import DeleteUserButton from '../components/layout/DeleteUserButton';
 
 const UserPanel = () => {
     const [userData, setUserData] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate(); // Definimos el hook useNavigate
 
     useEffect(() => {
@@ -15,6 +17,11 @@ const UserPanel = () => {
     const handleUserUpdate = (updatedUser) => {
         localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
         setUserData(updatedUser);
+    };
+
+    const handleDeleteUser = () => {
+        localStorage.removeItem('loggedInUser');
+        navigate('/login'); // Utilizamos navigate para redirigir a la página de inicio de sesión
     };
 
     return (
@@ -45,15 +52,18 @@ const UserPanel = () => {
                         <p className='text-center text-black text-2xl font-bold'>Eliminar Usuario</p>
                         <button
                             className='bg-[#aa3d2aa4] text-[#a03a3a] w-2/3 rounded-md font-medium my-6 mx-auto px-6  h-[60px] font-sans uppercase pb-1'
-                            onClick={() => {
-                                localStorage.removeItem('loggedInUser');
-                                navigate('/login'); // Utilizamos navigate para redirigir a la página de inicio de sesión
-                            }}
+                            onClick={() => setShowDeleteModal(true)}
                         >
                             Eliminar
                         </button>
                     </div>
                 </div>
+                {showDeleteModal && (
+                    <DeleteUserButton
+                        onDelete={handleDeleteUser}
+                        onCancel={() => setShowDeleteModal(false)}
+                    />
+                )}
             </div>
         )
     );
