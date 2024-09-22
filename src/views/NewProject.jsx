@@ -4,13 +4,16 @@ import ModalMiembros from "../components/Body/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/Body/Table.jsx";
 import TableUsers from "../components/Body/TableUsers.jsx";
-import { useParams } from 'react-router-dom';
+import DeleteButton from '../components/layout/DeleteButton';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const NewProject = () => {
     const { projectSlug } = useParams();
+    const navigate = useNavigate();
     const [tickets, setTickets] = useState([]);
     const [members, setMembers] = useState([]);
     const [paidAmount, setPaidAmount] = useState(0);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
@@ -38,7 +41,6 @@ const NewProject = () => {
     const updatePercentage = (index, newPercentage) => {
         const updatedMembers = [...members];
         updatedMembers[index].percentage = newPercentage;
-
         setMembers(updatedMembers);
     };
 
@@ -47,6 +49,15 @@ const NewProject = () => {
         updatedMembers[index].paid = true;
         setPaidAmount(prevPaidAmount => prevPaidAmount + parseFloat(amount));
         setMembers(updatedMembers);
+    };
+
+    const handleDeleteProject = () => {
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const updatedProjects = projects.filter(project => project.slug !== projectSlug);
+        localStorage.setItem('projects', JSON.stringify(updatedProjects));
+        localStorage.removeItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`);
+        setShowDeleteModal(false);
+        navigate('/myprojects');
     };
 
     const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
@@ -103,6 +114,18 @@ const NewProject = () => {
                         totalAmount={totalAmount} 
                         handlePayment={handlePayment} 
                     />
+                    <button
+                        className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3'
+                        onClick={() => setShowDeleteModal(true)}
+                    >
+                        Eliminar Proyecto
+                    </button>
+                    {showDeleteModal && (
+                        <DeleteButton
+                            onDelete={handleDeleteProject}
+                            onCancel={() => setShowDeleteModal(false)}
+                        />
+                    )}
                 </div>
             </div>
         </div>

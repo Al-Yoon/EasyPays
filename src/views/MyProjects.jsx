@@ -4,6 +4,7 @@ import TransitionsModal from '../components/Body/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
+import DeleteButton from '../components/layout/DeleteButton';
 
 const MyProjects = () => {
     const initialProjects = [
@@ -13,6 +14,12 @@ const MyProjects = () => {
         const savedProjects = JSON.parse(localStorage.getItem('projects'));
         return savedProjects || initialProjects;
     });
+    const [userBalance, setUserBalance] = useState(() => {
+        const savedBalance = localStorage.getItem('userBalance');
+        return savedBalance ? parseFloat(savedBalance) : 0;
+    });
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
 
     const navigate = useNavigate();
 
@@ -20,9 +27,17 @@ const MyProjects = () => {
         localStorage.setItem('projects', JSON.stringify(projects));
     }, [projects]);
 
+    useEffect(() => {
+        localStorage.setItem('userBalance', userBalance);
+    }, [userBalance]);
+
     const getTotalAmount = (slug) => {
         const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
         return storedTotal ? JSON.parse(storedTotal) : 0;
+    };
+
+    const getTotalProjectAmount = () => {
+        return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
     };
 
     const addProject = (newProject) => {
@@ -33,6 +48,18 @@ const MyProjects = () => {
     const handleViewProject = (slug) => {
         const path = slug === "proyecto-finde-pasado" ? `/projects/proyecto-finde-pasado` : `/newprojects/${slug}`;
         navigate(path);
+    };
+
+    const handleDeleteProject = () => {
+        const updatedProjects = projects.filter(project => project.slug !== selectedProjectSlug);
+        setProjects(updatedProjects);
+        localStorage.setItem('projects', JSON.stringify(updatedProjects));
+        localStorage.removeItem(`totalAmountFor${selectedProjectSlug.replace(/-/g, '')}`);
+        setShowDeleteModal(false);
+    };
+
+    const handleBalanceChange = (e) => {
+        setUserBalance(e.target.value);
     };
 
     return (
@@ -49,18 +76,22 @@ const MyProjects = () => {
                     </div>
                 </div>
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo</h2>
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo Usuario</h2>
                     <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>4500</p>
-                    </div>
+                    <input 
+                        type="number"
+                        value={userBalance}
+                        onChange={handleBalanceChange}
+                        className="text-center text-4xl font-bold mx-auto"
+                        style={{ maxWidth: '80%' }}
+                    />
                 </div>
 
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Gastos</h2>
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Total Proyectos</h2>
                     <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
                     <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>68000</p>
+                        <p className='py-2 my-5'>{getTotalProjectAmount()} $</p>
                     </div>
                 </div>
 
@@ -79,11 +110,24 @@ const MyProjects = () => {
                         >
                             Ver Proyecto
                         </button>
+                        <button
+                            className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'
+                            onClick={() => {
+                                setSelectedProjectSlug(project.slug);
+                                setShowDeleteModal(true);
+                            }}
+                        >
+                            Eliminar Proyecto
+                        </button>
                     </div>
                 ))}
-
-
             </div>
+            {showDeleteModal && (
+                <DeleteButton
+                    onDelete={handleDeleteProject}
+                    onCancel={() => setShowDeleteModal(false)}
+                />
+            )}
         </div>
     );
 };
