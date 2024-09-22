@@ -34,7 +34,7 @@ export default function ModalMiembros({ addMember }) {
 
     const handleOpen = () => {
         setOpen(true);
-        setError(""); // Clear error message when opening
+        setError(""); 
     };
     const handleClose = () => setOpen(false);
 
@@ -50,11 +50,11 @@ export default function ModalMiembros({ addMember }) {
             userId: parseInt(formState.userId)
         });
         if (success) {
-            // Si el miembro fue añadido correctamente, limpiar el formulario y cerrar el modal
+            
             setFormState({ userId: "", firstName: "", lastName: "", email: "" });
             handleClose();
         } else {
-            // Si hay un error, mostrar el mensaje de error
+            
             setError("El usuario ya existe.");
         }
     };

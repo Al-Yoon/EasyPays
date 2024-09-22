@@ -7,7 +7,7 @@ import DeleteUserButton from '../components/layout/DeleteUserButton';
 const UserPanel = () => {
     const [userData, setUserData] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const navigate = useNavigate(); // Definimos el hook useNavigate
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -21,7 +21,7 @@ const UserPanel = () => {
 
     const handleDeleteUser = () => {
         localStorage.removeItem('loggedInUser');
-        navigate('/login'); // Utilizamos navigate para redirigir a la página de inicio de sesión
+        navigate('/login');
     };
 
     return (
