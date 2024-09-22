@@ -4,6 +4,7 @@ import Fede from "../components/Assets/Fede.webp";
 import Ale from "../components/Assets/ale.jpg";
 import Santi from "../components/Assets/santi.avif";
 
+
 const Nosotros = () =>{
     return(
         <div>
@@ -80,6 +81,41 @@ const Nosotros = () =>{
                     </div>
                 </div>    
             </div>
+                <div className="w-full bg-white text-black py-16 px-4 ">
+                    <div className="max-w[1240px] mx-auto gap-5 grid md:grid-auto">
+                                <div className="pl-4 mx-auto justify-center w-3/4">
+                                        <h1 className="text-black md:text-1xl sm:text-5xl text-4xl font-bold md:py-3 text-center"> ¿Porque creamos esta aplicacion?</h1>
+                                            <div className="bg-gray-300 rounded-xl my-10 text-black md:text-1xl sm:text-1xl text-xl py-5 px-5">
+                                            <p>
+                                            En EasyPays, creemos que la vida es demasiado corta para estar lidiando con complicados cálculos de gastos compartidos. Nuestro 
+                                            "por qué" es sencillo: queremos que las finanzas grupales sean fáciles, transparentes y sin estrés. 
+                                            Sabemos que las mejores experiencias se disfrutan en compañía, pero cuando llega la hora de dividir la cuenta, 
+                                            todo se complica. Nos propusimos cambiar eso. Nuestra motivación es ayudar a las personas a disfrutar de esos momentos 
+                                            sin que el dinero se convierta en un obstáculo.</p>
+                                        </div>
+                                </div>
+                                <div className="px-4 mx-auto justify-center w-3/4 ">
+                                        <h1 className="text-black md:text-1xl sm:text-5xl text-4xl font-bold md:py-3 text-center"> ¿Mision de este proyecto?</h1>
+                                            <div className="bg-gray-300 rounded-xl my-10 text-black md:text-1xl sm:text-1xl text-xl py-5 px-5">
+                                            <p>
+                                            Nuestra misión es eliminar el caos y la incomodidad de los gastos compartidos, brindando una herramienta intuitiva que facilite la vida de las personas. 
+                                            Queremos que nuestros usuarios puedan cargar sus tickets de compra y ver, con un simple clic, cómo se divide la cuenta entre todos. 
+                                            De esta manera, estamos haciendo que la gestión financiera en grupo sea rápida, eficiente y justa para todos.</p>
+                                        </div>
+                                </div>
+                                <div className="pl-4 mx-auto justify-center w-3/4">
+                                        <h1 className="text-black md:text-1xl sm:text-5xl text-4xl font-bold md:py-3 text-center">¿Visión de nuestro objetivos?</h1>
+                                            <div className="bg-gray-300 rounded-xl my-10 text-black md:text-1xl sm:text-1xl text-xl py-5 px-5">
+                                            <p>
+                                            Nuestra visión es convertirnos en la plataforma de referencia para cualquier situación en la que se necesite dividir gastos. 
+                                            Imaginamos un futuro donde nadie se preocupe por cálculos manuales ni malentendidos financieros en grupo. 
+                                            Queremos que en cualquier rincón del mundo, ya sea una reunión de amigos, una salida familiar o un viaje de negocios, 
+                                            nuestra solución sea el aliado perfecto para una gestión de gastos impecable y sin complicaciones.</p>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                
         </div>
     );
 }
