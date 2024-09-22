@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalTickets from "../components/Body/ModalTickets.jsx";
-import ModalMiembros from "../components/Body/ModalMiembros.jsx";
+import ModalMiembros from "../components/Body/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/Body/Table.jsx";
 import TableUsers from "../components/Body/TableUsers.jsx";
@@ -11,6 +11,11 @@ const NewProject = () => {
     const [tickets, setTickets] = useState([]);
     const [members, setMembers] = useState([]);
     const [paidAmount, setPaidAmount] = useState(0);
+
+    useEffect(() => {
+        const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
+        localStorage.setItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`, JSON.stringify(totalAmount));
+    }, [tickets, projectSlug]);
 
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
@@ -66,6 +71,7 @@ const NewProject = () => {
                         <p className='py-2 my-5'>Total Pagado por los miembros</p>
                     </div>
                 </div>
+
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
                     <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
@@ -73,9 +79,10 @@ const NewProject = () => {
                         <p className='py-2 my-5'>Lo que falta pagar.</p>
                     </div>
                 </div>
+
                 <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
-                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto ">
+                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
                             <p className='text-center text-black text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
