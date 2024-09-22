@@ -20,6 +20,8 @@ const Projects = () => {
         { userId: 4, firstName: "Jack", lastName: "Daniels", email: "jack.daniels@example.com", percentage: 25 },
     ]);
 
+    const [paidAmount, setPaidAmount] = useState(0);
+
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
         if (existingTicket) {
@@ -45,7 +47,15 @@ const Projects = () => {
         setMembers(updatedMembers);
     };
 
+    const handlePayment = (index, amount) => {
+        const updatedMembers = [...members];
+        updatedMembers[index].paid = true;
+        setPaidAmount(prevPaidAmount => prevPaidAmount + parseFloat(amount));
+        setMembers(updatedMembers);
+    };
+
     const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
+    const remainingAmount = totalAmount - paidAmount;
 
     return (
         <div className="w-screen py-auto bg-white px-4 text-black">
@@ -59,6 +69,23 @@ const Projects = () => {
                         <p className='py-2 my-5'>Total Tickets</p>
                     </div>
                 </div>
+                    <div className="w-full shadow-2x1 bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                        <h2 className='text-2xl font-bold text-center py-8 '>Pagado</h2>
+                        <p className='text-center text-red-600 text-4xl font-bold'>{paidAmount.toFixed(2)} $</p>
+                        <div className='text-center font-medium'>
+                        <p className='py-2 my-5'>Total Pagado por los miembros</p>
+                    </div>
+                    </div>
+
+                    <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                        <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
+                        <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
+                        <div className='text-center font-medium'>
+                            <p className='py-2 my-5'>Lo que falta pagar.</p>
+                        </div>
+                    </div>
+               
+                
 
                 <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
@@ -71,12 +98,18 @@ const Projects = () => {
                         </div>
                     </div>
                 </div>
-                <div className=''>
+
+                <div>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Tickets Seleccionados</p>
                     <Table data={tickets} />
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
-                    <ModalMiembros addMember={addMember}/>
-                    <TableUsers data={members} updatePercentage={updatePercentage} totalAmount={totalAmount} /> {/* Pasar totalAmount */}
+                    <ModalMiembros addMember={addMember} />
+                    <TableUsers 
+                        data={members} 
+                        updatePercentage={updatePercentage} 
+                        totalAmount={totalAmount} 
+                        handlePayment={handlePayment} 
+                    />
                 </div>
             </div>
         </div>

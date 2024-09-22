@@ -1,7 +1,7 @@
-import React from 'react';
+
 import DataTable from 'react-data-table-component';
 
-function TableUsers({ data, updatePercentage, totalAmount }) {
+function TableUsers({ data, updatePercentage, totalAmount, handlePayment }) {
     const handlePercentageChange = (e, rowIndex) => {
         const newPercentage = parseFloat(e.target.value);
         if (!isNaN(newPercentage)) {
@@ -9,8 +9,9 @@ function TableUsers({ data, updatePercentage, totalAmount }) {
         }
     };
 
-    const handleSendNotification = (email) => {
+    const handleSendNotification = (email, index) => {
         alert(`Notificación Enviada a ${email}`);
+        handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };
 
     const columns = [
@@ -52,10 +53,10 @@ function TableUsers({ data, updatePercentage, totalAmount }) {
         },
         {
             name: "Acciones",
-            cell: row => (
+            cell: (row, index) => (
                 <button
                     className="bg-blue-500 text-white py-1 px-3 rounded"
-                    onClick={() => handleSendNotification(row.email)}
+                    onClick={() => handleSendNotification(row.email, index)}
                 >
                     Enviar Notificación
                 </button>
