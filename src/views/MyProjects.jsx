@@ -48,6 +48,21 @@ const MyProjects = () => {
                         <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
                     </div>
                 </div>
+                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo</h2>
+                    <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
+                    <div className='text-center font-medium'>
+                        <p className='py-2 my-5'>4500</p>
+                    </div>
+                </div>
+
+                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Gastos</h2>
+                    <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
+                    <div className='text-center font-medium'>
+                        <p className='py-2 my-5'>68000</p>
+                    </div>
+                </div>
 
                 {projects.map((project, index) => (
                     <div key={index} className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
@@ -67,21 +82,7 @@ const MyProjects = () => {
                     </div>
                 ))}
 
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo</h2>
-                    <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>4500</p>
-                    </div>
-                </div>
 
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Gastos</h2>
-                    <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>68000</p>
-                    </div>
-                </div>
             </div>
         </div>
     );
