@@ -5,9 +5,7 @@ import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/Body/Table.jsx";
 import TableUsers from '../components/Body/TableUsers.jsx';
 
-
 const Projects = () => {
-
     const [tickets, setTickets] = useState([
         { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000, image: null },
         { ticketId: 2, name: "Bayside", date: "05/12/2024", total: 87000, image: null },
@@ -15,7 +13,12 @@ const Projects = () => {
         { ticketId: 4, name: "Bodegon", date: "22/12/2024", total: 5500, image: null },
     ]);
 
-    const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState([
+        { userId: 1, firstName: "John", lastName: "Doe", email: "john.doe@example.com", percentage: 25 },
+        { userId: 2, firstName: "Jane", lastName: "Doe", email: "jane.doe@example.com", percentage: 25 },
+        { userId: 3, firstName: "Jim", lastName: "Beam", email: "jim.beam@example.com", percentage: 25 },
+        { userId: 4, firstName: "Jack", lastName: "Daniels", email: "jack.daniels@example.com", percentage: 25 },
+    ]);
 
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
@@ -45,13 +48,13 @@ const Projects = () => {
     const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
 
     return (
-        <div className="w-auto py-auto bg-white px-4 text-black">
+        <div className="w-screen py-auto bg-white px-4 text-black">
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Finde pasado</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5 ">
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Gastos</h2>
-                    <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p> 
+                    <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Total Tickets</p>
                     </div>
@@ -73,7 +76,7 @@ const Projects = () => {
                     <Table data={tickets} />
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember}/>
-                    <TableUsers data={members} updatePercentage={updatePercentage} />
+                    <TableUsers data={members} updatePercentage={updatePercentage} totalAmount={totalAmount} /> {/* Pasar totalAmount */}
                 </div>
             </div>
         </div>
