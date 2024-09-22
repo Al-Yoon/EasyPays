@@ -1,24 +1,71 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TransitionsModal from '../components/Body/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
-import React from 'react';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
 
+const MyProjects = () => {
+    const initialProjects = [
+        { name: "Finde Pasado", description: "Finde Pasado", date: "9/18/2024", slug: "proyecto-finde-pasado" }
+    ];
+    const [projects, setProjects] = useState(() => {
+        const savedProjects = JSON.parse(localStorage.getItem('projects'));
+        return savedProjects || initialProjects;
+    });
 
-const MyProjects = () =>{
-    return(
-        <div className="w-full py-auto pb-10 bg-white px-4 text-white">
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }, [projects]);
+
+    const getTotalAmount = (slug) => {
+        const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
+        return storedTotal ? JSON.parse(storedTotal) : 0;
+    };
+
+    const addProject = (newProject) => {
+        const projectSlug = newProject.name.trim().toLowerCase().replace(/\s+/g, '-');
+        setProjects([...projects, { ...newProject, slug: projectSlug }]);
+    };
+
+    const handleViewProject = (slug) => {
+        const path = slug === "proyecto-finde-pasado" ? `/projects/proyecto-finde-pasado` : `/newprojects/${slug}`;
+        navigate(path);
+    };
+
+    return (
+        <div className="w-full py-auto pb-10 bg-white px-4 text-black">
             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>
             <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
                 
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Crear Proyecto</h2>
-                    <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal className="w-[50px]"></TransitionsModal></p>
+                    <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject} /></p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
                     </div>
                 </div>
+
+                {projects.map((project, index) => (
+                    <div key={index} className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                        <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
+                        <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: {project.name}</h2>
+                        <div className='text-center font-medium'>
+                            <p className='py-2 my-5'>{project.description}</p>
+                            <p className='py-2 my-5'>{project.date}</p>
+                            <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
+                        </div>
+                        <button
+                            className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'
+                            onClick={() => handleViewProject(project.slug)}
+                        >
+                            Ver Proyecto
+                        </button>
+                    </div>
+                ))}
 
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo</h2>
@@ -35,42 +82,9 @@ const MyProjects = () =>{
                         <p className='py-2 my-5'>68000</p>
                     </div>
                 </div>
-
-                <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                    <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: Finde pasado</h2>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>Esta es la descripcion del Proyecto Guardada</p>
-                        <p className='py-2 my-5'>07/07/2024</p>
-                        <p className='py-2 my-5'>$5700</p>
-                    </div>
-                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
-                </div>
-
-                <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                    <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: Cine el Jueves</h2>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>Pelicula del Joker division de gastos</p>
-                        <p className='py-2 my-5'>07/07/2024</p>
-                        <p className='py-2 my-5'>$5700</p>
-                    </div>
-                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
-                </div>
-
-                <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                    <h2 className='text-2xl font-bold text-center pt-8 '>Boliche Sabado: </h2>
-                    <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>Gatos de Bayside</p>
-                        <p className='py-2 my-5'>07/07/2024</p>
-                        <p className='py-2 my-5'>$5700</p>
-                    </div>
-                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'>Ver Proyecto</button>
-                </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default MyProjects;
