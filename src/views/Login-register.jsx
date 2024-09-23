@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as Components from '../components/Form/Components';
-import "../components/Form/Components";
+import { AuthContext } from "../components/Body/AuthContext";
 
 function LoginRegister() {
     const [signIn, toggle] = useState(true);
@@ -11,6 +11,7 @@ function LoginRegister() {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleRegister = () => {
         const user = { name, email, password };
@@ -25,7 +26,7 @@ function LoginRegister() {
     const handleLogin = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user && user.email === loginEmail && user.password === loginPassword) {
-            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            login(user);
             navigate('/userpanel');
         } else {
             alert("Correo electrónico o contraseña incorrectos");
