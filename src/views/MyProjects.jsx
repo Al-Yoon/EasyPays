@@ -78,12 +78,8 @@ const MyProjects = () => {
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo Usuario</h2>
                     <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
-                    <input 
-                        type="number"
-                        value={userBalance}
-                        onChange={handleBalanceChange}
-                        className="text-center text-3xl font-bold mx-auto my-auto pl-3"
-                        style={{ maxWidth: '80%' }}
+                    <input type="number" value={userBalance} onChange={handleBalanceChange}
+                        className="text-center text-4xl font-bold mx-auto pl-3" style={{ maxWidth: '80%' }}
                     />
                 </div>
 
@@ -91,7 +87,7 @@ const MyProjects = () => {
                     <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Total Proyectos</h2>
                     <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
                     <div className='text-center font-medium'>
-                        <p className='py-2 my-5 text-3xl font-bold  pl-3'>{getTotalProjectAmount()} $</p>
+                        <p className='text-3xl py-2 my-5 pl-3 font-bold'>{getTotalProjectAmount()} $</p>
                     </div>
                 </div>
 
