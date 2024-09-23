@@ -82,7 +82,7 @@ const MyProjects = () => {
                         type="number"
                         value={userBalance}
                         onChange={handleBalanceChange}
-                        className="text-center text-4xl font-bold mx-auto"
+                        className="text-center text-3xl font-bold mx-auto my-auto pl-3"
                         style={{ maxWidth: '80%' }}
                     />
                 </div>
@@ -91,7 +91,7 @@ const MyProjects = () => {
                     <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Total Proyectos</h2>
                     <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
                     <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>{getTotalProjectAmount()} $</p>
+                        <p className='py-2 my-5 text-3xl font-bold  pl-3'>{getTotalProjectAmount()} $</p>
                     </div>
                 </div>
 

@@ -10,7 +10,6 @@ export const NAVEGACION = (isAuthenticated) => {
     { name: "Home", link: "/" },
     { name: "Nosotros", link: "/nosotros" },
     { name: "Servicios", link: "/#services" },
-    { name: "Proyectos", link: "/myprojects" }
   ];
 
   if (isAuthenticated) {
