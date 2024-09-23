@@ -26,7 +26,11 @@ return (
             <Link to=""><li className='p-4 border-b border-gray-600'>Nosotros</li></Link>
             <Link to=""><li className='p-4 border-b border-gray-600'>Servicios</li></Link>
             <Link to="/myprojects"><li className='p-4 border-b border-gray-600'>Proyectos</li></Link>
-            <Link to="/login"><li className='p-4'><Botton>Ingresa</Botton></li></Link>
+            <Link to="/login">
+                <li className='flex justify-center'>
+                     dasdas <Botton>Ingresa</Botton>
+                </li>
+            </Link>
         </ul>
     </div>
 );
