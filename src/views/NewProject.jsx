@@ -91,7 +91,7 @@ const NewProject = () => {
                     </div>
                 </div>
 
-                <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
+                <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black  rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
                         <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />

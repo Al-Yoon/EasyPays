@@ -79,7 +79,7 @@ const MyProjects = () => {
                     <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo Usuario</h2>
                     <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
                     <input type="number" value={userBalance} onChange={handleBalanceChange}
-                        className="text-center text-4xl font-bold mx-auto pl-4" style={{ maxWidth: '80%' }}
+                        className="text-center text-4xl font-bold mx-auto pl-3" style={{ maxWidth: '80%' }}
                     />
                 </div>
 
@@ -87,7 +87,7 @@ const MyProjects = () => {
                     <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Total Proyectos</h2>
                     <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
                     <div className='text-center font-medium'>
-                        <p className='w-20 py-2 my-5'>{getTotalProjectAmount()} $</p>
+                        <p className='text-3xl py-2 my-5 pl-3 font-bold'>{getTotalProjectAmount()} $</p>
                     </div>
                 </div>
 
