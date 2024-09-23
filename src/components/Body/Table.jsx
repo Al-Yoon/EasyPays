@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { CSVLink, CSVDownload } from "react-csv";
 
 function Table({ data }) {
     const [previewImage, setPreviewImage] = useState(null);
@@ -59,6 +60,7 @@ function Table({ data }) {
                     <button onClick={() => setPreviewImage(null)}>Cerrar</button>
                 </div>
             )}
+            <CSVLink data={data} filename="reporte.csv" className='text-[#276032]'><button className='bg-[#42e663] w-[20vh] h-[5vh] hover:bg-white mx-auto my-auto mt-5'>Generar Reporte</button></CSVLink>
         </div>
     );
 }

@@ -70,7 +70,7 @@ const MyProjects = () => {
                 
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Crear Proyecto</h2>
-                    <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject} /></p>
+                    <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject}/></p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
                     </div>
