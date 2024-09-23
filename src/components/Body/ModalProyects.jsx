@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -18,61 +18,103 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 };
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function TransitionsModal() {
-    const [open, setOpen] = React.useState(false);
+const TransitionsModal = ({ addProject }) => {
+    const [open, setOpen] = useState(false);
+    const [projectName, setProjectName] = useState("");
+    const [projectDescription, setProjectDescription] = useState("");
+    const [projectDate, setProjectDate] = useState("");
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-return (
-    <div>
-    <Button onClick={handleOpen}><AddIcon></AddIcon></Button>
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: Backdrop }}
-            slotProps={{
-            backdrop: {
-            timeout: 500,
-            },
-        }}
-        >
-        <Fade in={open}>
-            <Box sx={style}>
-            <div className=' mx-auto text-center flex flex-col justify-center'>
-            <CloseIcon></CloseIcon>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-                Nombre del Proyecto:
-            </Typography>
-                <Box
-                component="form"
-                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
-                noValidate
-                autoComplete="off"
-                >
-            <Input placeholder="Nombre" inputProps={ariaLabel} />
-            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                Descripción:
-            </Typography>
-            <Input placeholder="Descripción" inputProps={ariaLabel}/>
-            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                Fecha:
-            </Typography>
-            <Input placeholder="Descripción" inputProps={ariaLabel} type='date'/>
-            <button className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">Crear</button>
-                </Box>
-                
-            </div>
-            </Box>
-            </Fade>
-        </Modal>
-    </div>
-);
-}
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (projectName.trim()) {
+            const project = {
+                name: projectName,
+                description: projectDescription,
+                date: projectDate,
+            };
+            addProject(project);
+            setProjectName("");
+            setProjectDescription("");
+            setProjectDate("");
+            handleClose();
+        }
+    };
+
+    return (
+        <div>
+            <Button onClick={handleOpen}><AddIcon /></Button>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                    },
+                }}
+            >
+                <Fade in={open}>
+                    <Box sx={style}>
+                        <div className='mx-auto text-center flex flex-col justify-center'>
+                            <CloseIcon onClick={handleClose} />
+                            <Typography id="transition-modal-title" variant="h6" component="h2">
+                                Nombre del Proyecto:
+                            </Typography>
+                            <Box
+                                component="form"
+                                onSubmit={handleSubmit}
+                                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                                <Input
+                                    placeholder="Nombre"
+                                    value={projectName}
+                                    onChange={(e) => setProjectName(e.target.value)}
+                                    inputProps={ariaLabel}
+                                    required
+                                />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Descripción:
+                                </Typography>
+                                <Input
+                                    placeholder="Descripción"
+                                    value={projectDescription}
+                                    onChange={(e) => setProjectDescription(e.target.value)}
+                                    inputProps={ariaLabel}
+                                    required
+                                />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Fecha:
+                                </Typography>
+                                <Input
+                                    type='date'
+                                    value={projectDate}
+                                    onChange={(e) => setProjectDate(e.target.value)}
+                                    inputProps={ariaLabel}
+                                    required
+                                />
+                                <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">
+                                    Crear
+                                </button>
+                            </Box>
+                        </div>
+                    </Box>
+                </Fade>
+            </Modal>
+        </div>
+    );
+};
+
+export default TransitionsModal;

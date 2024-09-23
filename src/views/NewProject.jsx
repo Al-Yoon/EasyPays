@@ -3,29 +3,22 @@ import ModalTickets from "../components/Body/ModalTickets.jsx";
 import ModalMiembros from "../components/Body/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/Body/Table.jsx";
-import TableUsers from '../components/Body/TableUsers.jsx';
+import TableUsers from "../components/Body/TableUsers.jsx";
+import DeleteButton from '../components/layout/DeleteButton';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const Projects = () => {
-    const [tickets, setTickets] = useState([
-        { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000, image: null },
-        { ticketId: 2, name: "Bayside", date: "05/12/2024", total: 87000, image: null },
-        { ticketId: 3, name: "Cine", date: "02/12/2024", total: 9000, image: null },
-        { ticketId: 4, name: "Bodegon", date: "22/12/2024", total: 5500, image: null },
-    ]);
-
-    const [members, setMembers] = useState([
-        { userId: 1, firstName: "John", lastName: "Doe", email: "john.doe@example.com", percentage: 25 },
-        { userId: 2, firstName: "Jane", lastName: "Doe", email: "jane.doe@example.com", percentage: 25 },
-        { userId: 3, firstName: "Jim", lastName: "Beam", email: "jim.beam@example.com", percentage: 25 },
-        { userId: 4, firstName: "Jack", lastName: "Daniels", email: "jack.daniels@example.com", percentage: 25 },
-    ]);
-
+const NewProject = () => {
+    const { projectSlug } = useParams();
+    const navigate = useNavigate();
+    const [tickets, setTickets] = useState([]);
+    const [members, setMembers] = useState([]);
     const [paidAmount, setPaidAmount] = useState(0);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
-        localStorage.setItem('totalAmountForProyecto-Finde-Pasado', JSON.stringify(totalAmount));
-    }, [tickets]);
+        localStorage.setItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`, JSON.stringify(totalAmount));
+    }, [tickets, projectSlug]);
 
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
@@ -48,7 +41,6 @@ const Projects = () => {
     const updatePercentage = (index, newPercentage) => {
         const updatedMembers = [...members];
         updatedMembers[index].percentage = newPercentage;
-
         setMembers(updatedMembers);
     };
 
@@ -59,14 +51,23 @@ const Projects = () => {
         setMembers(updatedMembers);
     };
 
+    const handleDeleteProject = () => {
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const updatedProjects = projects.filter(project => project.slug !== projectSlug);
+        localStorage.setItem('projects', JSON.stringify(updatedProjects));
+        localStorage.removeItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`);
+        setShowDeleteModal(false);
+        navigate('/myprojects');
+    };
+
     const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
     const remainingAmount = totalAmount - paidAmount;
 
     return (
         <div className="w-screen py-auto bg-white px-4 text-black">
-            <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto</p>
-            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Finde pasado</h1>
-            <div className="max-w-auto mx-auto pl-5 pr-5 ">
+            <p className="md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: {projectSlug.replace(/-/g, ' ')}</p>
+            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
+            <div className="max-w-auto mx-auto pl-5 pr-5">
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Gastos</h2>
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p>
@@ -92,7 +93,7 @@ const Projects = () => {
 
                 <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
-                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto ">
+                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
                             <p className='text-center text-black text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
@@ -113,10 +114,22 @@ const Projects = () => {
                         totalAmount={totalAmount} 
                         handlePayment={handlePayment} 
                     />
+                    <button
+                        className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3'
+                        onClick={() => setShowDeleteModal(true)}
+                    >
+                        Eliminar Proyecto
+                    </button>
+                    {showDeleteModal && (
+                        <DeleteButton
+                            onDelete={handleDeleteProject}
+                            onCancel={() => setShowDeleteModal(false)}
+                        />
+                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export default Projects;
+export default NewProject;

@@ -22,60 +22,73 @@ const style = {
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function ModalUser() {
+export default function ModalUser({ userData, onUpdateUser }) {
     const [open, setOpen] = React.useState(false);
+    const [updatedUser, setUpdatedUser] = React.useState(userData);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-return (
-    <div>
-    <Button onClick={handleOpen} className='border-4'>Modificar</Button>
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: Backdrop }}
-            slotProps={{
-            backdrop: {
-            timeout: 500,
-            },
-        }}
-        >
-        <Fade in={open}>
-            <Box sx={style}>
-            <button onClick={handleClose}> <CloseIcon></CloseIcon></button>
-                <div className=' mx-auto text-center flex flex-col justify-center'>
-                <Typography id="transition-modal-title" variant="h6" component="h2">
-                    Nombre:
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUpdatedUser({ ...updatedUser, [name]: value });
+    };
 
-                </Typography>
-                        <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off" >
+    const handleSave = (e) => {
+        e.preventDefault();
+        onUpdateUser(updatedUser);
+        handleClose();
+    };
 
-                            <Input placeholder="Nombre" inputProps={ariaLabel} />
-                            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                Apellido
+    return (
+        <div>
+            <Button onClick={handleOpen} className='border-4'>Modificar</Button>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                    },
+                }}
+            >
+                <Fade in={open}>
+                    <Box sx={style}>
+                        <button onClick={handleClose}> <CloseIcon /></button>
+                        <div className='mx-auto text-center flex flex-col justify-center'>
+                            <Typography id="transition-modal-title" variant="h6" component="h2">
+                                Nombre:
                             </Typography>
-                            <Input placeholder="Apellido" inputProps={ariaLabel}/>
-                            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                Email
-                            </Typography>
-                            <Input placeholder="Email" inputProps={ariaLabel} type='email'/>
-                            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                Contraseña Anterior
-                            </Typography>
-                            <Input placeholder="Ingrese su Contraseña anterior" inputProps={ariaLabel} type='password'/>
-                            <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
-                                Nueva Contraseña
-                            </Typography>
-                            <Input placeholder="Ingrese Nueva Contraseña" inputProps={ariaLabel} type='password'/>
-                            <button className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">Aceptar</button>
-                        </Box>
-                </div>
-            </Box>
-            </Fade>
-        </Modal>
-    </div>
-);
+                            <Box component="form" onSubmit={handleSave} sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
+                                <Input name="name" placeholder="Nombre" inputProps={ariaLabel} value={updatedUser.name} onChange={handleChange} />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Apellido
+                                </Typography>
+                                <Input name="lastName" placeholder="Apellido" inputProps={ariaLabel} value={updatedUser.lastName || ''} onChange={handleChange} />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Email
+                                </Typography>
+                                <Input name="email" placeholder="Email" inputProps={ariaLabel} type='email' value={updatedUser.email} onChange={handleChange} />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Contraseña Anterior
+                                </Typography>
+                                <Input name="oldPassword" placeholder="Ingrese su Contraseña anterior" inputProps={ariaLabel} type='password' onChange={handleChange} />
+                                <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
+                                    Nueva Contraseña
+                                </Typography>
+                                <Input name="newPassword" placeholder="Ingrese Nueva Contraseña" inputProps={ariaLabel} type='password' onChange={handleChange} />
+                                <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-black">
+                                    Aceptar
+                                </button>
+                            </Box>
+                        </div>
+                    </Box>
+                </Fade>
+            </Modal>
+        </div>
+    );
 }

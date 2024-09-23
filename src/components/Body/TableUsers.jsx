@@ -1,12 +1,17 @@
-import React from 'react';
-import DataTable from "react-data-table-component";
 
-function TableUsers({ data, updatePercentage }) {
+import DataTable from 'react-data-table-component';
+
+function TableUsers({ data, updatePercentage, totalAmount, handlePayment }) {
     const handlePercentageChange = (e, rowIndex) => {
         const newPercentage = parseFloat(e.target.value);
         if (!isNaN(newPercentage)) {
             updatePercentage(rowIndex, newPercentage);
         }
+    };
+
+    const handleSendNotification = (email, index) => {
+        alert(`Notificación Enviada a ${email}`);
+        handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };
 
     const columns = [
@@ -40,6 +45,22 @@ function TableUsers({ data, updatePercentage }) {
                     style={{ width: '60px' }}
                 />
             )
+        },
+        {
+            name: "Monto a Pagar",
+            selector: row => (totalAmount * row.percentage / 100).toFixed(2),
+            sortable: true
+        },
+        {
+            name: "Acciones",
+            cell: (row, index) => (
+                <button
+                    className="bg-blue-500 text-white py-1 px-3 rounded"
+                    onClick={() => handleSendNotification(row.email, index)}
+                >
+                    Enviar Notificación
+                </button>
+            )
         }
     ];
 
@@ -55,7 +76,7 @@ function TableUsers({ data, updatePercentage }) {
                 fixedHeader 
             />
             <div style={{ padding: '10px', fontWeight: 'bold' }}>
-                Total: {totalPercentage}% (Falta {100 - totalPercentage}%)
+                Total Porcentaje: {totalPercentage}% (Falta {100 - totalPercentage}%)
             </div>
         </div>
     );

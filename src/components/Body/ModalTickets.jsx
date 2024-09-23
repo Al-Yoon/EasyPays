@@ -35,7 +35,7 @@ export default function ModalTickets({ addTicket }) {
 
     const handleOpen = () => {
         setOpen(true);
-        setError(""); // Clear error message when opening
+        setError(""); 
     };
     const handleClose = () => setOpen(false);
 
@@ -57,11 +57,11 @@ export default function ModalTickets({ addTicket }) {
             image: formState.image,
         });
         if (success) {
-            // Si el ticket fue añadido correctamente, limpiar el formulario y cerrar el modal
+            
             setFormState({ ticketId: "", date: "", name: "", total: "", image: null });
             handleClose();
         } else {
-            // Si hay un error, mostrar el mensaje de error
+            
             setError("El ID ya existe.");
         }
     };
