@@ -7,7 +7,7 @@ import LoginRegister from "./views/Login-register";
 import MyProjects from "./views/MyProjects";
 import Projects from "./views/Projects";
 import UserPanel from "./views/UserPanel";
-import Nosotros from "./views/Nosotros";
+import About from "./views/AboutUs";
 import NewProject from "./views/NewProject";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Landing />} />
-            <Route path="nosotros" element={<Nosotros />} />
+            <Route path="nosotros" element={<About />} />
             <Route path="login" element={<LoginRegister />} />
             <Route path="myprojects" element={<MyProjects />} />
             <Route path="projects" element={<Projects />} />
