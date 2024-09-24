@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../Body/AuthContext";
+import { AuthContext } from "./AuthContext";
 import LogoutConfirmationButton from './LogoutConfirmationButton';
 
 export default function ProfileButton() {
@@ -47,6 +47,7 @@ export default function ProfileButton() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        className='text-white'
       >
         Perfil
       </Button>

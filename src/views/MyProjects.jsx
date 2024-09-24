@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TransitionsModal from '../components/Body/ModalProyects';
+import TransitionsModal from '../components/utils/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
-import DeleteButton from '../components/layout/DeleteButton';
+import DeleteButton from '../components/utils/DeleteButton';
 
 const MyProjects = () => {
     const initialProjects = [
@@ -63,7 +63,7 @@ const MyProjects = () => {
     };
 
     return (
-        <div className="w-full py-auto pb-10 bg-white px-4 text-black">
+        <div className="w-full py-auto pb-10 bg-white px-4 text-black py-[5rem]">
             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>
             <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
@@ -79,7 +79,7 @@ const MyProjects = () => {
                     <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo Usuario</h2>
                     <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
                     <input type="number" value={userBalance} onChange={handleBalanceChange}
-                        className="text-center text-4xl font-bold mx-auto pl-3" style={{ maxWidth: '80%' }}
+                        className="text-center text-4xl font-bold mx-auto pl-4 pt-4" style={{ maxWidth: '80%' }}
                     />
                 </div>
 

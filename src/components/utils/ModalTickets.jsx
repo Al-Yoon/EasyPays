@@ -115,6 +115,7 @@ export default function ModalTickets({ addTicket }) {
                                     onChange={handleChange}
                                     placeholder="Fecha"
                                     inputProps={ariaLabel}
+                                    type='date'
                                     required
                                 />
                                 <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
@@ -149,7 +150,7 @@ export default function ModalTickets({ addTicket }) {
                                     inputProps={ariaLabel}
                                     required
                                 />
-                                <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">
+                                <button type="submit" className="bg-[#38bdf8] hover:text-white w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">
                                     Aceptar
                                 </button>
                             </Box>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink} from "react-csv";
 
 function Table({ data }) {
     const [previewImage, setPreviewImage] = useState(null);
@@ -36,7 +36,7 @@ function Table({ data }) {
                 <a href="#!" onClick={() => handleImageClick(row.image)}>
                     {row.image.name}
                 </a>
-            ) : "No Image",
+            ) : "Sin Imagen",
         },
     ];
 
@@ -60,7 +60,11 @@ function Table({ data }) {
                     <button onClick={() => setPreviewImage(null)}>Cerrar</button>
                 </div>
             )}
-            <CSVLink data={data} filename="reporte.csv" className='text-[#276032]'><button className='bg-[#42e663] w-[20vh] h-[5vh] hover:bg-white mx-auto my-auto mt-5'>Generar Reporte</button></CSVLink>
+            <CSVLink data={data} filename="historial_tickets.csv" className='text-[#2c392e]'>
+                        <button className='bg-[#42e663] w-[30vh] h-[7vh] hover:text-white mx-auto my-auto mt-3 rounded-lg'>
+                        Generar Reporte
+                        </button>
+                    </CSVLink>
         </div>
     );
 }

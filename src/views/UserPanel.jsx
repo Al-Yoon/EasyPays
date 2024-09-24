@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ModalUser from '../components/Body/ModalUser';
+import ModalUser from '../components/utils/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
-import DeleteUserButton from '../components/layout/DeleteUserButton';
-import TicketsHistoryTable from '../components/Body/TicketsHistoryTable';
+import DeleteUserButton from '../components/utils/DeleteUserButton';
+import TicketsHistoryTable from '../components/utils/TicketsHistoryTable';
 
 const ticketsData = [
     { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000 },
@@ -34,7 +34,7 @@ const UserPanel = () => {
 
     return (
         userData && (
-            <div className="w-full py-[10rem] bg-white px-4 text-black">
+            <div className="w-full py-[5rem] bg-white px-4 text-black">
                 <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mi</p>
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Usuario</h1>
                 <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
@@ -51,7 +51,7 @@ const UserPanel = () => {
 
                     <div className="w-full h-[30vh] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg justify-center">
                         <p className='text-center text-black text-2xl font-bold'>Modificar Usuario</p>
-                        <button className='bg-[#299ad78d] w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'>
+                        <button className='bg-[#299ad78d]  hover:bg-white w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'>
                             <ModalUser userData={userData} onUpdateUser={handleUserUpdate} />
                         </button>
                     </div>
@@ -59,7 +59,7 @@ const UserPanel = () => {
                     <div className="w-full h-[30vh] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg justify-center">
                         <p className='text-center text-black text-2xl font-bold'>Eliminar Usuario</p>
                         <button
-                            className='bg-[#aa3d2aa4] text-[#a03a3a] w-2/3 rounded-md font-medium my-6 mx-auto px-6  h-[60px] font-sans uppercase pb-1'
+                            className='bg-[#aa3d2aa4] text-[#a03a3a] hover:text-white w-2/3 rounded-md font-medium my-6 mx-auto px-6  h-[60px] font-sans uppercase pb-1'
                             onClick={() => setShowDeleteModal(true)}
                         >
                             Eliminar

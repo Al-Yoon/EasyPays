@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ModalTickets from "../components/Body/ModalTickets.jsx";
-import ModalMiembros from "../components/Body/ModalMiembros";
+import ModalTickets from "../components/utils/ModalTickets.jsx";
+import ModalMiembros from "../components/utils/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
-import Table from "../components/Body/Table.jsx";
-import TableUsers from '../components/Body/TableUsers.jsx';
+import Table from "../components/utils/Table.jsx";
+import TableUsers from '../components/utils/TableUsers.jsx';
 
 const Projects = () => {
     const [tickets, setTickets] = useState([
@@ -63,7 +63,7 @@ const Projects = () => {
     const remainingAmount = totalAmount - paidAmount;
 
     return (
-        <div className="w-screen py-auto bg-white px-4 text-black">
+        <div className="w-screen bg-white px-4 text-black py-[5rem]">
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Finde pasado</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5 ">
@@ -94,7 +94,7 @@ const Projects = () => {
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
                         <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto ">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
-                            <p className='text-center text-black text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
+                            <p className='text-center text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
                                 <ModalTickets addTicket={addTicket} />
                             </button>
@@ -103,9 +103,9 @@ const Projects = () => {
                 </div>
 
                 <div>
-                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Tickets Seleccionados</p>
+                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4 font-bold">Tickets Seleccionados</p>
                     <Table data={tickets} />
-                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
+                    <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10 font-bold">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember} />
                     <TableUsers 
                         data={members} 

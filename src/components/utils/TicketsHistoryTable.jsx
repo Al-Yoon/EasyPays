@@ -53,9 +53,9 @@ function TicketsHistoryTable({ data }) {
                 striped 
                 responsive
             />
-            <CSVLink data={csvData} filename="historial_tickets.csv" className='text-[#276032]'>
-                <button className='bg-[#42e663] w-[20vh] h-[5vh] hover:bg-white mx-auto my-auto mt-5'>
-                    Generar Reporte
+            <CSVLink data={csvData} filename="historial_tickets.csv" className='text-[#2c392e]'>
+                <button className='bg-[#56a967] w-[40vh] h-[9vh]  hover:bg-[#38bdf8] mx-auto my-auto mt-1 rounded-lg'>
+                    Descargar Historial
                 </button>
             </CSVLink>
         </div>

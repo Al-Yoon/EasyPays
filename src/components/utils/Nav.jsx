@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Botton from "./Botton";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Body/AuthContext";
-import ProfileButton from '../layout/ProfileButton';
+import { AuthContext } from "./AuthContext";
+import ProfileButton from './ProfileButton';
 
 const Nav = () => {
     const { isAuthenticated } = useContext(AuthContext);

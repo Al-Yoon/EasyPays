@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ModalTickets from "../components/Body/ModalTickets.jsx";
-import ModalMiembros from "../components/Body/ModalMiembros";
+import ModalTickets from "../components/utils/ModalTickets.jsx";
+import ModalMiembros from "../components/utils/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
-import Table from "../components/Body/Table.jsx";
-import TableUsers from "../components/Body/TableUsers.jsx";
-import DeleteButton from '../components/layout/DeleteButton';
+import Table from "../components/utils/Table.jsx";
+import TableUsers from "../components/utils/TableUsers.jsx";
+import DeleteButton from '../components/utils/DeleteButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const NewProject = () => {
@@ -64,7 +64,7 @@ const NewProject = () => {
     const remainingAmount = totalAmount - paidAmount;
 
     return (
-        <div className="w-screen py-auto bg-white px-4 text-black">
+        <div className="w-screen py-auto bg-white px-4 text-black py-[5rem]">
             <p className="md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: {projectSlug.replace(/-/g, ' ')}</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5">
@@ -77,7 +77,7 @@ const NewProject = () => {
                 </div>
                 <div className="w-full shadow-2x1 bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Pagado</h2>
-                    <p className='text-center text-red-600 text-4xl font-bold'>{paidAmount.toFixed(2)} $</p>
+                    <p className='text-center text-green-600 text-4xl font-bold'>{paidAmount} $</p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Total Pagado por los miembros</p>
                     </div>
@@ -85,9 +85,9 @@ const NewProject = () => {
 
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
-                    <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
+                    <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount} $</p>
                     <div className='text-center font-medium'>
-                        <p className='py-2 my-5'>Lo que falta pagar.</p>
+                        <p className='py-2 my-5'>Restante a Pagar</p>
                     </div>
                 </div>
 
