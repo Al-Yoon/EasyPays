@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
+import { AuthContext } from './AuthContext';
 
 const style = {
     position: 'absolute',
@@ -23,8 +24,14 @@ const style = {
 const ariaLabel = { 'aria-label': 'description' };
 
 export default function ModalUser({ userData, onUpdateUser }) {
+    const { user } = React.useContext(AuthContext);
     const [open, setOpen] = React.useState(false);
     const [updatedUser, setUpdatedUser] = React.useState(userData);
+    const [passwords, setPasswords] = React.useState({
+        oldPassword: '',
+        newPassword: ''
+    });
+    const [error, setError] = React.useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -34,8 +41,26 @@ export default function ModalUser({ userData, onUpdateUser }) {
         setUpdatedUser({ ...updatedUser, [name]: value });
     };
 
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswords({ ...passwords, [name]: value });
+    };
+
     const handleSave = (e) => {
         e.preventDefault();
+
+        // Check if the old password matches the current password
+        if (passwords.oldPassword && passwords.oldPassword !== user.password) {
+            setError('La contraseña anterior es incorrecta.');
+            return;
+        }
+
+        // Update the password if the old password is correct
+        if (passwords.newPassword) {
+            updatedUser.password = passwords.newPassword;
+        }
+
+        setError('');
         onUpdateUser(updatedUser);
         handleClose();
     };
@@ -76,11 +101,12 @@ export default function ModalUser({ userData, onUpdateUser }) {
                                 <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
                                     Contraseña Anterior
                                 </Typography>
-                                <Input name="oldPassword" placeholder="Ingrese su Contraseña anterior" inputProps={ariaLabel} type='password' onChange={handleChange} />
+                                <Input name="oldPassword" placeholder="Ingrese su Contraseña anterior" inputProps={ariaLabel} type='password' value={passwords.oldPassword} onChange={handlePasswordChange} />
                                 <Typography id="transition-modal-title" variant="h6" component="h2" className='pl-7'>
                                     Nueva Contraseña
                                 </Typography>
-                                <Input name="newPassword" placeholder="Ingrese Nueva Contraseña" inputProps={ariaLabel} type='password' onChange={handleChange} />
+                                <Input name="newPassword" placeholder="Ingrese Nueva Contraseña" inputProps={ariaLabel} type='password' value={passwords.newPassword} onChange={handlePasswordChange} />
+                                {error && <Typography variant="caption" color="error">{error}</Typography>}
                                 <button type="submit" className="bg-[#38bdf8] w-[230px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-black">
                                     Aceptar
                                 </button>
