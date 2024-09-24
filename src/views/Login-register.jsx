@@ -35,7 +35,7 @@ function LoginRegister() {
 
     return (
         <div className="flex flex-auto justify-center">
-            <Components.Container style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", flexDirection: "column", fontFamily: "Montserrat", marginBottom: "10rem", marginTop: "10rem", height: "70vh" }}>
+            <Components.Container style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", flexDirection: "column", marginBottom: "10rem", marginTop: "10rem", height: "70vh" }}>
                 <Components.SignUpContainer signinIn={signIn}>
                     <Components.Form>
                         <Components.Title>Crear Cuenta</Components.Title>

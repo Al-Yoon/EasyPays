@@ -63,20 +63,20 @@ const MyProjects = () => {
     };
 
     return (
-        <div className="w-full py-auto pb-10 bg-white px-4 text-black">
+        <div className="w-full bg-white px-4 text-black">
             <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>
-            <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
+            <div className="max-w-auto mx-auto pl-5 pr-5 grid md:grid-cols-3 gap-10">
                 
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 '>Crear Proyecto</h2>
+                <div className="w-[20] shadow-2xl bg-white p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 flex justify-center'>Crear Proyecto</h2>
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject} /></p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
                     </div>
                 </div>
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931]'>Saldo Usuario</h2>
+                <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#38b931] flex justify-center'>Saldo Usuario</h2>
                     <img className='w-20 mx-auto' src={UpArrow} alt="/"/>
                     <input 
                         type="number"
@@ -87,8 +87,8 @@ const MyProjects = () => {
                     />
                 </div>
 
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434]'>Total Proyectos</h2>
+                <div className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8 text-[#c43434] flex justify-center'>Total Proyectos</h2>
                     <img className='w-20 mx-auto' src={DownArrow} alt="/"/>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5 text-3xl font-bold  pl-3'>{getTotalProjectAmount()} $</p>
@@ -96,39 +96,27 @@ const MyProjects = () => {
                 </div>
 
                 {projects.map((project, index) => (
-                    <div key={index} className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                    <div key={index} className="w-[20] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
                         <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                        <h2 className='text-2xl font-bold text-center pt-8 '>Proyecto: {project.name}</h2>
+                        <h2 className='text-2xl font-bold text-center pt-8 flex justify-center '>Proyecto: {project.name}</h2>
                         <div className='text-center font-medium'>
                             <p className='py-2 my-5'>{project.description}</p>
                             <p className='py-2 my-5'>{project.date}</p>
                             <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
                         </div>
-                        <button
-                            className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'
-                            onClick={() => handleViewProject(project.slug)}
-                        >
+                        <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
                             Ver Proyecto
                         </button>
                         <button
-                            className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3'
+                            className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                             onClick={() => {
                                 setSelectedProjectSlug(project.slug);
-                                setShowDeleteModal(true);
-                            }}
-                        >
+                                setShowDeleteModal(true); }}>
                             Eliminar Proyecto
                         </button>
                     </div>
                 ))}
-            </div>
-            {showDeleteModal && (
-                <DeleteButton
-                    onDelete={handleDeleteProject}
-                    onCancel={() => setShowDeleteModal(false)}
-                />
-            )}
-        </div>
+            </div> {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>)} </div>
     );
 };
 
