@@ -55,7 +55,7 @@ function TableUsers({ data, updatePercentage, totalAmount, handlePayment }) {
             name: "Acciones",
             cell: (row, index) => (
                 <button
-                    className="bg-blue-500 text-white py-1 px-3 rounded"
+                    className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-[#38bdf8]"
                     onClick={() => handleSendNotification(row.email, index)}
                 >
                     Enviar Notificación

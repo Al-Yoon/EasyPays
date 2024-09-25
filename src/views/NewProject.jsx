@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ModalTickets from "../components/Body/ModalTickets.jsx";
-import ModalMiembros from "../components/Body/ModalMiembros";
+import ModalTickets from "../components/utils/Modal/ModalTickets.jsx";
+import ModalMiembros from "../components/utils/Modal/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
-import Table from "../components/Body/Table.jsx";
-import TableUsers from "../components/Body/TableUsers.jsx";
-import DeleteButton from '../components/layout/DeleteButton';
+import Table from "../components/utils/Table/Table.jsx";
+import TableUsers from "../components/utils/Table/TableUsers.jsx";
+import DeleteButton from '../components/utils/DeleteButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const NewProject = () => {
@@ -91,7 +91,7 @@ const NewProject = () => {
                     </div>
                 </div>
 
-                <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black  rounded-lg shadow-2xl">
+                <div className="w-auto py-[10rem] my-5 flex justify-center bg-white px-4 text-black h-auto rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
                         <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />

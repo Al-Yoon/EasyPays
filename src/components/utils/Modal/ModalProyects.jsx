@@ -50,7 +50,7 @@ const TransitionsModal = ({ addProject }) => {
 
     return (
         <div>
-            <Button onClick={handleOpen}><AddIcon /></Button>
+            <Button onClick={handleOpen}><AddIcon/></Button>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

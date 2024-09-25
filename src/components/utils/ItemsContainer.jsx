@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import Item from "./Item";
 import { REDESSOCIALES, NAVEGACION, CONTACTANOS } from "./Menus";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import { AuthContext } from "../Body/AuthContext";
+import { AuthContext } from "./AuthContext";
 
 const ItemsContainer = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -15,12 +15,8 @@ const ItemsContainer = () => {
       <div>
         <Item Links={REDESSOCIALES} title="REDES SOCIALES" />
         <div className="flex my-5 gap-4 justify-center">
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <FaInstagram className="text-5xl" />
-          </a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className="text-5xl" />
-          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram className="text-5xl" /></a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin className="text-5xl" /></a>
         </div>
       </div>
       <Item Links={navigationLinks} title="NAVEGACION" />
