@@ -1,6 +1,5 @@
 import React from "react";
-import Dolar from "../components/Assets/Dolar.jpg";
-import Fede from "../components/Assets/Fede.webp";
+import Fede from "../components/Assets/fede.jpg";
 import Ale from "../components/Assets/ale.jpg";
 import Santi from "../components/Assets/santi.avif";
 import AboutImg from "../components/Assets/1265650.jpg"
@@ -12,7 +11,7 @@ return(
         <div className="max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center p-5">
             <p className="text-[#38bdf8] mx-auto font-bold md:text-6xl sm:text-2xl text-xl pt-2">Bienvenido a Easy Pays</p>
                 <h1 className="md:text-1xl sm:text-3xl text-4xl font-bold md:py-6 text-white">
-                Para saber mas de nosotros</h1>
+                Para saber más de nosotros</h1>
         </div> 
         <div className="w-full bg-white text-black py-16 px-4">
             <div className="max-w[1240px] mx-auto grid md:grid-cols-2">
