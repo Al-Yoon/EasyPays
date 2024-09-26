@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ModalUser from '../components/utils/ModalUser';
+import ModalUser from '../components/utils/Modal/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
 import DeleteUserButton from '../components/utils/DeleteUserButton';
-import TicketsHistoryTable from '../components/utils/TicketsHistoryTable';
+import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContext";
 
 const ticketsData = [
@@ -56,7 +56,7 @@ const UserPanel = () => {
                     <div className="w-full h-[30vh] shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg justify-center">
                         <p className='text-center text-black text-2xl font-bold'>Modificar Usuario</p>
                         <button className='bg-[#299ad78d]  hover:bg-white w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'>
-                            <ModalUser userData={user} onUpdateUser={handleUserUpdate} />
+                            <ModalUser userData={user} onUpdateUser={handleUserUpdate}/>
                         </button>
                     </div>
 

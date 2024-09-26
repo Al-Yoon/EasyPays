@@ -1,9 +1,8 @@
 import React from "react";
-import Fede from "../components/Assets/fede.jpg";
 import Ale from "../components/Assets/ale.jpg";
 import Santi from "../components/Assets/santi.avif";
+import Fede from "../components/Assets/fede.jpg";
 import AboutImg from "../components/Assets/1265650.jpg"
-
 
 const Nosotros = () =>{
 return(
@@ -69,7 +68,7 @@ return(
                 </div>
             </div>    
         </div>
-            <div className="w-full bg-white text-black py-16 px-4 mt-5">
+            <div className="w-full bg-white text-black py-16 px-4">
                 <div className="max-w[1240px] mx-auto gap-5 grid md:grid-auto">
                             <div className="pl-4 mx-auto justify-center w-3/4">
                                     <h1 className="text-black md:text-1xl sm:text-5xl text-4xl font-bold md:py-3 text-center"> ¿Por qué creamos esta aplicación?</h1>

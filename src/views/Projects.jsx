@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ModalTickets from "../components/utils/ModalTickets.jsx";
-import ModalMiembros from "../components/utils/ModalMiembros.jsx";
+import ModalTickets from "../components/utils/Modal/ModalTickets.jsx";
+import ModalMiembros from "../components/utils/Modal/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
-import Table from "../components/utils/Table.jsx";
-import TableUsers from '../components/utils/TableUsers.jsx';
+import Table from "../components/utils/Table/Table.jsx";
+import TableUsers from '../components/utils/Table/TableUsers.jsx';
 
 const Projects = () => {
     const [tickets, setTickets] = useState([

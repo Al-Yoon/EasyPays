@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
-import { AuthContext } from './AuthContext';
+import { AuthContext } from '../AuthContext';
 
 const style = {
     position: 'absolute',
@@ -67,7 +67,7 @@ export default function ModalUser({ userData, onUpdateUser }) {
 
     return (
         <div>
-            <Button onClick={handleOpen} className='border-4'>Modificar</Button>
+            <Button onClick={handleOpen} className=''>Modificar</Button>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
