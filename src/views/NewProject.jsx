@@ -68,14 +68,16 @@ const NewProject = () => {
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto:</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5">
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 '>Gastos</h2>
+
+                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8'>Gastos</h2>
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Total Gasto Tickets</p>
                     </div>
                 </div>
-                <div className="w-full shadow-2x1 bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                
+                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Pagado</h2>
                     <p className='text-center text-red-600 text-4xl font-bold'>{paidAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
@@ -83,7 +85,7 @@ const NewProject = () => {
                     </div>
                 </div>
 
-                <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
+                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
                     <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
@@ -91,11 +93,11 @@ const NewProject = () => {
                     </div>
                 </div>
 
-                <div className="w-auto my-5 flex justify-center bg-white px-4 text-black h-[50vh] rounded-lg shadow-2xl">
+                <div className="w-auto my-5 flex justify-center px-4 h-[50vh] rounded-lg shadow-2xl">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
-                        <div className="w-full h-auto bg-white flex flex-col p-4 text-black mx-auto">
+                        <div className="w-full h-auto flex flex-col p-4 mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
-                            <p className='text-center text-black text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
+                            <p className='text-center text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
                                 <ModalTickets addTicket={addTicket} />
                             </button>
@@ -112,19 +114,12 @@ const NewProject = () => {
                         data={members} 
                         updatePercentage={updatePercentage} 
                         totalAmount={totalAmount} 
-                        handlePayment={handlePayment} 
-                    />
+                        handlePayment={handlePayment}/>
                     <button
-                        className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3'
-                        onClick={() => setShowDeleteModal(true)}
-                    >
+                        className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3' onClick={() => setShowDeleteModal(true)}>
                         Eliminar Proyecto
                     </button>
-                    {showDeleteModal && (
-                        <DeleteButton
-                            onDelete={handleDeleteProject}
-                            onCancel={() => setShowDeleteModal(false)}
-                        />
+                    {showDeleteModal && ( <DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>
                     )}
                 </div>
             </div>
