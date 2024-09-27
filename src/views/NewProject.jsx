@@ -69,7 +69,7 @@ const NewProject = () => {
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5">
 
-                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8'>Gastos</h2>
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p>
                     <div className='text-center font-medium'>
@@ -77,7 +77,7 @@ const NewProject = () => {
                     </div>
                 </div>
                 
-                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Pagado</h2>
                     <p className='text-center text-red-600 text-4xl font-bold'>{paidAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
@@ -85,7 +85,7 @@ const NewProject = () => {
                     </div>
                 </div>
 
-                <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
                     <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
