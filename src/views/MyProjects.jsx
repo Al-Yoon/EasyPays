@@ -70,7 +70,7 @@ const MyProjects = () => {
                 <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 
                     <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg">
-                        <h2 className='text-2xl font-bold text-center py-8 '>Crear Proyecto</h2>
+                        <h2 className='text-2xl font-bold text-center py-8'>Crear Proyecto</h2>
                         <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject}/></p>
                         <div className='text-center font-medium'>
                             <p className='py-2 my-5'>Crea un proyecto para luego asignarle los gastos</p>
@@ -93,30 +93,31 @@ const MyProjects = () => {
                         </div>
                     </div>
 
-                    <div className='w-full shadow-xl flex flex-col p-4 my-4 rounded-lg'>
                     {projects.map((project, index) => (
-                        <div key={index} class>
-                                    <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                                    <h2 className='text-2xl font-bold text-center pt-8 flex justify-center '>Proyecto: {project.name}</h2>
-                                    <div className='text-center font-medium'>
-                                        <p className='py-2 my-5'>{project.description}</p>
-                                        <p className='py-2 my-5'>{project.date}</p>
-                                        <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
-                                    </div>
-                                    <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
-                                        Ver Proyecto
-                                    </button>
-                                    <button
-                                        className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
-                                        onClick={() => {
-                                            setSelectedProjectSlug(project.slug);
-                                            setShowDeleteModal(true); }}>
-                                        Eliminar Proyecto
-                                    </button>
+                        <div key={index} className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg">
+                            <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
+                            <h2 className='text-2xl font-bold text-center pt-8 flex justify-center'>Proyecto: {project.name}</h2>
+                            <div className='text-center font-medium'>
+                                <p className='py-2 my-5'>{project.description}</p>
+                                <p className='py-2 my-5'>{project.date}</p>
+                                <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
                             </div>
-                            ))}
-                    </div> 
-                    {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>)} </div>
+                            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
+                                Ver Proyecto
+                            </button>
+                            <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
+                                onClick={() => {
+                                    setSelectedProjectSlug(project.slug);
+                                    setShowDeleteModal(true);
+                                }}>
+                                Eliminar Proyecto
+                            </button>
+                        </div>
+                    ))}
+
+                    {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject} onCancel={() => setShowDeleteModal(false)}/>)}
+                
+                </div>
             </div>
         </div>
     );
