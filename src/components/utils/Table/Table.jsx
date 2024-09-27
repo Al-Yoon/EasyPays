@@ -61,7 +61,7 @@ function Table({ data }) {
                 </div>
             )}
             <CSVLink data={data} filename="historial_tickets.csv" className='text-[#2c392e]'>
-                        <button className='bg-[#42e663] w-[30vh] h-[7vh] hover:text-white mx-auto my-auto mt-3 rounded-lg'>
+                        <button className='bg-[#42e663] w-[17vh] h-[4vh] hover:text-white mx-auto my-auto mt-3 rounded-lg'>
                         Generar Reporte
                         </button>
                     </CSVLink>

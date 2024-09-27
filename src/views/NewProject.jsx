@@ -64,8 +64,8 @@ const NewProject = () => {
     const remainingAmount = totalAmount - paidAmount;
 
     return (
-        <div className="w-screen py-auto bg-white px-4 text-black">
-            <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: {projectSlug.replace(/-/g, ' ')}</p>
+        <div className="w-screen py-auto bg-white px-4 text-black py-10">
+            <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto:</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5">
                 <div className="w-full shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 text-black rounded-lg">
