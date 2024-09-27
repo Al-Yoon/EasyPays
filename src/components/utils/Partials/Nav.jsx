@@ -21,7 +21,7 @@ const Nav = () => {
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
-        }, 100); // Add a small delay to allow the page to load before scrolling
+        }, 100);
     };
 
     return (

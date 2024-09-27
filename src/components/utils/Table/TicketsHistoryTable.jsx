@@ -1,5 +1,3 @@
-// src/components/Body/TicketsHistoryTable.jsx
-
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { CSVLink } from 'react-csv';
@@ -29,7 +27,7 @@ function TicketsHistoryTable({ data }) {
         },
         {
             name: "Proyecto",
-            selector: () => "Proyecto Finde Pasado", // Agregar la columna de Proyecto
+            selector: () => "Proyecto Finde Pasado",
             sortable: true,
         }
     ];

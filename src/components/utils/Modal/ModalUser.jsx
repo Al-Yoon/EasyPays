@@ -49,13 +49,11 @@ export default function ModalUser({ userData, onUpdateUser }) {
     const handleSave = (e) => {
         e.preventDefault();
 
-        // Check if the old password matches the current password
         if (passwords.oldPassword && passwords.oldPassword !== user.password) {
             setError('La contraseña anterior es incorrecta.');
             return;
         }
 
-        // Update the password if the old password is correct
         if (passwords.newPassword) {
             updatedUser.password = passwords.newPassword;
         }
