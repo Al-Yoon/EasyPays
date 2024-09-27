@@ -61,7 +61,7 @@ const Landing = () => {
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Soluciones a tus Problemas de Gastos</h1>
                 <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
 
-                    <div className="shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 rounded-lg items-center">
+                    <div className="shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center">
                         <img className='w-20 mx-auto mt-auto' src={Chats} alt="/" />
                         <h2 className='font-bold text-center text-2xl py-8'>Gestiona y Asigna</h2>
                         <p className='text-[#38bdf8] text-center text-4xl font-bold'>1</p>
@@ -71,7 +71,7 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className='shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
+                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
                         <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
                         <h2 className='font-bold text-center text-2xl py-8'>Carga tus Tickets</h2>
                         <p className='text-[#38bdf8] text-center text-4xl font-bold'>2</p>
@@ -81,7 +81,7 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className='shadow-2xl bg-white flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
+                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
                         <img className='w-20 mx-auto mt-auto bg-transparent' src={Tickets} alt="/" />
                         <h2 className='font-bold text-center text-2xl py-8'>Historial y Reportes</h2>
                         <p className='text-[#38bdf8] text-center text-4xl font-bold'>3</p>
