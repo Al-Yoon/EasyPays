@@ -4,7 +4,7 @@ import TransitionsModal from '../components/utils/Modal/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
-import DeleteButton from '../components/utils/DeleteButton';
+import DeleteButton from '../components/utils/Buttons/DeleteButton';
 
 const MyProjects = () => {
     const initialProjects = [
@@ -95,7 +95,7 @@ const MyProjects = () => {
 
                     <div className='w-full shadow-xl flex flex-col p-4 my-4 rounded-lg'>
                     {projects.map((project, index) => (
-                        <div key={index}>
+                        <div key={index} class>
                                     <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
                                     <h2 className='text-2xl font-bold text-center pt-8 flex justify-center '>Proyecto: {project.name}</h2>
                                     <div className='text-center font-medium'>
@@ -117,8 +117,8 @@ const MyProjects = () => {
                             ))}
                     </div> 
                     {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>)} </div>
-                </div>
             </div>
+        </div>
     );
 };
 

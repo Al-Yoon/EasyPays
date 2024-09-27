@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalUser from '../components/utils/Modal/ModalUser';
 import UserPic from '../components/Assets/user-avatar.svg';
-import DeleteUserButton from '../components/utils/DeleteUserButton';
+import DeleteUserButton from '../components/utils/Buttons/DeleteUserButton';
 import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContext";
 

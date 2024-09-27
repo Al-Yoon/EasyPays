@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import Botton from "./Botton";
+import Button from "../Buttons/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
-import ProfileButton from './ProfileButton';
+import { AuthContext } from "../AuthContext";
+import ProfileButton from '../Buttons/ProfileButton';
 
 const Nav = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -31,7 +31,7 @@ const Nav = () => {
                 <Link to="/nosotros"><li className='p-4'>Nosotros</li></Link>
                 <li className='p-4 cursor-pointer' onClick={handleServiceClick}>Servicios</li>
                 <Link to="/myprojects"><li className='p-4'>Proyectos</li></Link>
-                {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='flex justify-center items-center p-4'><Botton>Ingresa</Botton></li></Link>)}
+                {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='flex justify-center items-center p-4'><Button>Ingresa</Button></li></Link>)}
             </ul>
 
             <div onClick={handleNav} className='block md:hidden'>
@@ -43,7 +43,7 @@ const Nav = () => {
                 <Link to="/nosotros"><li className='p-4 border-b border-gray-600'>Nosotros</li></Link>
                 <li className='p-4 border-b border-gray-600 cursor-pointer' onClick={handleServiceClick}>Servicios</li>
                 <Link to="/myprojects"><li className='p-4 border-b border-gray-600'>Proyectos</li></Link>
-                {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='p-4'><Botton>Ingresa</Botton></li></Link>)}
+                {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='p-4'><Button>Ingresa</Button></li></Link>)}
             </ul>
         </div>
     );

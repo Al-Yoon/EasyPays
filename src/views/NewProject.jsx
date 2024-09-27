@@ -4,7 +4,7 @@ import ModalMiembros from "../components/utils/Modal/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from "../components/utils/Table/TableUsers.jsx";
-import DeleteButton from '../components/utils/DeleteButton.jsx';
+import DeleteButton from '../components/utils/Buttons/DeleteButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const NewProject = () => {
