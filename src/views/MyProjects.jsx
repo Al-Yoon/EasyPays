@@ -63,7 +63,7 @@ const MyProjects = () => {
     };
 
     return (
-        <div className="w-screen py-auto">
+        <div className="py-auto">
             <div className='w-full py-10 bg-white px-4 text-black'>
                 <p className="max-w-auto mx-auto md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>      

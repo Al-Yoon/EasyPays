@@ -14,10 +14,10 @@ const Landing = () => {
                 <p className="text-[#38bdf8] mx-auto font-bold md:text-3xl sm:text-2xl text-xl pt-2">Bienvenido a Easy Pays</p>
                 <h1 className="md:text-1xl sm:text-6xl text-4xl font-bold md:py-6">Gestión Inteligente</h1>
                 <div className="md:text-2xl sm:text-1xl text-xl">
-                    <h1>Lleva el control de tus compras al siguiente nivel</h1>
+                    <h1>Maneja tus gastos de manera sencilla</h1>
                     <ReactTyped
                         className="pl-2 pt-1 font-bold md:text-1xl sm:texl-4xl text-xl"
-                        strings={["ORGANIZA", "CONTROLA", "Gestiona","Divide"]}
+                        strings={["ORGANIZA", "CONTROLA", "GESTIONA","DIVIDE"]}
                         TypedSpeed={120}
                         backSpeed={140}
                         loop
