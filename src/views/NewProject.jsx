@@ -64,12 +64,12 @@ const NewProject = () => {
     const remainingAmount = totalAmount - paidAmount;
 
     return (
-        <div className="w-screen py-auto bg-white px-4 text-black py-10">
-            <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto:</p>
+        <div className="w-screen py-auto bg-white px-4 text-black">
+            <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: {projectSlug.replace(/-/g, ' ')}</p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
-            <div className="max-w-auto mx-auto pl-5 pr-5">
+            <div className="max-w-auto mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
 
-                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                <div className="w-full shadow-md flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8'>Gastos</h2>
                     <p className='text-center text-[#38bdf8] text-4xl font-bold'>{totalAmount} $</p>
                     <div className='text-center font-medium'>
@@ -77,23 +77,23 @@ const NewProject = () => {
                     </div>
                 </div>
                 
-                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 '>Pagado</h2>
+                <div className="w-full shadow-md flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8'>Pagado</h2>
                     <p className='text-center text-red-600 text-4xl font-bold'>{paidAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Total Pagado por los miembros</p>
                     </div>
                 </div>
 
-                <div className="w-full shadow-sm flex flex-col p-4 md:my-0 my-8 rounded-lg">
-                    <h2 className='text-2xl font-bold text-center py-8 '>Falta Pagar</h2>
+                <div className="w-full shadow-md flex flex-col p-4 md:my-0 my-8 rounded-lg">
+                    <h2 className='text-2xl font-bold text-center py-8'>Falta Pagar</h2>
                     <p className={`text-center text-4xl font-bold ${remainingAmount === 0 ? 'text-green-600' : 'text-red-600'}`}>{remainingAmount.toFixed(2)} $</p>
                     <div className='text-center font-medium'>
                         <p className='py-2 my-5'>Total a pagar restante.</p>
                     </div>
                 </div>
 
-                <div className="w-auto my-5 flex justify-center px-4 h-[50vh] rounded-lg shadow-2xl">
+                <div className="w-screen my-5 flex justify-center px-4 h-auto rounded-lg shadow-lg">
                     <div className="max-w-auto mx-5 my-auto items-center p-5">
                         <div className="w-full h-auto flex flex-col p-4 mx-auto">
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
@@ -104,19 +104,18 @@ const NewProject = () => {
                         </div>
                     </div>
                 </div>
+                </div>
 
-                <div>
+                <div className='w-full py-16 text-black px-4'>
+                    <div className='border-4 border-double border-r-[#38bdf8] border-t-[#38bdf8] border-l-black border-b-black py-5 px-5 rounded-lg'>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Tickets Seleccionados</p>
                     <Table data={tickets} />
+                    </div>
+                    <div className='border-4 border-double border-r-[#38bdf8] border-t-[#38bdf8] border-l-black border-b-black my-5 py-5 px-5 rounded-lg shadow-xl'>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember} />
-                    <TableUsers 
-                        data={members} 
-                        updatePercentage={updatePercentage} 
-                        totalAmount={totalAmount} 
-                        handlePayment={handlePayment}/>
-                    <button
-                        className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3' onClick={() => setShowDeleteModal(true)}>
+                    <TableUsers data={members} updatePercentage={updatePercentage} totalAmount={totalAmount} handlePayment={handlePayment}/>
+                    <button className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3' onClick={() => setShowDeleteModal(true)}>
                         Eliminar Proyecto
                     </button>
                     {showDeleteModal && ( <DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>
