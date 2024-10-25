@@ -14,7 +14,7 @@ return(
         </div> 
         <div className="w-full bg-white text-black py-16 px-4">
             <div className="max-w[1240px] mx-auto grid md:grid-cols-2">
-                <img className="w-[1000px] mx-auto h-[65vh] " src={AboutImg} alt="/"></img>
+                <img className="w-[1000px] mx-auto h-[65vh]" src={AboutImg} alt="/"></img>
                         <div className=" flex flex-col pl-4 justify-center shadow-2xl">
                             <p className="text-[#38bdf8] md:text-1xl sm:text-3xl text-2xl font-bold text-center mt-5">Sobre nosotros</p>
                                 <h1 className="md:text-1xl sm:text-6xl text-4xl font-bold md:py-3 text-center">Conócenos mejor</h1>

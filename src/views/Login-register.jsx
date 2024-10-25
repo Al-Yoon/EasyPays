@@ -69,7 +69,7 @@ function LoginRegister() {
     return (
         <div className="flex flex-auto justify-center">
             <Components.Container style={{display:"flex", flexWrap:"wrap", justifycontent: "center", 
-                                            alignitems: "center", flexdirection: "column", fontfamily: "Montserrat", marginBottom: "10rem", marginTop: "10rem", height:"70vh", width:"90vh"}}>
+                                            alignitems: "center", flexdirection: "column", fontfamily: "bold", marginBottom: "10rem", marginTop: "10rem", height:"70vh", width:"90vh"}}>
 
                 <Components.SignUpContainer signinIn={signIn}>
                     <Components.Form onSubmit={handleRegister}>
