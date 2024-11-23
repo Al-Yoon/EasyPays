@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Landing = () => {
     return (
         <div className="text-white bg-black">
-            <div className="max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center p-5">
+            <div className="mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center p-5">
                 <p className="text-[#38bdf8] mx-auto font-bold md:text-3xl sm:text-2xl text-xl pt-2">Bienvenido a Easy Pays</p>
                 <h1 className="md:text-1xl sm:text-6xl text-4xl font-bold md:py-6">Gestión Inteligente</h1>
                 <div className="md:text-2xl sm:text-1xl text-xl">
@@ -27,7 +27,7 @@ const Landing = () => {
                 <Link to="/login"><p className="w-[180px] font-medium mx-auto hover:text-[#38bdf8]">Ya tienes una cuenta?</p></Link>
             </div>
 
-            <div className="w-full bg-white text-black py-16 px-4">
+            <div className="w-full bg-white text-black py-16 ">
                 <div className="max-w[1240px] mx-auto grid md:grid-cols-2">
                     <img className="w-[500px] mx-auto" src={Logo} alt="/"></img>
                     <div className="flex flex-col pl-4 justify-center">
@@ -56,37 +56,34 @@ const Landing = () => {
                 </div>
             </div>
 
-            <div id="services" className="w-full py-[10rem] bg-white px-4 text-black">
-                <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Qué te ofrecemos</p>
+            <div id="services" className="w-full py-[10rem] bg-white text-black">
+                <p className="max-w-[1250px] md:text-2xl sm:text-1xl text-xl pl-4">Qué te ofrecemos</p>
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Soluciones a tus Problemas de Gastos</h1>
                 <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
 
-                    <div className="shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center">
-                        <img className='w-20 mx-auto mt-auto' src={Chats} alt="/" />
-                        <h2 className='font-bold text-center text-2xl py-8'>Gestiona y Asigna</h2>
-                        <p className='text-[#38bdf8] text-center text-4xl font-bold'>1</p>
+                    <div className="shadow-2xl flex flex-col p-4 md:my-0 my-8 py-8 rounded-lg items-center">
+                        <img className='w-28 mx-auto mt-auto' src={Chats} alt="/" />
+                        <h2 className='font-bold text-center justify-center text-2xl py-4'>Gestiona y Asigna</h2>
                         <div className='text-center font-medium'>
-                            <p className='py-2 my-5 text-xl'>
+                            <p className='py-2 my-2 text-xl'>
                                 Gestiona proyectos para calcular tus gastos, tanto individuales como en grupo.</p>
                         </div>
                     </div>
 
-                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
-                        <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                        <h2 className='font-bold text-center text-2xl py-8'>Carga tus Tickets</h2>
-                        <p className='text-[#38bdf8] text-center text-4xl font-bold'>2</p>
+                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 py-8 rounded-lg items-center'>
+                        <img className='w-28 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
+                        <h2 className='font-bold text-center justify-center text-2xl py-4'>Carga tus Tickets</h2>
                         <div className='text-center font-medium'>
-                            <p className='py-2 my-5 text-xl'>
+                            <p className='py-2 my-2 text-xl'>
                                 Ahora puedes subir tus tickets de compra, para obtener el cálculo gastado de los mismos.</p>
                         </div>
                     </div>
 
-                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg items-center'>
-                        <img className='w-20 mx-auto mt-auto bg-transparent' src={Tickets} alt="/" />
-                        <h2 className='font-bold text-center text-2xl py-8'>Historial y Reportes</h2>
-                        <p className='text-[#38bdf8] text-center text-4xl font-bold'>3</p>
+                    <div className='shadow-2xl flex flex-col p-4 md:my-0 my-8 py-8 rounded-lg items-center'>
+                        <img className='w-28 mx-auto mt-auto bg-transparent' src={Tickets} alt="/" />
+                        <h2 className='font-bold text-center justify-center text-2xl py-4'>Historial y Reportes</h2>
                         <div className='text-center font-medium'>
-                            <p className="py-2 my-5 text-xl">
+                            <p className="py-2 my-2 text-xl">
                                 Visualiza un historial de tus tickets con sus respectivos gastos y genera reportes detallados.
                             </p>
                         </div>

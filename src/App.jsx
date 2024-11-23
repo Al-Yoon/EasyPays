@@ -9,6 +9,7 @@ import Projects from "./views/Projects";
 import UserPanel from "./views/UserPanel";
 import About from "./views/AboutUs";
 import NewProject from "./views/NewProject";
+import Error from "./views/Error404";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="projects/:projectSlug" element={<Projects />} />
             <Route path="newprojects/:projectSlug" element={<NewProject />} />
             <Route path="userpanel" element={<UserPanel />} />
+            <Route path="error404" element={<Error />} />
           </Route>
         </Routes>
       </Router>
