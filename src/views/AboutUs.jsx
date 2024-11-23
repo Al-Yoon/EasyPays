@@ -15,7 +15,7 @@ return(
         <div className="w-full bg-white text-black py-16 px-4">
             <div className="max-w[1240px] mx-auto grid md:grid-cols-2">
                 <img className="w-[1000px] mx-auto h-[65vh] " src={AboutImg} alt="/"></img>
-                        <div className=" flex flex-col pl-4 justify-center shadow-2xl">
+                        <div className=" flex flex-col pl-4 justify-center">
                             <p className="text-[#38bdf8] md:text-1xl sm:text-3xl text-2xl font-bold text-center mt-5">Sobre nosotros</p>
                                 <h1 className="md:text-1xl sm:text-6xl text-4xl font-bold md:py-3 text-center">Conócenos mejor</h1>
                                     <div className=" text-center rounded-xl my-10 md:text-1xl sm:text-1xl text-xl py-5 px-5 ">
@@ -98,7 +98,7 @@ return(
                             <hr></hr>
                             <div className="pl-4 mx-auto justify-center w-3/4">
                                     <h1 className="text-[#38bdf8] md:text-1xl sm:text-5xl text-4xl font-bold md:py-3 text-center">Visión</h1>
-                                        <div className="my-10 md:text-1xl sm:text-1xl text-xl py-5 px-5 text-center">
+                                        <div className="shadow-2xl my-10 md:text-1xl sm:text-1xl text-xl py-5 px-5 text-center">
                                         <p>
                                             Nuestra visión es convertirnos en la plataforma de referencia para cualquier situación en la que se necesite dividir gastos. 
                                             Imaginamos un futuro donde nadie se preocupe por cálculos manuales ni malentendidos financieros en grupo. 
