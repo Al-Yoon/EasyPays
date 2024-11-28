@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { CSVLink } from 'react-csv';
+import { CSVLink} from "react-csv";
 
 function TicketsHistoryTable({ data }) {
+    const [previewImage, setPreviewImage] = useState(null);
+
+    const handleImageClick = (image) => {
+        setPreviewImage(URL.createObjectURL(image));
+    };
 
     const columns = [
         {
@@ -11,7 +16,7 @@ function TicketsHistoryTable({ data }) {
             sortable: true,
         },
         {
-            name: "Descripción",
+            name: "Descripcion",
             selector: row => row.name,
             sortable: true,
         },
@@ -26,10 +31,13 @@ function TicketsHistoryTable({ data }) {
             sortable: true,
         },
         {
-            name: "Proyecto",
-            selector: () => "Proyecto Finde Pasado",
-            sortable: true,
-        }
+            name: "Imagen Ticket",
+            cell: row => row.image ? (
+                <a href="#!" onClick={() => handleImageClick(row.image)}>
+                    {row.image.name}
+                </a>
+            ) : "Sin Imagen",
+        },
     ];
 
     const csvData = data.map(ticket => ({
@@ -51,6 +59,23 @@ function TicketsHistoryTable({ data }) {
                 striped 
                 responsive
             />
+            {previewImage && (
+                <div style={{
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 1000,
+                    background: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0px 0px 15px rgba(0,0,0,0.5)'
+                }}>
+                    <img src={previewImage} alt="Preview" style={{ maxWidth: '500px', maxHeight: '500px' }} />
+                    <br />
+                    <button onClick={() => setPreviewImage(null)}>Cerrar</button>
+                </div>
+            )}
             <CSVLink data={csvData} filename="historial_tickets.csv" className='text-[#2c392e]'>
                 <button className='bg-[#42e663] w-[200px] h-[50px] hover:bg-[#38bdf8] mx-auto mt-1 rounded-xl'>
                     Descargar Historial

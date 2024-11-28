@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./components/layout/Layout";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from "./components/utils/AuthContext";
+import { AuthProvider } from "./components/utils/AuthContextPrueba";
 import Landing from "./views/Landing";
 import LoginRegister from "./views/Login-register";
 import MyProjects from "./views/MyProjects";

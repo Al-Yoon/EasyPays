@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Button from "../Buttons/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContextPrueba";
 import ProfileButton from '../Buttons/ProfileButton';
 
 const Nav = () => {

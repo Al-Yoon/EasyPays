@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContextPrueba";
 import LogoutConfirmationButton from '../Buttons/LogoutConfirmationButton';
 
 export default function ProfileButton() {

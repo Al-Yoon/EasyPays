@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../AuthContextPrueba';
 
 const style = {
     position: 'absolute',

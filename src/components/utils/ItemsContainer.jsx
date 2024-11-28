@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import Item from "./Item";
 import { REDESSOCIALES, NAVEGACION, CONTACTANOS } from "./Menus";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./AuthContextPrueba";
 
 const ItemsContainer = () => {
   const { isAuthenticated } = useContext(AuthContext);

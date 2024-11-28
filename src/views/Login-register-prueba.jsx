@@ -1,38 +1,23 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as Components from '../components/utils/Form/Components';
-import { AuthContext } from '../components/utils/AuthContext';
+import { AuthContext } from '../components/utils/AuthContextPrueba';
 import "../components/utils/Form/Components";
-import loginApi from "../api/login.api";
+import login from "../api/login.api";
 
 function LoginRegisterPrueba() {
-    const { login, register } = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { register } = useContext(AuthContext);
 
     const [signIn, toggle] = useState(true);
-    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    const [formData, setFormData] = useState({ nombre: '', email: '', contrasenia: '' });
     //Manejar los estados
-    const[email,setEmail] = useState('');
-    const[password,setPassword] = useState('');
+    
     const[name,setName] = useState('');
     const[error, setError] = useState(null);
 
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState('');
     const [loginError, setLoginError] = useState('');
-
-    //Los handlers
-    const handleNameChange = (e) =>{
-        setEmail(e.target.value); //lo pisa con el nuevo valor
-    }
-
-    const handleEmailChange = (e) =>{
-        setEmail(e.target.value); //lo pisa con el nuevo valor
-    }
-
-    const handlePasswordChange = (e) =>{
-        setEmail(e.target.value);
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,32 +26,70 @@ function LoginRegisterPrueba() {
 
     const validateForm = () => {
         let formErrors = {};
-        if (!email && !signIn) {
-            email = "Email es obligatorio";
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            email = "Email no es válido";
+        if (!formData.nombre && !signIn) formErrors.nombre = "Nombre es obligatorio";
+        if (!formData.email) {
+            formErrors.email = "Email es obligatorio";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            formErrors.email = "Email no es válido";
         }
-        if (!password)
-            password = "Contraseña es obligatoria";
+        if (!formData.contrasenia) formErrors.contrasenia = "Contraseña es obligatoria";
         setErrors(formErrors);
         return Object.keys(formErrors).length === 0;
     };
 
     //llamada a endpoint de login
-    const handleSubmit =async (e) =>{
-        e.preventDefault();
-        //llamada a endpoint de login
-        let response = await login(email,password);
-        console.log(response);
-        console.log("Token guardado en SessionStorage");
-        if(response.status === 200){
-            sessionStorage.setItem("access-token",response.token); //guardamos en el sessionStorage el token de ese user- key:value
-            navigate("/userpanel");
-        } else{
-            setError(response.message);
+    const Login =() =>{
+        const[email,setEmail] = useState('');
+        const[password,setPassword] = useState('');
+        const { loginSuccess } = useContext(AuthContext);
+        const navigate = useNavigate();
+        const handleLogin = async(e) =>{
+            e.preventDefault();
+            let response = await login(email,password);
+            console.log(response);
+            console.log("Token guardado en SessionStorage");
+            if(response.status === 200){
+                const token = response.token;
+                sessionStorage.setItem("access-token",response.token); //guardamos en el sessionStorage el token de ese user- key:value
+                loginSuccess(token);
+                navigate("/userpanel");
+            } else{
+                setError(response.message);
+            }
         }
-    }
-    
+        }
+
+        const Register =()=>{
+            const {register,login} = useContext(AuthContext);
+            const [name, setName] = useState("");
+            const [email, setMail] = useState("");
+            const [password, setPass] = useState("");
+        
+            const navigate = useNavigate(); 
+        
+            const handleRegister = () => {
+                if(validateForm){
+                    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+                    const userExists = existingUsers.some(user => user.email === email);
+                    if(userExists){
+                        console.log("User already exists")
+                    } else{
+                        const newUser = {
+                            nombre: name,
+                            email: email,
+                            contrasenia: password,
+                        };
+                        registrar(newUser);
+                        /*register(newUser);
+                        login(mail,pass);
+                        navigate("/board");*/
+                    }
+                }else{
+                    setOpenError(true);
+                }
+            };
+
+
     return (
         <div className="flex flex-auto justify-center">
             <Components.Container style={{display:"flex", flexWrap:"wrap", justifycontent: "center", 
@@ -159,6 +182,6 @@ function LoginRegisterPrueba() {
             </Components.Container>
         </div>
     )
-}
+}}
 
 export default LoginRegisterPrueba;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import * as Components from '../components/utils/Form/Components';
-import { AuthContext } from '../components/utils/AuthContext';
+import { AuthContext } from '../components/utils/AuthContextPrueba';
 import "../components/utils/Form/Components";
 
 function LoginRegister() {
