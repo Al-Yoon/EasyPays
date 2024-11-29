@@ -4,22 +4,26 @@ import UserPic from "../components/Assets/user-avatar.svg";
 import DeleteUserButton from "../components/utils/Buttons/DeleteUserButton";
 import TicketsHistoryTable from "../components/utils/Table/TicketsHistoryTable";
 import { AuthContext } from "../components/utils/AuthContextPrueba";
+import getTickets from '../api/tickets.api';
 
-const ticketsData = [
-    { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000 },
-    { ticketId: 2, name: "Bayside", date: "05/12/2024", total: 87000 },
-    { ticketId: 3, name: "Cine", date: "02/12/2024", total: 9000 },
-    { ticketId: 4, name: "Bodegon", date: "22/12/2024", total: 5500 },
-];
 
 const UserPanel = () => {
     const { user, updateUser } = useContext(AuthContext);
     const [userData] = useState({
-        user: user.user,
-        name: user.name,
-        lastName: user.lastName,
-        mail: user.mail,
+        nombre: user.nombre,
+        apellido: user.apeliido,
+        email: user.email
     });
+
+    //Tickets
+    const [tickets, setTickets] = useState([]);
+    console.log("Me traigo el token una vez que estoy logeado")
+    const accessToken = sessionStorage.getItem('access-token')
+
+    useEffect(() => {
+    console.log("Pido la lista de productos con mi token de sesion")
+    getTickets(accessToken,setTickets);
+    }, [setTickets,accessToken]);
 
     const [tempUserData, setTempUserData] = useState(userData);
     const [open, setOpen] = useState(false);
@@ -38,7 +42,6 @@ const UserPanel = () => {
                 console.error("Error al obtener los datos del usuario:", error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -60,16 +63,14 @@ const UserPanel = () => {
 
     const handleSave = () => {
         if (
-            tempUserData.user &&
-            tempUserData.name &&
-            tempUserData.lastName &&
-            validarMail(tempUserData.mail) &&
-            tempUserData.pass
+            tempUserData.nombre &&
+            tempUserData.apeliido &&
+            validarMail(tempUserData.email)
         ) {
             updateUser(tempUserData);
             setOpen(false);
         } else {
-            alert("Error: Verifique los campos.");
+            alert("Error: Check the fields.");
         }
     };
 
@@ -82,12 +83,12 @@ const UserPanel = () => {
                     <div className="w-[full] h-[550px] shadow-2xl flex flex-col p-4 md:my-0 rounded-lg justify-center">
                         <img className="w-20 mx-auto" src={UserPic} alt="/" />
                         <h2 className="text-2xl font-bold text-center pt-8 ">
-                            Usuario: {user.name}
+                            Usuario: {user.nombre}
                         </h2>
                         <div className="text-center font-medium">
-                            <p className="py-2 my-5">Nombre: {user.name}</p>
+                            <p className="py-2 my-5">Nombre: {user.nombre}</p>
                             <p className="py-2 my-5">
-                                Apellido: {user.lastName || "Apellido"}
+                                Apellido: {user.apeliido || "Apellido"}
                             </p>
                             <p className="py-2 my-5">Email: {user.email}</p>
                         </div>
@@ -130,7 +131,7 @@ const UserPanel = () => {
                 <div className="w-full py-10 px-4 mt-10">
                     <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Historial de</p>
                     <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Tickets</h1>
-                    <TicketsHistoryTable data={ticketsData} />
+                    <TicketsHistoryTable data={tickets} />
                 </div>
             </div>
         )

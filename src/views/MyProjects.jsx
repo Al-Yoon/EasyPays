@@ -10,14 +10,17 @@ const MyProjects = () => {
     const initialProjects = [
         { name: "Finde Pasado", description: "Finde Pasado", date: "9/18/2024", slug: "proyecto-finde-pasado" }
     ];
+
     const [projects, setProjects] = useState(() => {
         const savedProjects = JSON.parse(localStorage.getItem('projects'));
         return savedProjects || initialProjects;
     });
+
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
         return savedBalance ? parseFloat(savedBalance) : 0;
     });
+    
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
 

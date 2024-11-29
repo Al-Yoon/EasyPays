@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (token,user) => {
-
         sessionStorage.setItem("access-token", token);
         const decoded = jwtDecode(token);
         setUser(decoded); // Actualiza la información del usuario

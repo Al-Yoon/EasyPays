@@ -1,26 +1,24 @@
-const register = async(name,email,password) =>{
+const register = async(user) => {
     var myHeaders = new Headers();
+
     myHeaders.append("Content-Type", "application/json");
 
-    //armado del body
     var raw = JSON.stringify({
-        "name": name,
-        "email": email,
-        "password": password
+    "nombre": user.nombre,
+    "email": user.email,
+    "password": user.contrasenia,
+    "saldo": user.saldo
     });
 
-    //le pego al endpoint con esye post
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
     };
-
-    let response = await fetch("http://localhost:8080/api/users/register",requestOptions);//endpoint
+    let response = await fetch("http://localhost:8080/api/users/", requestOptions);
     let jsonData = await response.json();
-
-    return jsonData; //response en un json
+    return jsonData;
 }
 
 export default register;
