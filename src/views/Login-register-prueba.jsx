@@ -129,7 +129,7 @@ function LoginRegisterPrueba() {
                     </Components.Form>
                 </Components.SignUpContainer>
 
-                <Components.SignInContainer signinIn={signIn}>
+                <Components.SignInContainer signinIn={signin}>
                     <Components.Form onSubmit={handleLogin}>  {/* cdo se hace el submit se dispara el login */}
                         <Components.Title>Iniciar Sesión</Components.Title>
                         <Components.Input 
@@ -150,9 +150,9 @@ function LoginRegisterPrueba() {
                         <Components.Button className="text-black" type="submit">Iniciar Sesión</Components.Button>
                     </Components.Form>
                 </Components.SignInContainer>
-                <Components.OverlayContainer signinIn={signIn}>
-                    <Components.Overlay signinIn={signIn}>
-                    <Components.LeftOverlayPanel signinIn={signIn}>
+                <Components.OverlayContainer signinIn={signin}>
+                    <Components.Overlay signinIn={signin}>
+                    <Components.LeftOverlayPanel signinIn={signin}>
                         <Components.Title>Bienvenido!</Components.Title>
                         <Components.Paragraph>
                             Para mantenerse en contacto con nosotros por favor inicie sesión en su cuenta
@@ -161,7 +161,7 @@ function LoginRegisterPrueba() {
                             Iniciar Sesión
                         </Components.GhostButton>
                         </Components.LeftOverlayPanel>
-                        <Components.RightOverlayPanel signinIn={signIn}>
+                        <Components.RightOverlayPanel signinIn={signin}>
                         <Components.Title>Bienvenido amigo!</Components.Title>
                         <Components.Paragraph>
                             Ingrese tus datos y comienza a utilizar la aplicación
