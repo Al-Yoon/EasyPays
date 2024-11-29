@@ -25,7 +25,7 @@ const App = () => {
             <Route path="projects/:projectSlug" element={<Projects />} />
             <Route path="newprojects/:projectSlug" element={<NewProject />} />
             <Route path="userpanel" element={<UserPanel />} />
-            <Route path="error404" element={<Error />} />
+            <Route path="*" element={<Error />} />
           </Route>
         </Routes>
       </Router>

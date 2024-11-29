@@ -4,10 +4,11 @@ const register = async(user) => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-    "nombre": user.nombre,
-    "email": user.email,
-    "password": user.contrasenia,
-    "saldo": user.saldo
+        "nombre": user.nombre,
+        "apellido": user.apellido,
+        "email": user.email,
+        "contrasenia": user.contrasenia,
+        "saldo": user.saldo
     });
 
     var requestOptions = {

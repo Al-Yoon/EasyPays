@@ -1,12 +1,19 @@
-// src/components/Body/TicketsHistoryTable.jsx
-import { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { CSVLink } from 'react-csv';
 import getTickets from '../api/tickets.api';
 
+const TicketsHistoryTable = () => {
+    const [tickets, setTickets] = useState([]);
+    console.log("Me traigo el token una vez que estoy logeado");
+    const accessToken = sessionStorage.getItem('access-token');
 
-    const columns = ({tickets}) => ([
+    useEffect(() => {
+        console.log("Pido la lista de tickets con mi token de sesión");
+        getTickets(setTickets);
+    }, []);
+
+    const columns = [
         {
             name: "Ticket ID",
             selector: row => row.id,
@@ -14,48 +21,38 @@ import getTickets from '../api/tickets.api';
         },
         {
             name: "Descripción",
-            selector: row => row.name,
+            selector: row => row.descripcion,
             sortable: true,
         },
         {
             name: "Fecha",
-            selector: row => row.date,
+            selector: row => row.fecha,
             sortable: true,
         },
         {
             name: "Monto",
-            selector: row => row.total,
+            selector: row => row.monto,
             sortable: true,
         },
         {
             name: "Proyecto",
-            selector: () => "Proyecto Finde Pasado", // Agregar la columna de Proyecto
+            selector: row => row.project.nombre, // Agregar la columna de Proyecto
             sortable: true,
         }
-    ]);
+    ];
 
-    const csvData = ({tickets}) => (tickets.map(ticket => ({
+    const csvData = tickets.map(ticket => ({
         ...ticket,
-    })));
-
-function TicketsHistoryTable() {
-
-    const [tickets, setTickets] = useState([]);
-    console.log("Me traigo el token una vez que estoy logeado")
-    const accessToken = sessionStorage.getItem('access-token')
-    
-    useEffect(() => {
-        console.log("Pido la lista de productos con mi token de sesion")
-        getTickets(accessToken,setTickets);
-    }, [setTickets,accessToken]);
+        project: ticket.project.nombre
+    }));
 
     return (
         <div>
             <DataTable 
                 columns={columns} 
-                data=
-                {tickets.map(ticket => ({
-                    ...ticket
+                data={tickets.map(ticket => ({
+                    ...ticket,
+                    project: ticket.project.nombre
                 }))} 
                 noHeader 
                 pagination 

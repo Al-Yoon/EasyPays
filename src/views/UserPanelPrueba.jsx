@@ -5,49 +5,42 @@ import DeleteUserButton from "../components/utils/Buttons/DeleteUserButton";
 import TicketsHistoryTable from "../components/utils/Table/TicketsHistoryTable";
 import { AuthContext } from "../components/utils/AuthContextPrueba";
 import getTickets from '../api/tickets.api';
-
+import { useNavigate } from 'react-router-dom';
 
 const UserPanel = () => {
-    const { user, updateUser } = useContext(AuthContext);
-    const [userData] = useState({
-        nombre: user.nombre,
-        apellido: user.apeliido,
-        email: user.email
-    });
-
-    //Tickets
-    const [tickets, setTickets] = useState([]);
-    console.log("Me traigo el token una vez que estoy logeado")
-    const accessToken = sessionStorage.getItem('access-token')
-
-    useEffect(() => {
-    console.log("Pido la lista de productos con mi token de sesion")
-    getTickets(accessToken,setTickets);
-    }, [setTickets,accessToken]);
-
-    const [tempUserData, setTempUserData] = useState(userData);
-    const [open, setOpen] = useState(false);
+    const { user, updateUser, logout, deleteUser } = useContext(AuthContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const navigate = useNavigate();
+
+    const [tickets, setTickets] = useState([]);
+    console.log("Me traigo el token una vez que estoy logeado");
+    const accessToken = sessionStorage.getItem('access-token');
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("http://localhost:8080/api/users/", {
-                    method: "GET",
-                    headers: {"Content-Type": "application/json"}
-                });
-                const jsonData = await response.json();
-                console.log(jsonData);
-            } catch (error) {
-                console.error("Error al obtener los datos del usuario:", error);
-            }
-        };
-        fetchData();
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
+
+    useEffect(() => {
+        console.log("Pido la lista de tickets con mi token de sesión");
+        getTickets(setTickets);
     }, []);
+
+    const [tempUserData, setTempUserData] = useState({
+        nombre: user?.nombre || '',
+        apellido: user?.apellido || '',
+        email: user?.email || ''
+    });
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
-        setTempUserData(userData);
+        setTempUserData({
+            nombre: user.nombre,
+            apellido: user.apellido,
+            email: user.email
+        });
     };
 
     const handleClose = () => {
@@ -64,7 +57,7 @@ const UserPanel = () => {
     const handleSave = () => {
         if (
             tempUserData.nombre &&
-            tempUserData.apeliido &&
+            tempUserData.apellido &&
             validarMail(tempUserData.email)
         ) {
             updateUser(tempUserData);
@@ -72,6 +65,12 @@ const UserPanel = () => {
         } else {
             alert("Error: Check the fields.");
         }
+    };
+
+    const handleDeleteUser = () => {
+        deleteUser(user.email);
+        logout();
+        navigate('/login');
     };
 
     return (
@@ -88,7 +87,7 @@ const UserPanel = () => {
                         <div className="text-center font-medium">
                             <p className="py-2 my-5">Nombre: {user.nombre}</p>
                             <p className="py-2 my-5">
-                                Apellido: {user.apeliido || "Apellido"}
+                                Apellido: {user.apellido || "Apellido"}
                             </p>
                             <p className="py-2 my-5">Email: {user.email}</p>
                         </div>
@@ -123,7 +122,7 @@ const UserPanel = () => {
                 </div>
                 {showDeleteModal && (
                     <DeleteUserButton
-                        onDelete={() => console.log("Usuario eliminado.")}
+                        onDelete={handleDeleteUser}
                         onCancel={() => setShowDeleteModal(false)}
                     />
                 )}
