@@ -1,10 +1,11 @@
+import jwt_decode from 'jwt-decode';
+
 const getProjects = async(setProjects) => {
-    console.log("Obtenemos el token de la sesión una vez logueado");
     const accessToken = sessionStorage.getItem('access-token');
 
     var myHeaders = new Headers();
-    myHeaders.append("jwt", accessToken); // pasamos la key del accessToken
-    myHeaders.append("Content-Type", "application/json"); // ponemos el valor del token como header
+    myHeaders.append("Authorization", `Bearer ${accessToken}`); // Incluye el token JWT en el encabezado
+    myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
         method: 'GET',

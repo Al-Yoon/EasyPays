@@ -31,46 +31,50 @@ function LoginRegister() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-            const userExists = existingUsers.some(user => user.email === formData.email);
-
-            if (userExists) {
-                setErrors({ email: "El email ya está registrado" });
-            } else {
-                const newUser = {
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                };
-                register(newUser);
+            const newUser = {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+            };
+            try {
+                await register(newUser);
                 setSuccessMessage("Registro exitoso. Ahora puedes iniciar sesión.");
                 setFormData({ name: '', email: '', password: '' });
                 toggle(true);
-                navigate('/login'); 
+            } catch (error) {
+                console.error("Error en el registro:", error);
+                setErrors({ general: "Error en el servidor" });
             }
         }
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            const success = login(formData.email, formData.password);
-            if (success) {
-                navigate('/userpanel'); 
-            } else {
-                setLoginError("Email o contraseña incorrectos");
+            const user = {
+                email: formData.email,
+                password: formData.password,
+            };
+            try {
+                const response = await login(user);
+                if (response.status === 200) {
+                    navigate('/userpanel');
+                } else {
+                    setLoginError("Email o contraseña incorrectos");
+                }
+            } catch (error) {
+                console.error("Error en el login:", error);
+                setLoginError("Error en el servidor");
             }
         }
     };
 
     return (
         <div className="flex flex-auto justify-center">
-            <Components.Container style={{display:"flex", flexWrap:"wrap", justifycontent: "center", 
-                                            alignitems: "center", flexdirection: "column", fontfamily: "bold", marginBottom: "10rem", marginTop: "10rem", height:"70vh", width:"90vh"}}>
-
+            <Components.Container style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", flexDirection: "column", fontFamily: "bold", marginBottom: "10rem", marginTop: "10rem", height: "70vh", width: "90vh" }}>
                 <Components.SignUpContainer signinIn={signIn}>
                     <Components.Form onSubmit={handleRegister}>
                         <Components.Title>Crear Cuenta</Components.Title>
@@ -113,6 +117,7 @@ function LoginRegister() {
                             value={formData.email} 
                             onChange={handleChange} 
                         />
+                        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
                         <Components.Input 
                             type='password' 
                             placeholder='Contraseña' 
@@ -120,6 +125,7 @@ function LoginRegister() {
                             value={formData.password} 
                             onChange={handleChange} 
                         />
+                        {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                         {loginError && <p className="text-red-500 text-xs">{loginError}</p>}
                         <Components.Button className="text-black" type="submit">Iniciar Sesión</Components.Button>
                     </Components.Form>
@@ -127,30 +133,27 @@ function LoginRegister() {
 
                 <Components.OverlayContainer signinIn={signIn}>
                     <Components.Overlay signinIn={signIn}>
-
-                    <Components.LeftOverlayPanel signinIn={signIn}>
-                        <Components.Title>Bienvenido!</Components.Title>
-                        <Components.Paragraph>
-                            Para mantenerse en contacto con nosotros por favor inicie sesión en su cuenta
-                        </Components.Paragraph>
-                        <Components.GhostButton onClick={() => toggle(true)}>
-                            Iniciar Sesión
-                        </Components.GhostButton>
+                        <Components.LeftOverlayPanel signinIn={signIn}>
+                            <Components.Title>Bienvenido!</Components.Title>
+                            <Components.Paragraph>
+                                Para mantenerse en contacto con nosotros por favor inicie sesión en su cuenta
+                            </Components.Paragraph>
+                            <Components.GhostButton onClick={() => toggle(true)}>
+                                Iniciar Sesión
+                            </Components.GhostButton>
                         </Components.LeftOverlayPanel>
 
                         <Components.RightOverlayPanel signinIn={signIn}>
-                        <Components.Title>Bienvenido amigo!</Components.Title>
-                        <Components.Paragraph>
-                            Ingrese tus datos y comienza a utilizar la aplicación
-                        </Components.Paragraph>
+                            <Components.Title>Bienvenido amigo!</Components.Title>
+                            <Components.Paragraph>
+                                Ingrese tus datos y comienza a utilizar la aplicación
+                            </Components.Paragraph>
                             <Components.GhostButton onClick={() => toggle(false)}>
                                 Registro
-                            </Components.GhostButton> 
+                            </Components.GhostButton>
                         </Components.RightOverlayPanel>
-
                     </Components.Overlay>
                 </Components.OverlayContainer>
-
             </Components.Container>
         </div>
     )
