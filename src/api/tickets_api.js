@@ -1,19 +1,19 @@
-const getTickets = async(setTickets) =>{
+const getTickets = async(setTickets) => {
     console.log("Obtenemos el token de la sesión una vez logueado");
     const accessToken = sessionStorage.getItem('access-token');
 
     var myHeaders = new Headers();
-    myHeaders.append("jwt",accessToken); //pasamos la key del acccesstoken
-    myHeaders.append("Content-Type","application/json"); //ponermos el valor del token como header
+    myHeaders.append("jwt", accessToken); // pasamos la key del accessToken
+    myHeaders.append("Content-Type", "application/json"); // ponemos el valor del token como header
 
-    var requestOptions ={
+    var requestOptions = {
         method: 'GET',
-        Headers: myHeaders,
+        headers: myHeaders,
         redirect: 'follow',
         mode: 'cors'
     };
 
-    let response = await fetch("http://localhost:8080/api/tickets/",requestOptions);
+    let response = await fetch("http://localhost:8080/api/tickets/", requestOptions);
     let jsonData = await response.json();
     setTickets(jsonData);
     console.log(jsonData);

@@ -30,7 +30,7 @@ const Nav = () => {
             <ul className='hidden md:flex items-center gap-3'>
                 <Link to="/nosotros"><li className='p-4'>Nosotros</li></Link>
                 <li className='p-4 cursor-pointer' onClick={handleServiceClick}>Servicios</li>
-                <Link to="/myprojects"><li className='p-4'>Proyectos</li></Link>
+                {isAuthenticated && <Link to="/myprojects"><li className='p-4'>Proyectos</li></Link>}
                 {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='flex justify-center items-center p-4'><Button>Ingresa</Button></li></Link>)}
             </ul>
 
@@ -42,7 +42,7 @@ const Nav = () => {
                 <Link to="/"><h1 className='w-full text-3xl font-bold text-[#38bdf8] m-4'>EasyPays.</h1></Link>
                 <Link to="/nosotros"><li className='p-4 border-b border-gray-600'>Nosotros</li></Link>
                 <li className='p-4 border-b border-gray-600 cursor-pointer' onClick={handleServiceClick}>Servicios</li>
-                <Link to="/myprojects"><li className='p-4 border-b border-gray-600'>Proyectos</li></Link>
+                {isAuthenticated && <Link to="/myprojects"><li className='p-4 border-b border-gray-600'>Proyectos</li></Link>}
                 {isAuthenticated ? (<ProfileButton />) : (<Link to="/login"><li className='p-4'><Button>Ingresa</Button></li></Link>)}
             </ul>
         </div>

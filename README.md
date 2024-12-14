@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# EasyPays
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EasyPays es una aplicación web para gestionar y dividir gastos de manera sencilla y eficiente. Esta guía te ayudará a configurar y ejecutar el proyecto tanto para el backend como para el frontend.
 
-## Available Scripts
+## Prerrequisitos
 
-In the project directory, you can run:
+- Node.js (v14 o superior)
+- npm (v6 o superior)
+- MySQL (v5.7 o superior)
 
-### `npm start`
+## Clonar el Repositorio
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Primero, clona el repositorio desde GitHub:
+(BACKEND)
+https://github.com/loveonick/backendEasyPays
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+(FRONTEND)
+https://github.com/Al-Yoon/EasyPays.git
 
-### `npm test`
+git clone
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Configuración del Backend
 
-### `npm run build`
+### 1. Navegar a la Carpeta del Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+sh cd backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Instalar Dependencias
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+sh npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Configurar Variables de Entorno
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Crea un archivo `.env` en la carpeta `backend` con las siguientes variables de entorno. Asegúrate de cambiar las configuraciones según tu servidor MySQL y tus claves API:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+env
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+DB
+PORT=3306 DB_NAME=easypays DB_USERNAME=root DB_PASSWORD=your_mysql_password
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Resend
+RESEND_API_KEY=your_resend_api_key
 
-### Code Splitting
+Cloudinary
+CLOUD_NAME=your_cloud_name CLOUDINARY_API_KEY=your_cloudinary_api_key CLOUDINARY_SECRET=your_cloudinary_secret
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Auth
+SALT=some_random_salt_value_for_bcrypt
 
-### Analyzing the Bundle Size
+Jwt
+PRIVATE_KEY=your_private_key
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 4. Crear la Base de Datos
 
-### Making a Progressive Web App
+Asegúrate de que tienes una base de datos MySQL corriendo y crea una base de datos llamada `easypays` (o el nombre que hayas especificado en tu archivo `.env`):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+sql CREATE DATABASE easypays;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 5. Iniciar el Servidor del Backend
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+sh npm start
 
-### `npm run build` fails to minify
+Esto iniciará el servidor del backend en el puerto 8080 (o el puerto especificado en tu archivo `.env`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Luego de que se inicie el backend y se creen las tablas, abrir el archivo queriesPruebas e ir creando en MySQL algunas tablas dentro del servidor.
+
+Ahora con eso se pueden probar los endpoints en postman. El link es este:
+
+https://easypays-5691.postman.co/workspace/be740b79-bf54-4938-b627-edc8d035f242/overview
+
+## Configuración del Frontend
+
+### 1. Navegar a la Carpeta del Frontend
+
+Abre una nueva terminal y navega a la carpeta del frontend:
+
+
+sh cd ../frontend
+
+### 2. Instalar Dependencias
+
+
+sh npm install
+
+### 3. Iniciar el Servidor de Desarrollo del Frontend
+
+
+sh npm start
+
+Esto iniciará el servidor de desarrollo del frontend en `http://localhost:3000`.
+
+## Verificación
+
+1. **Asegúrate de que ambos servidores están corriendo**:
+   - El backend debería estar corriendo en `http://localhost:8080`.
+   - El frontend debería estar corriendo en `http://localhost:3000`.
+
+2. **Probar la Aplicación**:
+   - Abre tu navegador y navega a `http://localhost:3000`.
+   - Intenta registrarte, iniciar sesión, crear proyectos, y cargar tickets.

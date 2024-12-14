@@ -4,10 +4,11 @@ const register = async(user) => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-    "nombre": user.nombre,
-    "email": user.email,
-    "password": user.contrasenia,
-    "saldo": user.saldo
+        "nombre": user.name,
+        "apellido": '',
+        "email": user.email,
+        "contrasenia": user.password,
+        "saldo": 0
     });
 
     var requestOptions = {
@@ -16,7 +17,7 @@ const register = async(user) => {
         body: raw,
         redirect: 'follow'
     };
-    let response = await fetch("http://localhost:8080/api/users/", requestOptions);
+    let response = await fetch("http://localhost:8080/api/login/register/", requestOptions);
     let jsonData = await response.json();
     return jsonData;
 }
