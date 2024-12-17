@@ -5,7 +5,6 @@ const register = async(user) => {
 
     var raw = JSON.stringify({
         "nombre": user.name,
-        "apellido": '',
         "email": user.email,
         "contrasenia": user.password,
         "saldo": 0

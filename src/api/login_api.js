@@ -1,5 +1,3 @@
-import { jwtDecode } from "jwt-decode"; // Importación correcta
-
 const login = async (user) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -22,7 +20,7 @@ const login = async (user) => {
   if (response.status === 200) {
     const token = jsonData.token;
     
-    return { token };
+    return jsonData;
   } else {
     throw new Error(jsonData.message);
   }

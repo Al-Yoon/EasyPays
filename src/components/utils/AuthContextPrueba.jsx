@@ -23,12 +23,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (user) => {
-    const token = await loginUser(user);
-    sessionStorage.setItem("access-token", token);
-    const decoded = jwtDecode(token); // Usar jwt_decode
-    setUser(decoded);
-    setIsAuthenticated(true);
+    const response = await loginUser(user);
+    console.log(response);
+      sessionStorage.setItem("access-token", response.token);
+      const decoded = jwtDecode(response.token);
+      localStorage.setItem("user",JSON.stringify(decoded));
+      setUser(decoded); // Actualiza la información del usuario
+      setIsAuthenticated(true); // Actualiza el estado de autenticación
+      return response
   };
+  
 
   const logout = () => {
     sessionStorage.removeItem('access-token');
