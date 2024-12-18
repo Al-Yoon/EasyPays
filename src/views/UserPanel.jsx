@@ -5,35 +5,58 @@ import UserPic from '../components/Assets/user-avatar.svg';
 import DeleteUserButton from '../components/utils/Buttons/DeleteUserButton';
 import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContextPrueba";
+import {getUser, updateUser } from "../api/profile_api"
 
 const ticketsData = [
-    { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000 },
-    { ticketId: 2, name: "Bayside", date: "05/12/2024", total: 87000 },
-    { ticketId: 3, name: "Cine", date: "02/12/2024", total: 9000 },
-    { ticketId: 4, name: "Bodegon", date: "22/12/2024", total: 5500 },
+    
 ];
 
 const UserPanel = () => {
-    const { user, updateUser, logout, deleteUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
+    const [tempUserData, setTempUserData] = React.useState({});
+    const [perfil, setPerfil] = React.useState({});
+    
+    React.useEffect(() => {
+        if(user){
+            getUser(user.id,setPerfil);
+        }
+    },[user,setPerfil]);
 
     useEffect(() => {
         if (!user) {
-            navigate('/login');
+            navigate('/');
         }
     }, [user, navigate]);
 
-    const handleUserUpdate = (updatedUser) => {
-        updateUser(updatedUser);
+    
+
+    function validarMail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    const handleChange = (e) => {
+        const { nombre, value } = e.target;
+        setTempUserData((prevTempUserData) => ({
+            ...prevTempUserData,
+            [nombre]: value
+        }));
     };
 
-    const handleDeleteUser = () => {
-        if (user && user.email) {
-            deleteUser(user.email);
+
+    const handleUserUpdate = async () => {
+        if(tempUserData.user !== "" && validarMail(tempUserData.mail) && tempUserData.pass !== ""){
+            const userData = {
+                username:tempUserData.user,
+                email:tempUserData.mail,
+                password:tempUserData.pass
+            };
+            const updatedProfile = await updateUser(user.id,userData);
+            console.log(updatedProfile);
+            setPerfil(updatedProfile);
         }
-        logout();
-        navigate('/login');
     };
 
     return (
@@ -42,6 +65,13 @@ const UserPanel = () => {
                 <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Mi</p>
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Usuario</h1>
                 <div className="max-w-auto mx-auto grid md:grid-cols-3 gap-8 pl-5 pr-5">
+
+                    <div className="w-full h-[550px] shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg justify-center">
+                            <p className='text-center text-2xl font-bold'>Modificar Usuario</p>
+                            <button className='bg-[#299ad78d] hover:text-white w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'>
+                                <ModalUser userData={perfil} onUpdateUser={handleUserUpdate} onChange={handleChange}/>
+                            </button>
+                        </div>
                     
                     <div className="w-[full] h-[550px] shadow-2xl flex flex-col p-4 md:my-0 rounded-lg justify-center">
                         <img className='w-20 mx-auto' src={UserPic} alt="/"/>
@@ -52,29 +82,13 @@ const UserPanel = () => {
                         </div>
                     </div>
 
-                    <div className="w-full h-[30vh] shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg justify-center">
-                        <p className='text-center text-2xl font-bold'>Modificar Usuario</p>
-                        <button className='bg-[#299ad78d] hover:text-white w-2/3 rounded-md font-medium my-6 mx-auto px-auto py-3'>
-                            <ModalUser userData={user} onUpdateUser={handleUserUpdate}/>
-                        </button>
-                    </div>
-
-                    <div className="w-full h-[30vh] shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg justify-center">
+                    <div className="w-full h-[550px] shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg justify-center">
                         <p className='text-center text-2xl font-bold'>Eliminar Usuario</p>
-                        <button
-                            className='bg-[#aa3d2aa4] text-[#a03a3a] hover:text-white w-2/3 rounded-md font-medium my-6 mx-auto px-6  h-[60px] font-sans uppercase pb-1'
-                            onClick={() => setShowDeleteModal(true)}
-                        >
-                            Eliminar
-                        </button>
+                        <button className='bg-[#aa3d2aa4] text-[#a03a3a] hover:text-white w-2/3 rounded-md font-medium my-6 mx-auto px-6  h-[60px] font-sans uppercase pb-1' onClick={() => setShowDeleteModal(true)}>Eliminar</button>
                     </div>
                 </div>
-                {showDeleteModal && (
-                    <DeleteUserButton
-                        onDelete={handleDeleteUser}
-                        onCancel={() => setShowDeleteModal(false)}
-                    />
-                )}
+
+                {showDeleteModal && (<DeleteUserButton onCancel={() => setShowDeleteModal(false)}/>)}
 
                 <div className="w-full py-10 px-4 mt-10">
                     <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Historial de</p>

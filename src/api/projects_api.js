@@ -1,5 +1,3 @@
-import jwt_decode from 'jwt-decode';
-
 const getProjects = async(setProjects) => {
     const accessToken = sessionStorage.getItem('access-token');
 

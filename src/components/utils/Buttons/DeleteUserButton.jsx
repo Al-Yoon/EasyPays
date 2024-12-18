@@ -1,6 +1,25 @@
+import {deleteUser} from "../../../api/profile_api"
+import { AuthContext } from "../AuthContextPrueba";
 import React from 'react';
+import { Link } from "react-router-dom";
 
-const DeleteUserButton = ({ onDelete, onCancel }) => {
+
+const DeleteUserButton = ({ onClick,onCancel }) => {
+    const { user } = React.useContext(AuthContext); //datos del usuario logueado
+    const {logout} = React.useContext(AuthContext);
+    
+    const handleBorrar = async () => {
+        try{
+            const response = await deleteUser(user.id);
+            if(response.status===200){
+                logout();
+            }
+        }
+        catch(error) {
+            console.error('Error al eliminar el usuario:', error);
+        }
+    }
+
     return (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 relative">
@@ -15,16 +34,11 @@ const DeleteUserButton = ({ onDelete, onCancel }) => {
                         <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000" />
                     </svg>
                     <h4 className="text-gray-800 text-lg font-semibold mt-4">¿Estás seguro de que quieres eliminar el usuario?</h4>
-                    <p className="text-sm text-gray-600 mt-4">¡Esta acción no se puede deshacer!</p>
                 </div>
 
-                <div className="flex flex-col space-y-2">
-                    <button type="button" className="px-4 py-2 rounded-lg text-white text-sm tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500" onClick={onDelete}>
-                        Eliminar
-                    </button>
-                    <button type="button" className="px-4 py-2 rounded-lg text-gray-800 text-sm tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onClick={onCancel}>
-                        Cancelar
-                    </button>
+                <div className="flex flex-col items-center space-y-5 p-5">
+                    <Link to="/login"><button type="button" className="px-4 py-2 rounded-lg text-white text-sm tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500" onClick={handleBorrar}>Eliminar</button></Link>
+                    <button type="button" className="px-4 py-2 rounded-lg text-gray-800 text-sm tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onClick={onCancel}>Cancelar</button>
                 </div>
             </div>
         </div>
