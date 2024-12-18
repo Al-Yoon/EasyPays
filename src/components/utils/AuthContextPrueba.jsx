@@ -10,17 +10,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem('access-token');
-    if (token) {
-      try {
-        const decoded = jwtDecode(token); // Usar jwt_decode
-        setUser(decoded);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Token error", error);
-        logout();
-      }
+    const userData = localStorage.getItem("user");
+    if (token && userData) {
+        try{
+            const userObject = JSON.parse(userData);
+            setUser(userObject);
+            setIsAuthenticated(true);
+        } catch(error){
+            console.error("Error al decodificar el token",error);
+            logout();
+        }
     }
-  }, []);
+  }, 
+  []);
 
   const login = async (user) => {
     const response = await loginUser(user);
