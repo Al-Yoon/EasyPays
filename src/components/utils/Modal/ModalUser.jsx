@@ -9,6 +9,7 @@ import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
 import { AuthContext } from '../AuthContextPrueba';
 import { updateUser } from '../../../api/profile_api';
+import { Link } from "react-router-dom";
 
 const style = {
   position: 'absolute',
@@ -106,7 +107,7 @@ export default function ModalUser({ userData, onUpdateUser }) {
               </Typography>
               <Box
                 component="form"
-                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                sx={{ '& > :not(style)': { m: 1 } }}
                 noValidate
                 autoComplete="off"
                 onSubmit={(e) => {
@@ -114,8 +115,8 @@ export default function ModalUser({ userData, onUpdateUser }) {
                   handleSave();
                 }}
               >
-                <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
-                  Nombre:
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+                  Nombre
                 </Typography>
                 <Input
                   name="nombre"
@@ -125,8 +126,8 @@ export default function ModalUser({ userData, onUpdateUser }) {
                   onChange={handleChange}
                 />
 
-                <Typography variant="subtitle1" sx={{ textAlign: 'left', mt: 2 }}>
-                  Email:
+                <Typography variant="subtitle1" sx={{ textAlign: 'center', mt: 2 }}>
+                  Email
                 </Typography>
                 <Input
                   name="email"
@@ -137,8 +138,8 @@ export default function ModalUser({ userData, onUpdateUser }) {
                   onChange={handleChange}
                 />
 
-                <Typography variant="subtitle1" sx={{ textAlign: 'left', mt: 2 }}>
-                  Nueva Contraseña:
+                <Typography variant="subtitle1" sx={{ textAlign: 'center', mt: 2 }}>
+                  Nueva Contraseña
                 </Typography>
                 <Input
                   name="contrasenia"
@@ -155,14 +156,9 @@ export default function ModalUser({ userData, onUpdateUser }) {
                   </Typography>
                 )}
 
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 3, bgcolor: '#38bdf8', color: '#000' }}
-                  fullWidth
-                >
-                  Guardar Cambios
-                </Button>
+                <div className="flex flex-row items-center justify-center ">
+                <Link to="/login"><Button onClick={handleSave} type="submit" variant="contained" sx={{ mt: 3, bgcolor: '#38bdf8', color: '#000', width: '100%'}} fullWidth> Guardar Cambios </Button></Link>
+                </div>
               </Box>
             </div>
           </Box>

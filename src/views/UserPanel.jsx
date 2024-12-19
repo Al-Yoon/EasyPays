@@ -75,9 +75,8 @@ const UserPanel = () => {
                     
                     <div className="w-[full] h-[550px] shadow-2xl flex flex-col p-4 md:my-0 rounded-lg justify-center">
                         <img className='w-20 mx-auto' src={UserPic} alt="/"/>
-                        <h2 className='text-2xl font-bold text-center pt-8 '>Usuario: {user.name}</h2>
                         <div className='text-center font-medium'>
-                            <p className='py-2 my-5'>Nombre: {user.nombre}</p>
+                            <h2 className='text-2xl font-bold text-center pt-8'>Nombre: {user.nombre}</h2>
                             <p className='py-2 my-5'>Email: {user.email}</p>
                         </div>
                     </div>
