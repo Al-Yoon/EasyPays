@@ -17,13 +17,8 @@ const login = async (user) => {
   let response = await fetch("http://localhost:8080/api/login/signin", requestOptions);
   let jsonData = await response.json();
 
-  if (response.status === 200) {
-    const token = jsonData.token;
-    
+
     return jsonData;
-  } else {
-    throw new Error(jsonData.message);
-  }
 };
 
 export default login;
