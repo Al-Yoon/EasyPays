@@ -5,7 +5,7 @@ import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
 import DeleteButton from '../components/utils/Buttons/DeleteButton';
-import getProjects from '../api/projects.api'; // Integración
+import gerProjectByUserId from '../api/projects_api';
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
@@ -37,7 +37,7 @@ const Projects = () => {
     };
 
     const getTotalProjectAmount = () => {
-        return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
+        return projects.reduce((sum, project) => sum + getTotalAmount(project.total), 0);
     };
 
     const addProject = (newProject) => {
@@ -69,7 +69,7 @@ const Projects = () => {
             <div className='text-center font-medium'>
                 <p className='py-2 my-5'>{project.description}</p>
                 <p className='py-2 my-5'>{project.date}</p>
-                <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
+                <p className='py-2 my-5'>Gastado: {getTotalAmount(project.total)} $</p>
             </div>
             <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
                 Ver Proyecto
