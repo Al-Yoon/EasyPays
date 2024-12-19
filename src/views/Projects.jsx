@@ -1,71 +1,84 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation,useParams } from 'react-router-dom';
 import ModalTickets from "../components/utils/Modal/ModalTickets.jsx";
 import ModalMiembros from "../components/utils/Modal/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from '../components/utils/Table/TableUsers.jsx';
+import { getProject } from '../api/project_alone_api.js';
+import {getTicketsProject} from '../api/project_alone_api.js'; //Necesitamos esto para traer los tickets del proyecto
+import {getUsersByProject} from '../api/users_project.js'; //Necesitamos esto para traer los miembros del proyecto
 
 const Projects = () => {
-    const [tickets, setTickets] = useState([
-        { ticketId: 1, name: "Finde salida", date: "11/06/2024", total: 5000, image: null },
-        { ticketId: 2, name: "Bayside", date: "05/12/2024", total: 87000, image: null },
-        { ticketId: 3, name: "Cine", date: "02/12/2024", total: 9000, image: null },
-        { ticketId: 4, name: "Bodegon", date: "22/12/2024", total: 5500, image: null },
-    ]);
+    const [dataTickets, setDataTickets] = useState([]);
 
-    const [members, setMembers] = useState([
-        { userId: 1, firstName: "John", lastName: "Doe", email: "john.doe@example.com", percentage: 25 },
-        { userId: 2, firstName: "Jane", lastName: "Doe", email: "jane.doe@example.com", percentage: 25 },
-        { userId: 3, firstName: "Jim", lastName: "Beam", email: "jim.beam@example.com", percentage: 25 },
-        { userId: 4, firstName: "Jack", lastName: "Daniels", email: "jack.daniels@example.com", percentage: 25 },
-    ]);
+    const [dataMembers, setDataMembers] = useState([]);
 
     const [paidAmount, setPaidAmount] = useState(0);
 
+    const location = useLocation();
+
+    const project = location.state; 
+
+    const [projectName, setProjectName] = React.useState(project.nombre)
+
+    const { id } = useParams()
+
     useEffect(() => {
-        const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
+        const totalAmount = dataTickets.reduce((sum, ticket) => sum + ticket.total, 0);
         localStorage.setItem('totalAmountForProyecto-Finde-Pasado', JSON.stringify(totalAmount));
-    }, [tickets]);
+    }, [dataTickets]);
+
+    useEffect(() => {
+        const fetchData = async() =>{
+            await getProject(id,setProjectName);
+            const data = await getTicketsProject(id);
+            setDataTickets(data);
+            const responseMembers = await getUsersByProject(id);
+            setDataMembers(responseMembers)
+        };
+        fetchData();
+    },[id]);
 
     const addTicket = (newTicket) => {
-        const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
+        const existingTicket = dataTickets.find(ticket => ticket.ticketId === newTicket.ticketId);
         if (existingTicket) {
             return false;
         }
-        setTickets([...tickets, newTicket]);
+        setDataTickets([...dataTickets, newTicket]);
         return true;
     };
 
     const addMember = (newMember) => {
-        const existingMember = members.find(member => member.userId === newMember.userId);
+        const existingMember = dataMembers.find(member => member.userId === newMember.userId);
         if (existingMember) {
             return false;
         }
-        setMembers([...members, { ...newMember, percentage: 0 }]);
+        setDataMembers([...dataMembers, { ...newMember, percentage: 0 }]);
         return true;
     };
 
     const updatePercentage = (index, newPercentage) => {
-        const updatedMembers = [...members];
+        const updatedMembers = [...dataMembers];
         updatedMembers[index].percentage = newPercentage;
 
-        setMembers(updatedMembers);
+        setDataMembers(updatedMembers);
     };
 
     const handlePayment = (index, amount) => {
-        const updatedMembers = [...members];
+        const updatedMembers = [...dataMembers];
         updatedMembers[index].paid = true;
         setPaidAmount(prevPaidAmount => prevPaidAmount + parseFloat(amount));
-        setMembers(updatedMembers);
+        setDataMembers(updatedMembers);
     };
 
-    const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
+    const totalAmount = dataTickets.reduce((sum, ticket) => sum + ticket.total, 0);
     const remainingAmount = totalAmount - paidAmount;
 
     return (
         <div className="w-screen bg-white px-4 text-black py-[5rem]">
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto</p>
-            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Finde pasado</h1>
+            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectName}</h1>
             <div className="max-w-auto mx-auto pl-5 pr-5 ">
 
                 <div className="w-full shadow-2xl flex flex-col p-4 md:my-0 my-8 rounded-lg">
@@ -106,11 +119,11 @@ const Projects = () => {
 
                 <div>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4 font-bold">Tickets Seleccionados</p>
-                    <Table data={tickets} className="mx-auto"/>
+                    <Table data={dataTickets} className="mx-auto"/>
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10 font-bold">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember} />
                     <TableUsers 
-                        data={members} 
+                        data={dataMembers} 
                         updatePercentage={updatePercentage} 
                         totalAmount={totalAmount} 
                         handlePayment={handlePayment}/>

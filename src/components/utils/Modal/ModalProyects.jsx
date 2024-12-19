@@ -25,20 +25,20 @@ const ariaLabel = { 'aria-label': 'description' };
 
 const TransitionsModal = ({ addProject }) => {
     const [open, setOpen] = useState(false);
-    const [projectName, setProjectName] = useState("");
-    const [projectDescription, setProjectDescription] = useState("");
-    const [projectDate, setProjectDate] = useState("");
+    const [nombre, setProjectName] = useState("");
+    const [descripcion, setProjectDescription] = useState("");
+    const [fecha, setProjectDate] = useState("");
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (projectName.trim()) {
+        if (nombre.trim()) {
             const project = {
-                name: projectName,
-                description: projectDescription,
-                date: projectDate,
+                nombre: nombre,
+                descripcion: descripcion,
+                fecha: fecha,
             };
             addProject(project);
             setProjectName("");
@@ -80,7 +80,7 @@ const TransitionsModal = ({ addProject }) => {
                             >
                                 <Input
                                     placeholder="Nombre"
-                                    value={projectName}
+                                    value={nombre}
                                     onChange={(e) => setProjectName(e.target.value)}
                                     inputProps={ariaLabel}
                                     required
@@ -90,7 +90,7 @@ const TransitionsModal = ({ addProject }) => {
                                 </Typography>
                                 <Input
                                     placeholder="Descripción"
-                                    value={projectDescription}
+                                    value={descripcion}
                                     onChange={(e) => setProjectDescription(e.target.value)}
                                     inputProps={ariaLabel}
                                     required
@@ -100,7 +100,7 @@ const TransitionsModal = ({ addProject }) => {
                                 </Typography>
                                 <Input
                                     type='date'
-                                    value={projectDate}
+                                    value={fecha}
                                     onChange={(e) => setProjectDate(e.target.value)}
                                     inputProps={ariaLabel}
                                     required
