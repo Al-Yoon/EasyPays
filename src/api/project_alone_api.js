@@ -1,6 +1,6 @@
 //esto para traer lo q tiene ese proyecto individual
 // Obtener información de un proyecto
-export const getProject = async (id, nombre, descripcion) => {
+export const getProject = async (id) => {
     const requestOptions = {
     method: "GET",
     redirect: "follow"
@@ -8,8 +8,6 @@ export const getProject = async (id, nombre, descripcion) => {
 
     let res = await fetch(`http://localhost:8080/api/projects/${id}`, requestOptions);
     let jsonData = await res.json();
-    nombre(jsonData.nombre);
-    descripcion(jsonData.descripcion);
     return jsonData;
 };
 

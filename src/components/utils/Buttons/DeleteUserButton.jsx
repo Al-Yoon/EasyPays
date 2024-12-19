@@ -36,7 +36,7 @@ const DeleteUserButton = ({ onClick,onCancel }) => {
                     <h4 className="text-gray-800 text-lg font-semibold mt-4">¿Estás seguro de que quieres eliminar el usuario?</h4>
                 </div>
 
-                <div className="flex flex-col items-center space-y-5 p-5">
+                <div className="flex flex-row items-center justify-center gap-20">
                     <Link to="/login"><button type="button" className="px-4 py-2 rounded-lg text-white text-sm tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500" onClick={handleBorrar}>Eliminar</button></Link>
                     <button type="button" className="px-4 py-2 rounded-lg text-gray-800 text-sm tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onClick={onCancel}>Cancelar</button>
                 </div>

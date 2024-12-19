@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from "jwt-decode"; // Importación correcta
-import loginUser from "../../api/login_api";
-import registerUser from "../../api/register_api";
+import { jwtDecode } from 'jwt-decode'; 
+import loginUser from '../../api/login_api';
+import registerUser from '../../api/register_api';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,42 +11,56 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem('access-token');
-    const userData = localStorage.getItem("user");
+    const userData = localStorage.getItem('user');
     if (token && userData) {
-        try{
-            const userObject = JSON.parse(userData);
-            setUser(userObject);
-            setIsAuthenticated(true);
-        } catch(error){
-            console.error("Error al decodificar el token",error);
-            logout();
-        }
+      try {
+        // Recupera los datos del usuario almacenados
+        const userObject = JSON.parse(userData);
+        setUser(userObject);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error al procesar los datos del usuario:', error);
+        logout(); // Limpia el estado si hay un error
+      }
     }
-  }, 
-  []);
+  }, []); // Se ejecuta solo al cargar el componente
 
-  const login = async (user) => {
-    const response = await loginUser(user);
-    console.log(response);
-      sessionStorage.setItem("access-token", response.token);
-      const decoded = jwtDecode(response.token);
-      localStorage.setItem("user",JSON.stringify(decoded));
+  const login = async (userCredentials) => {
+    try {
+      const response = await loginUser(userCredentials);
+      console.log(response);
+      const token = response.token;
+
+      // Guarda el token y los datos del usuario
+      sessionStorage.setItem('access-token', token);
+      const decoded = jwtDecode(token);
+      localStorage.setItem('user', JSON.stringify(decoded));
       setUser(decoded); // Actualiza la información del usuario
       setIsAuthenticated(true); // Actualiza el estado de autenticación
-      return response
+      return response;
+    } catch (error) {
+      console.error('Error en el login:', error);
+      throw error;
+    }
   };
-  
 
   const logout = () => {
-    sessionStorage.removeItem('token');
-    localStorage.removeItem("user");
-    setIsAuthenticated(false); //cambia los estados
+    // Limpia el almacenamiento y resetea los estados
+    sessionStorage.removeItem('access-token');
+    localStorage.removeItem('user');
+    setIsAuthenticated(false);
     setUser(null);
   };
 
-  const register = async(newUser) => {
-    const user = await registerUser(newUser);
-    return user};
+  const register = async (newUser) => {
+    try {
+      const user = await registerUser(newUser);
+      return user;
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      throw error;
+    }
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, register, user }}>

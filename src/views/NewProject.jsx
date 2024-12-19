@@ -68,7 +68,7 @@ const NewProject = () => {
         <div className="w-screen py-auto bg-white px-4 text-black pt-5">
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: </p>
             <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
-            <div className="max-w-auto mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="max-w-auto mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-8">
 
                 <div className="w-full shadow-md flex flex-col p-4 md:my-0 my-8 rounded-lg">
                     <h2 className='text-2xl font-bold text-center py-8'>Gastos</h2>

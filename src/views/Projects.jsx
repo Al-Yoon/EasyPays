@@ -20,18 +20,16 @@ const Projects = () => {
 
     const project = location.state; 
 
-    const [projectName, setProjectName] = React.useState(project.nombre)
+    const [projectName, setProjectName] = React.useState()
 
     const { id } = useParams()
 
     useEffect(() => {
         const totalAmount = dataTickets.reduce((sum, ticket) => sum + ticket.total, 0);
         localStorage.setItem('totalAmountForProyecto-Finde-Pasado', JSON.stringify(totalAmount));
-    }, [dataTickets]);
-
-    useEffect(() => {
         const fetchData = async() =>{
-            await getProject(id,setProjectName);
+            const project = await getProject(id,setProjectName);
+            setProjectName(project.nombre);
             const data = await getTicketsProject(id);
             setDataTickets(data);
             const responseMembers = await getUsersByProject(id);

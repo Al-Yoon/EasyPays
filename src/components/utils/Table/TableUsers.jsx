@@ -1,85 +1,91 @@
+import React, { useState } from "react";
+import DataTable from "react-data-table-component";
+import { notify } from "../../../api/projects_api";
 
-import DataTable from 'react-data-table-component';
+function TableUsers({ data, totalAmount, handlePayment, updatePercentage }) {
 
-function TableUsers({ data, updatePercentage, totalAmount, handlePayment }) {
-    const handlePercentageChange = (e, rowIndex) => {
-        const newPercentage = parseFloat(e.target.value);
-        if (!isNaN(newPercentage)) {
-            updatePercentage(rowIndex, newPercentage);
-        }
-    };
+  const [error, setError] = useState("");
 
-    const handleSendNotification = (email, index) => {
-        alert(`Notificación Enviada a ${email}`);
-        handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
-    };
+  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    const columns = [
-        {
-            name: "Usuario ID",
-            selector: row => row.userId,
-            sortable: true
-        },
-        {
-            name: "Nombre",
-            selector: row => row.firstName,
-            sortable: true
-        },
-        {
-            name: "Apellido",
-            selector: row => row.lastName,
-            sortable: true
-        },
-        {
-            name: "Email",
-            selector: row => row.email,
-            sortable: true
-        },
-        {
-            name: "Porcentaje",
-            cell: (row, index) => (
-                <input 
-                    type="number"
-                    value={row.percentage}
-                    onChange={(e) => handlePercentageChange(e, index)}
-                    style={{ width: '60px' }}
-                />
-            )
-        },
-        {
-            name: "Monto a Pagar",
-            selector: row => (totalAmount * row.percentage / 100).toFixed(2),
-            sortable: true
-        },
-        {
-            name: "Acciones",
-            cell: (row, index) => (
-                <button
-                    className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-[#38bdf8]"
-                    onClick={() => handleSendNotification(row.email, index)}
-                >
-                    Enviar Notificación
-                </button>
-            )
-        }
-    ];
+  const handleSendNotification = async (row, index) => {
+    const { userId, projectId, email } = row;
 
-    const totalPercentage = data.reduce((total, member) => total + member.percentage, 0);
+    // Validaciones
+    if (!userId || !projectId || !email) {
+      setError("Faltan datos necesarios para enviar la notificación.");
+      return;
+    }
 
-    return (
-        <div>
-            <DataTable 
-                columns={columns} 
-                data={data} 
-                selectableRows 
-                pagination 
-                fixedHeader 
-            />
-            <div style={{ padding: '10px', fontWeight: 'bold' }}>
-                Total Porcentaje: {totalPercentage}% (Falta {100 - totalPercentage}%)
-            </div>
-        </div>
-    );
+    if (!validarEmail(email)) {
+      setError("El correo electrónico no es válido.");
+      return;
+    }
+
+    try {
+      setError(""); // Limpia errores previos
+
+      // Llamada a la API de notificación
+      const response = await notify(projectId, userId);
+
+      if (response) {
+        alert(`Notificación enviada a ${email}`);
+        handlePayment(index, (totalAmount * row.percentage / 100).toFixed(2));
+      } else {
+        setError("Error al enviar la notificación. Intente de nuevo.");
+      }
+    } catch (err) {
+      console.error("Error al notificar:", err);
+      setError("Ocurrió un error al enviar la notificación.");
+    }
+  };
+
+  const columns = [
+    { name: "Usuario ID", selector: (row) => row.userId, sortable: true },
+    { name: "Proyecto ID", selector: (row) => row.projectId, sortable: true },
+    { name: "Email", selector: (row) => row.email, sortable: true },
+    {
+      name: "Porcentaje",
+      cell: (row, index) => (
+        <input
+          type="number"
+          value={row.percentage}
+          onChange={(e) =>
+            updatePercentage(index, parseFloat(e.target.value) || 0)
+          }
+          style={{ width: "60px" }}
+        />
+      ),
+    },
+    {
+      name: "Monto a Pagar",
+      selector: (row) => (totalAmount * row.percentage / 100).toFixed(2),
+      sortable: true,
+    },
+    {
+      name: "Acciones",
+      cell: (row, index) => (
+        <button
+          className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-[#38bdf8]"
+          onClick={() => handleSendNotification(row, index)}
+        >
+          Enviar Notificación
+        </button>
+      ),
+    },
+  ];
+
+  const totalPercentage = data.reduce((total, member) => total + member.percentage, 0);
+
+  return (
+    <div>
+      <DataTable columns={columns} data={data} selectableRows pagination fixedHeader />
+      {error && <div style={{ color: "red", marginTop: "10px" }}>{error}</div>}
+      <div style={{ padding: "10px", fontWeight: "bold" }}>
+        Total Porcentaje: {totalPercentage}% (Falta {100 - totalPercentage}%)
+      </div>
+    </div>
+  );
 }
 
 export default TableUsers;

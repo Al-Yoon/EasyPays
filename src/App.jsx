@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from 'react';
 import Layout from "./components/layout/Layout";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from "./components/utils/AuthContextPrueba";
@@ -11,9 +11,10 @@ import About from "./views/AboutUs";
 import NewProject from "./views/NewProject";
 import Error from "./views/Error404";
 
+
 const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = React.useContext(AuthContext);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? children : <Navigate/>;
 };
 
 const App = () => {
