@@ -14,12 +14,6 @@ const MyProjects = () => {
     const user = localStorage.getItem('user');
     const userObj = JSON.parse(user);
 
-    /*
-    const [projects, setProjects] = useState(() => {
-        const savedProjects = JSON.parse(localStorage.getItem('projects'));
-        return savedProjects || initialProjects;
-    });
-    */
     const [projects, setProjects] = React.useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
