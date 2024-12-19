@@ -6,20 +6,30 @@ import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from "../components/utils/Table/TableUsers.jsx";
 import DeleteButton from '../components/utils/Buttons/DeleteButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
-import {getTicketsProject} from '../api/project_alone_api.js'; 
+import {getTicketsProject,getProject} from '../api/project_alone_api.js'; 
+
 
 const NewProject = () => {
-    const { projectSlug } = useParams();
     const navigate = useNavigate();
     const [tickets, setTickets] = useState([]);
     const [members, setMembers] = useState([]);
     const [paidAmount, setPaidAmount] = useState(0);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [projectName, setProjectName] = React.useState();
+    const { id } = useParams();
 
     useEffect(() => {
         const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
-        localStorage.setItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`, JSON.stringify(totalAmount));
-    }, [tickets, projectSlug]);
+        const fetchData = async() =>{
+            const project = await getProject(id);
+            setProjectName(project.nombre);
+            const dataTickets = await getTicketsProject(id);
+            setTickets(dataTickets);
+            //const responseMembers = await getUsersByProject(id);
+            //setDataMembers(responseMembers)
+        };
+        fetchData();
+        },[id]);
 
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
@@ -54,9 +64,9 @@ const NewProject = () => {
 
     const handleDeleteProject = () => {
         const projects = JSON.parse(localStorage.getItem('projects')) || [];
-        const updatedProjects = projects.filter(project => project.slug !== projectSlug);
-        localStorage.setItem('projects', JSON.stringify(updatedProjects));
-        localStorage.removeItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`);
+        //const updatedProjects = projects.filter(project => project.slug !== projectSlug);
+        //localStorage.setItem('projects', JSON.stringify(updatedProjects));
+        //localStorage.removeItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`);
         setShowDeleteModal(false);
         navigate('/myprojects');
     };
@@ -67,7 +77,7 @@ const NewProject = () => {
     return (
         <div className="w-screen py-auto bg-white px-4 text-black pt-5">
             <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-4">Proyecto: </p>
-            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectSlug.replace(/-/g, ' ')}</h1>
+            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">{projectName}</h1>
             <div className="max-w-auto mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-8">
 
                 <div className="w-full shadow-md flex flex-col p-4 md:my-0 my-8 rounded-lg">

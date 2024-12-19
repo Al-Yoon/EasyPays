@@ -29,6 +29,9 @@ const TransitionsModal = ({ addProject }) => {
     const [descripcion, setProjectDescription] = useState("");
     const [fecha, setProjectDate] = useState("");
 
+    const user = localStorage.getItem('user');
+    const userObj = JSON.parse(user);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -39,6 +42,8 @@ const TransitionsModal = ({ addProject }) => {
                 nombre: nombre,
                 descripcion: descripcion,
                 fecha: fecha,
+                total:0,
+                usuarioId:userObj.id,
             };
             addProject(project);
             setProjectName("");
