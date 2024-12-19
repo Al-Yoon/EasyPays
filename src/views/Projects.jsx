@@ -5,9 +5,8 @@ import ModalMiembros from "../components/utils/Modal/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from '../components/utils/Table/TableUsers.jsx';
-import { getProject } from '../api/project_alone.js';
-import { getUsers } from '../api/users_project.js';
-import {getTicketsProject} from '../api/project_alone.js'; //Necesitamos esto para traer los tickets del proyecto
+import { getProject } from '../api/project_alone_api.js';
+import {getTicketsProject} from '../api/project_alone_api.js'; //Necesitamos esto para traer los tickets del proyecto
 import {getUsersByProject} from '../api/users_project.js'; //Necesitamos esto para traer los miembros del proyecto
 
 const Projects = () => {

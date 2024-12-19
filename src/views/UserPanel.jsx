@@ -17,7 +17,6 @@ const UserPanel = () => {
     const navigate = useNavigate();
     const [tempUserData, setTempUserData] = React.useState({});
     const [perfil, setPerfil] = React.useState({});
-    
     React.useEffect(() => {
         if(user){
             getUser(user.id,setPerfil);
