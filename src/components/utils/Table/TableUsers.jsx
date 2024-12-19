@@ -1,4 +1,3 @@
-import { AuthContext } from "../AuthContextPrueba";
 import DataTable from 'react-data-table-component';
 import * as React from 'react';
 import {getUsers} from '../../../api/users_project';
@@ -17,18 +16,15 @@ function TableUsers({updatePercentage, totalAmount, handlePayment }) {
         handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };
 
-    const { user } = React.useContext(AuthContext); //datos del usuario logueado
     const[data,setData] = React.useState([]);
     //const token = sessionStorage.getItem('access-token');
     React.useEffect(() =>{
         const fetchData = async() =>{
-            const data = await getUsers(user.id);
+            const data = await getUsers();
             setData(data);
         };
-        if(user){
             fetchData();
-        }
-    },[user,setData]);
+    },[data,setData]);
 
     const columns = [
         {
