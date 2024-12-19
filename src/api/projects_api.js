@@ -41,7 +41,31 @@ export const createProjects = async(userId,nombre,descripcion,fecha)=>{
         "total": 0
     });
 
-<<<<<<< HEAD
+    const requestOptions1 = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw1,
+        redirect: "follow"
+    };
+    await fetch("http://localhost:8080/api/userProject/projects", requestOptions1);
+    
+    return jsonData;
+};
+
+export const deleteProject = async(token,id) => {
+    const myHeaders = new Headers();
+    myHeaders.append("jwt", token);
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    
+    let res = await fetch(`http://localhost:8080/api/projects/${id}`, requestOptions);
+    return res;
+};
+
 const notify = async (projectId, userId) => {
     const accessToken = sessionStorage.getItem('access-token');
 
@@ -74,30 +98,4 @@ const notify = async (projectId, userId) => {
     }
 };
 
-export { notify , getProjects};
-=======
-    const requestOptions1 = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw1,
-        redirect: "follow"
-    };
-    await fetch("http://localhost:8080/api/userProject/projects", requestOptions1);
-    
-    return jsonData;
-};
-
-export const deleteProject = async(token,id) => {
-    const myHeaders = new Headers();
-    myHeaders.append("jwt", token);
-
-    const requestOptions = {
-        method: "DELETE",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    
-    let res = await fetch(`http://localhost:8080/api/projects/${id}`, requestOptions);
-    return res;
-};
->>>>>>> abcc660ade4f01587c3aa63936e886b7ba82e6e1
+export { notify };
