@@ -5,17 +5,22 @@ import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
 import DeleteButton from '../components/utils/Buttons/DeleteButton';
+import { getProjectByUserId } from '../api/projects_api';
 
 const MyProjects = () => {
     const initialProjects = [
         { name: "Finde Pasado", description: "Finde Pasado", date: "9/18/2024", slug: "proyecto-finde-pasado" }
     ];
+    const user = localStorage.getItem('user');
+    const userObj = JSON.parse(user);
 
+    /*
     const [projects, setProjects] = useState(() => {
         const savedProjects = JSON.parse(localStorage.getItem('projects'));
         return savedProjects || initialProjects;
     });
-
+    */
+    const [projects, setProjects] = React.useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
         return savedBalance ? parseFloat(savedBalance) : 0;
@@ -27,20 +32,32 @@ const MyProjects = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        localStorage.setItem('projects', JSON.stringify(projects));
-    }, [projects]);
+        const fetchProjects = async () => {
+            try {
+                const projects = await getProjectByUserId(userObj.id); // Espera la promesa
+                console.log(projects);
+                setProjects(projects); // Actualiza el estado con los proyectos obtenidos
+            } catch (error) {
+                console.log("Error al obtener proyectos:", error);
+            }
+        };
+    
+        fetchProjects(); // Llama a la función
+    }, []);
 
     useEffect(() => {
         localStorage.setItem('userBalance', userBalance);
     }, [userBalance]);
 
     const getTotalAmount = (slug) => {
-        const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
-        return storedTotal ? JSON.parse(storedTotal) : 0;
+        //const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
+        //return storedTotal ? JSON.parse(storedTotal) : 0;
+        return 0;
     };
 
     const getTotalProjectAmount = () => {
-        return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
+        //return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
+        return 0;
     };
 
     const addProject = (newProject) => {
@@ -48,8 +65,8 @@ const MyProjects = () => {
         setProjects([...projects, { ...newProject, slug: projectSlug }]);
     };
 
-    const handleViewProject = (slug) => {
-        const path = slug === "proyecto-finde-pasado" ? `/projects/proyecto-finde-pasado` : `/newprojects/${slug}`;
+    const handleViewProject = (projectId) => {
+        const path = `/newprojects/${projectId}`;
         navigate(path);
     };
 
@@ -99,22 +116,23 @@ const MyProjects = () => {
                     {projects.map((project, index) => (
                         <div key={index} className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg">
                             <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-                            <h2 className='text-2xl font-bold text-center pt-8 flex justify-center'>Proyecto: {project.name}</h2>
+                            <h2 className='text-2xl font-bold text-center pt-8 flex justify-center'>Proyecto: {project.nombre}</h2>
                             <div className='text-center font-medium'>
-                                <p className='py-2 my-5'>{project.description}</p>
-                                <p className='py-2 my-5'>{project.date}</p>
-                                <p className='py-2 my-5'>Gastado: {getTotalAmount(project.slug)} $</p>
+                                <p className='py-2 my-5'>{project.descripcion}</p>
+                                <p className='py-2 my-5'>{project.fecha}</p>
+                                <p className='py-2 my-5'>Gastado: {getTotalAmount(project.total)} $</p>
                             </div>
-                            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
+                            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.id)}>
                                 Ver Proyecto
                             </button>
+                          
                             <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                                 onClick={() => {
-                                    setSelectedProjectSlug(project.slug);
                                     setShowDeleteModal(true);
                                 }}>
                                 Eliminar Proyecto
                             </button>
+                          
                         </div>
                     ))}
 

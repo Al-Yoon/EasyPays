@@ -1,32 +1,14 @@
-export const getProjects = async(id,setProjects) => {
-    const projects = [];
-
+export const getProjectByUserId = async(id) => {
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
-
-    const ProjectsByUser = await fetch(`http://localhost:8080/api/userProject/projects/${id}`, requestOptions);
-    const usersProjects = await ProjectsByUser.json();
-    for (const value of Object.values(usersProjects)) {
-        const projectRes = await fetch(`http://localhost:8080/api/projects/${value.projectId}`, requestOptions);
-        const project = await projectRes.json();
-        projects.push({
-            id:project.id,
-            nombre:project.nombre,
-            descripcion:project.descripcion,
-            total:value.total,
-        }
-        );
-    }
-    
     try {
-        const res = await Promise.all(projects);
-        console.log(res); // donde estén los datos juntos
-        setProjects(res);
+        const ProjectsByUser = await fetch(`http://localhost:8080/api/userProject/projects/${id}`, requestOptions);
+        const data = ProjectsByUser.json();
+        return data;
     } catch (error) {
         console.error('error', error);
-        setProjects([]);
     }
 };
 

@@ -6,7 +6,7 @@ import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from '../components/utils/Table/TableUsers.jsx';
 import { getProject } from '../api/project_alone.js';
-import { getTicketsByProject } from '../../../../backendEasyPays/controllers/ticketController.js';
+
 import { getUsers } from '../api/users_project.js';
 
 const Projects = () => {
@@ -32,8 +32,6 @@ const Projects = () => {
     useEffect(() => {
         const fetchData = async() =>{
             await getProject(id,setProjectName);
-            const data = await getTicketsByProject(id);
-            setDataTickets(data);
             const responseMembers = await getUsers(id);
             setDataMembers(responseMembers)
         };
