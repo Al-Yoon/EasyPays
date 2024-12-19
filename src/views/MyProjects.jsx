@@ -119,14 +119,12 @@ const MyProjects = () => {
                             <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.id)}>
                                 Ver Proyecto
                             </button>
-                          
                             <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                                 onClick={() => {
                                     setShowDeleteModal(true);
                                 }}>
                                 Eliminar Proyecto
                             </button>
-                          
                         </div>
                     ))}
 

@@ -5,9 +5,9 @@ import ModalMiembros from "../components/utils/Modal/ModalMiembros.jsx";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from '../components/utils/Table/TableUsers.jsx';
-import { getProject } from '../api/project_alone.js';
-
-import { getUsers } from '../api/users_project.js';
+import { getProject } from '../api/project_alone_api.js';
+import {getTicketsProject} from '../api/project_alone_api.js'; //Necesitamos esto para traer los tickets del proyecto
+import {getUsersByProject} from '../api/users_project.js'; //Necesitamos esto para traer los miembros del proyecto
 
 const Projects = () => {
     const [dataTickets, setDataTickets] = useState([]);
@@ -32,7 +32,9 @@ const Projects = () => {
     useEffect(() => {
         const fetchData = async() =>{
             await getProject(id,setProjectName);
-            const responseMembers = await getUsers(id);
+            const data = await getTicketsProject(id);
+            setDataTickets(data);
+            const responseMembers = await getUsersByProject(id);
             setDataMembers(responseMembers)
         };
         fetchData();
