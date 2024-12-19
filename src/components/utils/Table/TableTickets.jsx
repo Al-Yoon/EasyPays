@@ -1,52 +1,74 @@
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
+import React, { useEffect, useState } from 'react';
+import DataTable from 'react-data-table-component';
+import { CSVLink } from 'react-csv';
+import {getTickets} from '../api/tickets.api';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-  },
-];
+const TableTickets = () => {
+    const [tickets, setTickets] = useState([]);
+    console.log("Me traigo el token una vez que estoy logeado");
+    const accessToken = sessionStorage.getItem('access-token');
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+    useEffect(() => {
+        console.log("Pido la lista de tickets con mi token de sesión");
+        getTickets(setTickets);
+    }, []);
 
-const paginationModel = { page: 0, pageSize: 5 };
+    const[data,setData] = React.useState([]);
+    //const token = sessionStorage.getItem('access-token');
+    React.useEffect(() =>{
+        const fetchData = async() =>{
+            const data = await getTickets();
+            setData(data);
+        };
+            fetchData();
+    },[data,setData]);
 
-export default function TableTickets() {
-  return (
-    <Paper sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        sx={{ border: 0 }}
-      />
-    </Paper>
-  );
+    const columns = [
+        {
+            name: "Ticket ID",
+            selector: row => row.id,
+            sortable: true,
+        },
+        {
+            name: "Descripción",
+            selector: row => row.descripcion,
+            sortable: true,
+        },
+        {
+            name: "Fecha",
+            selector: row => row.fecha,
+            sortable: true,
+        },
+        {
+            name: "Monto",
+            selector: row => row.monto,
+            sortable: true,
+        }
+    ];
+
+    const csvData = tickets.map(ticket => ({
+        ...ticket,
+        project: ticket.project.nombre
+    }));
+
+    return (
+        <div>
+            <DataTable 
+                columns={columns} 
+                data={data} 
+                noHeader 
+                pagination 
+                highlightOnHover 
+                striped 
+                responsive
+            />
+            <CSVLink data={csvData} filename="historial_tickets.csv" className='text-[#2c392e]'>
+                <button className='bg-[#56a967] w-[40vh] h-[9vh] hover:bg-[#42e663] mx-auto my-auto mt-1 rounded-lg'>
+                    Descargar Historial
+                </button>
+            </CSVLink>
+        </div>
+    );
 }
+
+export default TableTickets;
