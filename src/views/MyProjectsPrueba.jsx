@@ -6,6 +6,7 @@ import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
 import DeleteButton from '../components/utils/Buttons/DeleteButton';
 import gerProjectByUserId from '../api/projects_api';
+//import {getProyect,deleteProject,createProject} from '../api/projects_api'; //Necesitamos esto aca para traer los proyectos del user
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
@@ -31,8 +32,8 @@ const Projects = () => {
         localStorage.setItem('userBalance', userBalance);
     }, [userBalance]);
 
-    const getTotalAmount = (slug) => {
-        const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
+    const getTotalAmount = (total) => {
+        const storedTotal = localStorage.getItem(`totalAmountFor${total.replace(/-/g, '')}`);
         return storedTotal ? JSON.parse(storedTotal) : 0;
     };
 
@@ -41,8 +42,8 @@ const Projects = () => {
     };
 
     const addProject = (newProject) => {
-        const projectSlug = newProject.name.trim().toLowerCase().replace(/\s+/g, '-');
-        setProjects([...projects, { ...newProject, slug: projectSlug }]);
+        const projectTotal = newProject.nombre.trim().toLowerCase().replace(/\s+/g, '-');
+        setProjects([...projects, { ...newProject, total: projectTotal }]);
     };
 
     const handleViewProject = (slug) => {
@@ -51,7 +52,7 @@ const Projects = () => {
     };
 
     const handleDeleteProject = () => {
-        const updatedProjects = projects.filter(project => project.slug !== selectedProjectSlug);
+        const updatedProjects = projects.filter(project => project.total !== selectedProjectSlug);
         setProjects(updatedProjects);
         localStorage.setItem('projects', JSON.stringify(updatedProjects));
         localStorage.removeItem(`totalAmountFor${selectedProjectSlug.replace(/-/g, '')}`);
@@ -65,18 +66,18 @@ const Projects = () => {
     const ProjectCard = ({ project }) => (
         <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg">
             <img className='w-20 mx-auto mt-auto bg-transparent' src={Historial} alt="/" />
-            <h2 className='text-2xl font-bold text-center pt-8 flex justify-center'>Proyecto: {project.name}</h2>
+            <h2 className='text-2xl font-bold text-center pt-8 flex justify-center'>Proyecto: {project.nombre}</h2>
             <div className='text-center font-medium'>
-                <p className='py-2 my-5'>{project.description}</p>
-                <p className='py-2 my-5'>{project.date}</p>
+                <p className='py-2 my-5'>{project.descripcion}</p>
+                <p className='py-2 my-5'>{project.fecha}</p>
                 <p className='py-2 my-5'>Gastado: {getTotalAmount(project.total)} $</p>
             </div>
-            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.slug)}>
+            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.total)}>
                 Ver Proyecto
             </button>
             <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                 onClick={() => {
-                    setSelectedProjectSlug(project.slug);
+                    setSelectedProjectSlug(project.total);
                     setShowDeleteModal(true);
                 }}>
                 Eliminar Proyecto
@@ -90,7 +91,7 @@ const Projects = () => {
 
     useEffect(() => {
         console.log("Solicitud de la lista de proyectos con el token de la sesion");
-        getProjects(accessToken, setProjects);  // TRAIGO LOS PROYECTOS USANDO LA API, los proyectos de esa sesion
+        gerProjectByUserId(accessToken, setProjects);  // TRAIGO LOS PROYECTOS USANDO LA API, los proyectos de esa sesion
     }, [setProjects, accessToken]);
 
     return (

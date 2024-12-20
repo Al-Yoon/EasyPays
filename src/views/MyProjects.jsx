@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TransitionsModal from '../components/utils/Modal/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
 import DeleteButton from '../components/utils/Buttons/DeleteButton';
-import { getProjectByUserId } from '../api/projects_api';
+import { getProjectByUserId, createProjects } from '../api/projects_api';
 
 const MyProjects = () => {
-    const initialProjects = [
-        { name: "Finde Pasado", description: "Finde Pasado", date: "9/18/2024", slug: "proyecto-finde-pasado" }
-    ];
     const user = localStorage.getItem('user');
     const userObj = JSON.parse(user);
 
-    /*
-    const [projects, setProjects] = useState(() => {
-        const savedProjects = JSON.parse(localStorage.getItem('projects'));
-        return savedProjects || initialProjects;
-    });
-    */
     const [projects, setProjects] = React.useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
@@ -27,15 +18,12 @@ const MyProjects = () => {
     });
     
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
-
-    const navigate = useNavigate();
+    //const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
 
     useEffect(() => {
         const fetchProjects = async () => {
             try {
                 const projects = await getProjectByUserId(userObj.id); // Espera la promesa
-                console.log(projects);
                 setProjects(projects); // Actualiza el estado con los proyectos obtenidos
             } catch (error) {
                 console.log("Error al obtener proyectos:", error);
@@ -43,7 +31,7 @@ const MyProjects = () => {
         };
     
         fetchProjects(); // Llama a la función
-    }, []);
+    }, [userObj]);
 
     useEffect(() => {
         localStorage.setItem('userBalance', userBalance);
@@ -61,21 +49,17 @@ const MyProjects = () => {
     };
 
     const addProject = (newProject) => {
-        const projectSlug = newProject.name.trim().toLowerCase().replace(/\s+/g, '-');
-        setProjects([...projects, { ...newProject, slug: projectSlug }]);
-    };
-
-    const handleViewProject = (projectId) => {
-        const path = `/newprojects/${projectId}`;
-        navigate(path);
+        createProjects(newProject);
+        setProjects([...projects, {newProject}]);
     };
 
     const handleDeleteProject = () => {
-        const updatedProjects = projects.filter(project => project.slug !== selectedProjectSlug);
+        /*const updatedProjects = projects.filter(project => project.slug !== selectedProjectSlug);
         setProjects(updatedProjects);
         localStorage.setItem('projects', JSON.stringify(updatedProjects));
         localStorage.removeItem(`totalAmountFor${selectedProjectSlug.replace(/-/g, '')}`);
         setShowDeleteModal(false);
+        */
     };
 
     const handleBalanceChange = (e) => {
@@ -122,9 +106,12 @@ const MyProjects = () => {
                                 <p className='py-2 my-5'>{project.fecha}</p>
                                 <p className='py-2 my-5'>Gastado: {getTotalAmount(project.total)} $</p>
                             </div>
-                            <button className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center' onClick={() => handleViewProject(project.id)}>
+                            <Link
+                                to={`/newprojects/${project.id}`}
+                                className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
+                            >
                                 Ver Proyecto
-                            </button>
+                            </Link>
                             <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                                 onClick={() => {
                                     setShowDeleteModal(true);
