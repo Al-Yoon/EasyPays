@@ -41,8 +41,7 @@ function TicketsHistoryTable({ data }) {
     ];
 
     const csvData = data.map(ticket => ({
-        ...ticket,
-        project: "Proyecto Finde Pdoasa"
+        ...ticket
     }));
 
     return (
@@ -50,8 +49,7 @@ function TicketsHistoryTable({ data }) {
             <DataTable 
                 columns={columns} 
                 data={data.map(ticket => ({
-                    ...ticket,
-                    project: "Proyecto Finde Pasado"
+                    ...ticket
                 }))} 
                 noHeader 
                 pagination 

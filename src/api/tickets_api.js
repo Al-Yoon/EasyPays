@@ -1,22 +1,40 @@
-const getTickets = async(setTickets) => {
+// Esto para historial en panel
+const getTickets = async (id, setTickets) => {
+    const formData = new FormData();
+    formData.append("projectId", id);
+
     console.log("Obtenemos el token de la sesión una vez logueado");
-    const accessToken = sessionStorage.getItem('access-token');
+    const accessToken = sessionStorage.getItem("access-token");
 
-    var myHeaders = new Headers();
-    myHeaders.append("jwt", accessToken); // pasamos la key del accessToken
-    myHeaders.append("Content-Type", "application/json"); // ponemos el valor del token como header
+    const myHeaders = new Headers();
+    myHeaders.append("jwt", accessToken); // Pasamos la key del accessToken
+    myHeaders.append("Content-Type", "application/json"); // Ponemos el valor del token como header
 
-    var requestOptions = {
-        method: 'GET',
+    const requestOptions = {
+        method: "GET",
         headers: myHeaders,
-        redirect: 'follow',
-        mode: 'cors'
+        redirect: "follow",
+        mode: "cors",
     };
 
-    let response = await fetch("http://localhost:8080/api/tickets/", requestOptions);
-    let jsonData = await response.json();
-    setTickets(jsonData);
-    console.log(jsonData);
-}
+    try {
+        const response = await fetch("http://localhost:8080/api/tickets/", requestOptions);
+        const jsonData = await response.json();
+        setTickets(jsonData);
+        console.log(jsonData);
+    } catch (error) {
+        console.error("Error obteniendo los tickets:", error);
+    }
+};
 
-export default getTickets;
+const getTicketsByUserId = async (id) => {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow",
+    };
+        const response = await fetch(`http://localhost:8080/api/tickets/`, requestOptions);
+        const tickets = await response.json();
+        return tickets;
+};
+
+export { getTickets, getTicketsByUserId };

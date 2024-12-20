@@ -5,11 +5,8 @@ import UserPic from '../components/Assets/user-avatar.svg';
 import DeleteUserButton from '../components/utils/Buttons/DeleteUserButton';
 import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContextPrueba";
-import {getUser, updateUser } from "../api/profile_api"
-
-const ticketsData = [
-    
-];
+import { updateUser } from "../api/profile_api"
+import { getTicketsByUserId } from '../api/tickets_api';
 
 const UserPanel = () => {
     const { user } = useContext(AuthContext);
@@ -17,18 +14,26 @@ const UserPanel = () => {
     const navigate = useNavigate();
     const [tempUserData, setTempUserData] = React.useState({});
     const [perfil, setPerfil] = React.useState({});
-    React.useEffect(() => {
-        if(user){
-            getUser(user.id,setPerfil);
-        }
-    },[user,setPerfil]);
+
+    const [ticketsData, setTicketsData] = useState([]);
 
     useEffect(() => {
         if (!user) {
             navigate('/');
+            return; // Detener ejecución si no hay usuario
         }
+    
+        const fetchTicketsData = async () => {
+            try {
+                const tickets = await getTicketsByUserId(user.id);
+                setTicketsData(tickets); // Asignar datos resueltos al estado
+            } catch (error) {
+                console.error("Error al obtener los tickets:", error);
+            }
+        };
+    
+        fetchTicketsData(); // Llamar a la función
     }, [user, navigate]);
-
     
 
     function validarMail(email) {
@@ -57,6 +62,7 @@ const UserPanel = () => {
             setPerfil(updatedProfile);
         }
     };
+
 
     return (
         user && (
@@ -91,7 +97,7 @@ const UserPanel = () => {
                 <div className="w-full py-10 px-4 mt-10">
                     <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Historial de</p>
                     <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Tickets</h1>
-                    <TicketsHistoryTable data={ticketsData} />
+                    <TicketsHistoryTable data={ticketsData}/>
                 </div>
             </div>
         )

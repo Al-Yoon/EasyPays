@@ -1,8 +1,9 @@
 import DataTable from 'react-data-table-component';
 import * as React from 'react';
-import {getUsers} from '../../../api/users_project';
 
-function TableUsers({updatePercentage, totalAmount, handlePayment }) {
+import {notify} from '../../../api/projects_api'
+
+function TableUsers({updatePercentage, totalAmount, handlePayment,data}) {
     
     const handlePercentageChange = (e, rowIndex) => {
         const newPercentage = parseFloat(e.target.value);
@@ -12,19 +13,12 @@ function TableUsers({updatePercentage, totalAmount, handlePayment }) {
     };
 
     const handleSendNotification = (email, index) => {
+        notify(email); //mail
         alert(`Notificación Enviada a ${email}`);
         handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };
 
-    const[data,setData] = React.useState([]);
     //const token = sessionStorage.getItem('access-token');
-    React.useEffect(() =>{
-        const fetchData = async() =>{
-            const data = await getUsers();
-            setData(data);
-        };
-            fetchData();
-    },[data,setData]);
 
     const columns = [
         {

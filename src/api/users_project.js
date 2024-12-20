@@ -7,21 +7,17 @@ const getUsers = async(id) => {
     };
     let response = await fetch(`http://localhost:8080/api/userProject/users/${id}`, requestOptions);
     let jsonData = await response.json();
-    for (const value of Object.values(jsonData.body)) {
-        users.push(
-            fetch(`http://localhost:8080/api/users/${value.userId}`, requestOptions)
-                .then((response) => {
-                    if (!response.ok) throw new Error(`Error al traer el proyecto ${value.userId}`);
-                    return response.json();
-                })
-        );
+    for (const value of jsonData) {
+        const response1 = await fetch(`http://localhost:8080/api/users/${value.userId}`);
+        const userData = await response1.json();
+        users.push({
+            id: userData.id,
+            nombre: userData.nombre,
+            email: userData.email,
+            porcentage: 0,
+        })
     }
-    try {
-        const results = await Promise.all(users);
-        return results;
-    } catch (err) {
-        console.error('errores', err);
-    }
+    return users;
 }
 
 const addUser = async (token,id,nombre,email) => {

@@ -31,13 +31,9 @@ export const createProjects = async(project)=>{
     return response;
 };
 
-export const deleteProject = async(token,id) => {
-    const myHeaders = new Headers();
-    myHeaders.append("jwt", token);
-
+export const deleteProject = async(id) => {
     const requestOptions = {
         method: "DELETE",
-        headers: myHeaders,
         redirect: "follow"
     };
     

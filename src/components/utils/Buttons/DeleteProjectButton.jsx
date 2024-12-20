@@ -1,6 +1,17 @@
 import React from 'react';
+import { deleteProject } from "../../../api/projects_api";
 
-const DeleteButton = ({ onDelete, onCancel }) => {
+const DeleteButton = ({ projectId, onCancel }) => {
+    const handleDelete = async () => {
+        try {
+            const response = await deleteProject(projectId);
+            if (response.status === 200) {
+                console.log(`Project ${projectId} deleted successfully.`);
+            }
+        } catch (error) {
+            console.error('Error al eliminar el proyecto:', error);
+        }
+    };
     return (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 relative">
@@ -15,18 +26,12 @@ const DeleteButton = ({ onDelete, onCancel }) => {
                         <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000" />
                     </svg>
                     <h4 className="text-gray-800 text-lg font-semibold mt-4">Estás seguro de eliminar el Proyecto?</h4>
-                    <p className="text-sm text-gray-600 mt-4">
-                        Si es así, selecciona el botón eliminar.
-                    </p>
+                    <p className="text-sm text-gray-600 mt-4"> Si es así, selecciona el botón eliminar. </p>
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                    <button type="button" className="px-4 py-2 rounded-lg text-white text-sm tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500" onClick={onDelete}>
-                        Delete
-                    </button>
-                    <button type="button" className="px-4 py-2 rounded-lg text-gray-800 text-sm tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onClick={onCancel}>
-                        Cancel
-                    </button>
+                    <button type="button" className="px-4 py-2 rounded-lg text-white text-sm tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500" onClick={handleDelete}> Delete </button>
+                    <button type="button" className="px-4 py-2 rounded-lg text-gray-800 text-sm tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onClick={onCancel}> Cancel </button>
                 </div>
             </div>
         </div>
