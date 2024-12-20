@@ -12,15 +12,10 @@ export const getProjectByUserId = async(id) => {
     }
 };
 
-export const createProjects = async(userId,nombre,descripcion,fecha)=>{
+export const createProjects = async(project)=>{
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    
-    const raw = JSON.stringify({
-        "nombre": nombre,
-        "descripcion": descripcion,
-        "fecha": fecha
-    });
+    const raw = JSON.stringify(project);
 
     const requestOptions = {
         method: "POST",
@@ -33,23 +28,7 @@ export const createProjects = async(userId,nombre,descripcion,fecha)=>{
     if (!response.ok) {
         throw new Error('Error al crear un nuevo Proyecto');
     }
-    let jsonData = await response.json();
-    
-    const raw1 = JSON.stringify({
-        "userId": userId,
-        "proyectId": jsonData.id,
-        "total": 0
-    });
-
-    const requestOptions1 = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw1,
-        redirect: "follow"
-    };
-    await fetch("http://localhost:8080/api/userProject/projects", requestOptions1);
-    
-    return jsonData;
+    return response;
 };
 
 export const deleteProject = async(token,id) => {
