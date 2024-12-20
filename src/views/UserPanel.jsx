@@ -6,13 +6,11 @@ import DeleteUserButton from '../components/utils/Buttons/DeleteUserButton';
 import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContextPrueba";
 import {getUser, updateUser } from "../api/profile_api"
-
-const ticketsData = [
-    
-];
+import {getTickets} from '../api/tickets_api';
 
 const UserPanel = () => {
     const { user } = useContext(AuthContext);
+    const{tickets,setTickets} = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
     const [tempUserData, setTempUserData] = React.useState({});
@@ -29,7 +27,13 @@ const UserPanel = () => {
         }
     }, [user, navigate]);
 
-    
+    useEffect(()=>{
+        const fetchData = async() =>{
+            const dataTickets = await getTickets();
+                    setTickets(dataTickets);
+        };
+        fetchData();
+    });
 
     function validarMail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -91,7 +95,7 @@ const UserPanel = () => {
                 <div className="w-full py-10 px-4 mt-10">
                     <p className="max-w-[1240px] md:text-2xl sm:text-1xl text-xl pl-4">Historial de</p>
                     <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Tickets</h1>
-                    <TicketsHistoryTable data={ticketsData} />
+                    <TicketsHistoryTable data={tickets} />
                 </div>
             </div>
         )
