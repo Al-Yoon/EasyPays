@@ -12,17 +12,16 @@ function TableUsers({updatePercentage, totalAmount, handlePayment,data}) {
         }
     };
 
-    const handleSendNotification = (email, index) => {
+    const handleSendNotification = (email) => {
         notify(email); //mail
         alert(`Notificación Enviada a ${email}`);
-        handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };
 
     //const token = sessionStorage.getItem('access-token');
 
     const columns = [
         {
-            name: "Usuario ID",
+            name: "Numero de Usuario",
             selector: row => row.id,
             sortable: true
         },
@@ -57,7 +56,7 @@ function TableUsers({updatePercentage, totalAmount, handlePayment,data}) {
             cell: (row, index) => (
                 <button
                     className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-[#38bdf8]"
-                    onClick={() => handleSendNotification(row.email, index)}
+                    onClick={() => handleSendNotification(row.email)}
                 >
                     Enviar Notificación
                 </button>

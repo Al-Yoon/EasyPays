@@ -4,7 +4,7 @@ import ModalMiembros from "../components/utils/Modal/ModalMiembros";
 import Cloud from "../components/Assets/cloud.svg";
 import Table from "../components/utils/Table/Table.jsx";
 import TableUsers from "../components/utils/Table/TableUsers.jsx";
-import DeleteButton from '../components/utils/Buttons/DeleteButton.jsx';
+import DeleteButton from '../components/utils/Buttons/DeleteProjectButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 import {getTicketsProject,getProject} from '../api/project_alone_api.js'; 
 import {getUsers} from '../api/users_project';
@@ -18,6 +18,7 @@ const NewProject = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [projectName, setProjectName] = React.useState();
     const { id } = useParams();
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchData = async() =>{
@@ -37,11 +38,12 @@ const NewProject = () => {
     }, [tickets]);
 
     const addTicket = (newTicket) => {
-        const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
-        if (existingTicket) {
-            return false;
-        }
         setTickets([...tickets, newTicket]);
+        return true;
+    };
+    
+    const addUser = (newUser) => {
+        setUsers([...users, newUser]);
         return true;
     };
 
@@ -68,7 +70,7 @@ const NewProject = () => {
     };
 
     const handleDeleteProject = () => {
-        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        //const projects = JSON.parse(localStorage.getItem('projects')) || [];
         //const updatedProjects = projects.filter(project => project.slug !== projectSlug);
         //localStorage.setItem('projects', JSON.stringify(updatedProjects));
         //localStorage.removeItem(`totalAmountFor${projectSlug.replace(/-/g, '')}`);
@@ -114,7 +116,7 @@ const NewProject = () => {
                             <img className='w-20 mx-auto mt-auto bg-transparent mb-10' src={Cloud} alt="/" />
                             <p className='text-center text-2xl font-bold pb-5'>Carga Manualmente el Ticket</p>
                             <button className='bg-[#299ad78d] w-auto rounded-md font-medium my-auto mx-auto px-6 py-3'>
-                                <ModalTickets addTicket={addTicket} />
+                                <ModalTickets addTicket={addTicket} id={id} />
                             </button>
                         </div>
                     </div>
@@ -130,9 +132,6 @@ const NewProject = () => {
                     <p className="max-w-auto md:text-2xl sm:text-1xl text-xl pl-1 pt-10">Añadir Miembros</p>
                     <ModalMiembros addMember={addMember} />
                     <TableUsers data={members} updatePercentage={updatePercentage} totalAmount={totalAmount} handlePayment={handlePayment}/>
-                    <button className='bg-[#e57373] text-red-700 w-auto rounded-md font-medium my-6 mx-auto px-6 py-3 mb-2' onClick={() => setShowDeleteModal(true)}>
-                        Eliminar Proyecto
-                    </button>
                     {showDeleteModal && ( <DeleteButton onDelete={handleDeleteProject}onCancel={() => setShowDeleteModal(false)}/>
                     )}
                 </div>

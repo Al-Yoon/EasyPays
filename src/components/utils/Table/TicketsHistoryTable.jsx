@@ -11,23 +11,18 @@ function TicketsHistoryTable({ data }) {
 
     const columns = [
         {
-            name: "Ticket ID",
-            selector: row => row.ticketId,
-            sortable: true,
-        },
-        {
             name: "Descripcion",
-            selector: row => row.name,
+            selector: row => row.descripcion,
             sortable: true,
         },
         {
             name: "Fecha",
-            selector: row => row.date,
+            selector: row => row.fecha,
             sortable: true,
         },
         {
             name: "Monto",
-            selector: row => row.total,
+            selector: row => row.monto,
             sortable: true,
         },
         {
@@ -42,6 +37,7 @@ function TicketsHistoryTable({ data }) {
 
     const csvData = data.map(ticket => ({
         ...ticket,
+        ...ticket
     }));
 
     return (
@@ -58,26 +54,14 @@ function TicketsHistoryTable({ data }) {
                 responsive
             />
             {previewImage && (
-                <div style={{
-                    position: 'fixed',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    zIndex: 1000,
-                    background: 'white',
-                    padding: '20px',
-                    borderRadius: '8px',
-                    boxShadow: '0px 0px 15px rgba(0,0,0,0.5)'
-                }}>
+                <div style={{position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000, background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0px 0px 15px rgba(0,0,0,0.5)'}}>
                     <img src={previewImage} alt="Preview" style={{ maxWidth: '500px', maxHeight: '500px' }} />
                     <br />
                     <button onClick={() => setPreviewImage(null)}>Cerrar</button>
                 </div>
             )}
             <CSVLink data={csvData} filename="historial_tickets.csv" className='text-[#2c392e]'>
-                <button className='bg-[#42e663] w-[200px] h-[50px] hover:bg-[#38bdf8] mx-auto mt-1 rounded-xl'>
-                    Descargar Historial
-                </button>
+                <button className='bg-[#42e663] w-[200px] h-[50px] hover:bg-[#38bdf8] mx-auto mt-1 rounded-xl'> Descargar Historial </button>
             </CSVLink>
         </div>
     );

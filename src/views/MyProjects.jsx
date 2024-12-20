@@ -4,62 +4,54 @@ import TransitionsModal from '../components/utils/Modal/ModalProyects';
 import Historial from '../components/Assets/historial.svg';
 import UpArrow from '../components/Assets/arrow-up-outline.svg';
 import DownArrow from '../components/Assets/arrow-down-outline.svg';
-import DeleteButton from '../components/utils/Buttons/DeleteButton';
+import DeleteProjectButton from '../components/utils/Buttons/DeleteProjectButton';
 import { getProjectByUserId, createProjects } from '../api/projects_api';
 
 const MyProjects = () => {
     const user = localStorage.getItem('user');
     const userObj = JSON.parse(user);
 
-    const [projects, setProjects] = React.useState([]);
+    const [projects, setProjects] = useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
         return savedBalance ? parseFloat(savedBalance) : 0;
     });
-    
+
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    //const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
+    const [selectedProjectId, setSelectedProjectId] = useState(null);
 
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const projects = await getProjectByUserId(userObj.id); // Espera la promesa
-                setProjects(projects); // Actualiza el estado con los proyectos obtenidos
+                const projects = await getProjectByUserId(userObj.id);
+                setProjects(projects);
             } catch (error) {
                 console.log("Error al obtener proyectos:", error);
             }
         };
-    
-        fetchProjects(); // Llama a la función
-    }, [userObj]);
+
+        fetchProjects();
+    }, [userObj.id]); // Solo depender de userObj.id
 
     useEffect(() => {
         localStorage.setItem('userBalance', userBalance);
     }, [userBalance]);
 
     const getTotalAmount = (slug) => {
-        //const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
-        //return storedTotal ? JSON.parse(storedTotal) : 0;
         return 0;
     };
 
     const getTotalProjectAmount = () => {
-        //return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
         return 0;
     };
 
-    const addProject = (newProject) => {
-        createProjects(newProject);
-        setProjects([...projects, {newProject}]);
-    };
-
-    const handleDeleteProject = () => {
-        /*const updatedProjects = projects.filter(project => project.slug !== selectedProjectSlug);
-        setProjects(updatedProjects);
-        localStorage.setItem('projects', JSON.stringify(updatedProjects));
-        localStorage.removeItem(`totalAmountFor${selectedProjectSlug.replace(/-/g, '')}`);
-        setShowDeleteModal(false);
-        */
+    const addProject = async (newProject) => {
+        try {
+            const createdProject = await createProjects(newProject);
+            setProjects([...projects, createdProject]);
+        } catch (error) {
+            console.error("Error al crear proyecto:", error);
+        }
     };
 
     const handleBalanceChange = (e) => {
@@ -106,23 +98,11 @@ const MyProjects = () => {
                                 <p className='py-2 my-5'>{project.fecha}</p>
                                 <p className='py-2 my-5'>Gastado: {getTotalAmount(project.total)} $</p>
                             </div>
-                            <Link
-                                to={`/newprojects/${project.id}`}
-                                className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
-                            >
-                                Ver Proyecto
-                            </Link>
-                            <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
-                                onClick={() => {
-                                    setShowDeleteModal(true);
-                                }}>
-                                Eliminar Proyecto
-                            </button>
+                            <Link to={`/newprojects/${project.id}`} className='bg-[#38bdf8] text-black w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'> Ver Proyecto </Link>
+                            <button className="bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center" onClick={() => { setSelectedProjectId(project.id); setShowDeleteModal(true); }}>Eliminar Proyecto</button>
                         </div>
                     ))}
-
-                    {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject} onCancel={() => setShowDeleteModal(false)}/>)}
-                
+                    {showDeleteModal && selectedProjectId && ( <DeleteProjectButton projectId={selectedProjectId} onCancel={() => setShowDeleteModal(false)} onDelete={() => { setProjects(projects.filter((p) => p.id !== selectedProjectId)); setShowDeleteModal(false); }}/>)}
                 </div>
             </div>
         </div>

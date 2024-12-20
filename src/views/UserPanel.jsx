@@ -15,16 +15,25 @@ const UserPanel = () => {
     const navigate = useNavigate();
     const [tempUserData, setTempUserData] = React.useState({});
     const [perfil, setPerfil] = React.useState({});
-    React.useEffect(() => {
-        if(user){
-            getUser(user.id,setPerfil);
-        }
-    },[user,setPerfil]);
+
+    const [ticketsData, setTicketsData] = useState([]);
 
     useEffect(() => {
         if (!user) {
             navigate('/');
+            return; // Detener ejecución si no hay usuario
         }
+    
+        const fetchTicketsData = async () => {
+            try {
+                const tickets = await getTicketsByUserId(user.id);
+                setTicketsData(tickets); // Asignar datos resueltos al estado
+            } catch (error) {
+                console.error("Error al obtener los tickets:", error);
+            }
+        };
+    
+        fetchTicketsData(); // Llamar a la función
     }, [user, navigate]);
 
     useEffect(()=>{
@@ -61,6 +70,7 @@ const UserPanel = () => {
             setPerfil(updatedProfile);
         }
     };
+
 
     return (
         user && (
