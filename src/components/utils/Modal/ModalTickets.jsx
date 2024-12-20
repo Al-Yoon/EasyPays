@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
+import {createTicket} from '../../../api/tickets_api';
 
 const style = {
     position: 'absolute',
@@ -22,7 +23,7 @@ const style = {
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function ModalTickets({ addTicket }) {
+export default function ModalTickets({ addTicket,id }) {
     const [open, setOpen] = React.useState(false);
     const [formState, setFormState] = React.useState({
         ticketId: "",
@@ -31,7 +32,7 @@ export default function ModalTickets({ addTicket }) {
         total: "",
         image: null,
     });
-    const [error, setError] = React.useState("");
+    const [ setError] = React.useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -44,26 +45,18 @@ export default function ModalTickets({ addTicket }) {
         setFormState({ ...formState, [name]: value });
     };
 
-    const handleFileChange = (e) => {
-        setFormState({ ...formState, image: e.target.files[0] });
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        const success = addTicket({ 
-            ...formState, 
-            ticketId: parseInt(formState.ticketId), 
-            total: parseFloat(formState.total),
-            image: formState.image,
-        });
-        if (success) {
-            
-            setFormState({ ticketId: "", date: "", name: "", total: "", image: null });
-            handleClose();
-        } else {
-            
-            setError("El ID ya existe.");
-        }
+        const newTicket = {
+            descripcion: formState.name,
+            fecha: formState.date,
+            monto: formState.total,
+            projectId: id
+        };
+        const response = createTicket(newTicket);
+        addTicket(response);
+        setFormState({ ticketId: "", date: "", name: "", total: "", image: null });
+        handleClose();
     };
 
     return (
@@ -86,9 +79,6 @@ export default function ModalTickets({ addTicket }) {
                     <Box sx={style}>
                         <div className=' mx-auto text-center flex flex-col justify-center'>
                             <CloseIcon onClick={handleClose} />
-                            <Typography id="transition-modal-title" variant="h6" component="h2">
-                                ID del Ticket:
-                            </Typography>
                             <Box
                                 component="form"
                                 sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
@@ -96,16 +86,6 @@ export default function ModalTickets({ addTicket }) {
                                 autoComplete="off"
                                 onSubmit={handleSubmit}
                             >
-                                <Input
-                                    name="ticketId"
-                                    value={formState.ticketId}
-                                    onChange={handleChange}
-                                    placeholder="ID del Ticket"
-                                    inputProps={ariaLabel}
-                                    type="number"
-                                    required
-                                />
-                                {error && <Typography variant="caption" color="error">{error}</Typography>}
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
                                     Fecha:
                                 </Typography>
@@ -141,6 +121,7 @@ export default function ModalTickets({ addTicket }) {
                                     type="number"
                                     required
                                 />
+                                {/*
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
                                     Cargar Imagen:
                                 </Typography>
@@ -150,6 +131,7 @@ export default function ModalTickets({ addTicket }) {
                                     inputProps={ariaLabel}
                                     required
                                 />
+                                */}
                                 <button type="submit" className="bg-[#38bdf8] hover:text-white w-[230px] rounded-md font-medium my-6 mx:auto md:mx-0 py-3 text-black">
                                     Aceptar
                                 </button>

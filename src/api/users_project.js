@@ -95,4 +95,22 @@ const deleteUser = async (token,id,nombre) => {
     
 };
 
-export {getUsers, addUser, deleteUser};
+const createMember = async (user) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(user);
+
+    const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+    };
+
+    const response = await fetch("http://localhost:8080/api/userProject/", requestOptions);
+    const data = response.json();
+    return data;
+}
+
+export {getUsers, addUser, deleteUser, createMember};

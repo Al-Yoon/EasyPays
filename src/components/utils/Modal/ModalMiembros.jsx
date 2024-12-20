@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import CloseIcon from '@mui/icons-material/Close';
+import { createMember } from '../../../api/users_project';
 
 const style = {
     position: 'absolute',
@@ -25,10 +26,8 @@ const ariaLabel = { 'aria-label': 'description' };
 export default function ModalMiembros({ addMember }) {
     const [open, setOpen] = React.useState(false);
     const [formState, setFormState] = React.useState({
-        userId: "",
-        firstName: "",
-        lastName: "",
-        email: ""
+        nombre: "",
+        email: "",
     });
     const [error, setError] = React.useState("");
 
@@ -43,19 +42,21 @@ export default function ModalMiembros({ addMember }) {
         setFormState({ ...formState, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = addMember({
-            ...formState,
-            userId: parseInt(formState.userId)
-        });
-        if (success) {
-            
-            setFormState({ userId: "", firstName: "", lastName: "", email: "" });
+        try {
+            const newMember = { 
+                nombre: formState.nombre,  
+                email: formState.email, 
+                porcentaje: 0,
+                SaldoPAgar: 0
+            };
+            const response = await createMember(newMember);
+            addMember(response);
+            setFormState({ nombre: "", email: "" });
             handleClose();
-        } else {
-            
-            setError("El usuario ya existe.");
+        } catch (err) {
+            setError("Error al crear el miembro. Por favor, inténtalo de nuevo.");
         }
     };
 
@@ -79,9 +80,6 @@ export default function ModalMiembros({ addMember }) {
                     <Box sx={style}>
                         <div className='mx-auto text-center flex flex-col justify-center'>
                             <CloseIcon onClick={handleClose} />
-                            <Typography id="transition-modal-title" variant="h6" component="h2">
-                                Usuario ID:
-                            </Typography>
                             <Box
                                 component="form"
                                 sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
@@ -89,38 +87,20 @@ export default function ModalMiembros({ addMember }) {
                                 autoComplete="off"
                                 onSubmit={handleSubmit}
                             >
-                                <Input
-                                    name="userId"
-                                    value={formState.userId}
-                                    onChange={handleChange}
-                                    placeholder="Usuario ID"
-                                    inputProps={ariaLabel}
-                                    type="number"
-                                    required
-                                />
                                 {error && <Typography variant="caption" color="error">{error}</Typography>}
+
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
                                     Nombre:
                                 </Typography>
                                 <Input
-                                    name="firstName"
-                                    value={formState.firstName}
+                                    name="nombre"
+                                    value={formState.nombre}
                                     onChange={handleChange}
                                     placeholder="Nombre"
                                     inputProps={ariaLabel}
                                     required
                                 />
-                                <Typography id="transition-modal-title" variant="h6" component="h2">
-                                    Apellido:
-                                </Typography>
-                                <Input
-                                    name="lastName"
-                                    value={formState.lastName}
-                                    onChange={handleChange}
-                                    placeholder="Apellido"
-                                    inputProps={ariaLabel}
-                                    required
-                                />
+
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
                                     Email:
                                 </Typography>

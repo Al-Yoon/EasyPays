@@ -1,8 +1,4 @@
-// Esto para historial en panel
-const getTickets = async (id, setTickets) => {
-    const formData = new FormData();
-    formData.append("projectId", id);
-
+export const getTickets = async(setTickets) => {
     console.log("Obtenemos el token de la sesión una vez logueado");
     const accessToken = sessionStorage.getItem("access-token");
 
@@ -27,7 +23,8 @@ const getTickets = async (id, setTickets) => {
     }
 };
 
-const getTicketsByUserId = async (id) => {
+
+export const getTicketsByUserId = async (id) => {
     const requestOptions = {
         method: "GET",
         redirect: "follow",
@@ -37,4 +34,20 @@ const getTicketsByUserId = async (id) => {
         return tickets;
 };
 
-export { getTickets, getTicketsByUserId };
+export const createTicket = async(ticket) =>{
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(ticket);
+
+    const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+    };
+
+    const response = await fetch("http://localhost:8080/api/tickets/", requestOptions);
+    const data = response.json();
+    return data;
+}

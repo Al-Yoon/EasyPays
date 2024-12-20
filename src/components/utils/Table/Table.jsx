@@ -11,7 +11,7 @@ function Table({ data }) {
 
     const columns = [
         {
-            name: "Ticket ID",
+            name: "Numero de Ticket",
             selector: row => row.id,
             sortable: true,
         },

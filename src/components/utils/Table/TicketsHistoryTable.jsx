@@ -11,23 +11,18 @@ function TicketsHistoryTable({ data }) {
 
     const columns = [
         {
-            name: "Ticket ID",
-            selector: row => row.ticketId,
-            sortable: true,
-        },
-        {
             name: "Descripcion",
-            selector: row => row.name,
+            selector: row => row.descripcion,
             sortable: true,
         },
         {
             name: "Fecha",
-            selector: row => row.date,
+            selector: row => row.fecha,
             sortable: true,
         },
         {
             name: "Monto",
-            selector: row => row.total,
+            selector: row => row.monto,
             sortable: true,
         },
         {

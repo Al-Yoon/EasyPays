@@ -11,47 +11,47 @@ const MyProjects = () => {
     const user = localStorage.getItem('user');
     const userObj = JSON.parse(user);
 
-    const [projects, setProjects] = React.useState([]);
+    const [projects, setProjects] = useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
         return savedBalance ? parseFloat(savedBalance) : 0;
     });
-    
+
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedProjectId, setSelectedProjectId] = useState(null);
-    //const [selectedProjectSlug, setSelectedProjectSlug] = useState(null);
 
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const projects = await getProjectByUserId(userObj.id); // Espera la promesa
-                setProjects(projects); // Actualiza el estado con los proyectos obtenidos
+                const projects = await getProjectByUserId(userObj.id);
+                setProjects(projects);
             } catch (error) {
                 console.log("Error al obtener proyectos:", error);
             }
         };
-    
-        fetchProjects(); // Llama a la función
-    }, [userObj]);
+
+        fetchProjects();
+    }, [userObj.id]); // Solo depender de userObj.id
 
     useEffect(() => {
         localStorage.setItem('userBalance', userBalance);
     }, [userBalance]);
 
     const getTotalAmount = (slug) => {
-        //const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
-        //return storedTotal ? JSON.parse(storedTotal) : 0;
         return 0;
     };
 
     const getTotalProjectAmount = () => {
-        //return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
         return 0;
     };
 
-    const addProject = (newProject) => {
-        createProjects(newProject);
-        setProjects([...projects, {newProject}]);
+    const addProject = async (newProject) => {
+        try {
+            const createdProject = await createProjects(newProject);
+            setProjects([...projects, createdProject]);
+        } catch (error) {
+            console.error("Error al crear proyecto:", error);
+        }
     };
 
     const handleBalanceChange = (e) => {
