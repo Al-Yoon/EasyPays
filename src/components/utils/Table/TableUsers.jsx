@@ -1,6 +1,7 @@
 import DataTable from 'react-data-table-component';
 import * as React from 'react';
 import {getUsers} from '../../../api/users_project';
+import {notify} from '../../../api/projects_api'
 
 function TableUsers({updatePercentage, totalAmount, handlePayment }) {
     
@@ -12,6 +13,7 @@ function TableUsers({updatePercentage, totalAmount, handlePayment }) {
     };
 
     const handleSendNotification = (email, index) => {
+        notify(email); //mail
         alert(`Notificación Enviada a ${email}`);
         handlePayment(index, (totalAmount * data[index].percentage / 100).toFixed(2));
     };

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { CSVLink } from 'react-csv';
-import {getTickets} from '../api/tickets.api';
+import {getTicketsProject} from '../../../api/project_alone_api';
 
 const TableTickets = () => {
     const [tickets, setTickets] = useState([]);
     console.log("Me traigo el token una vez que estoy logeado");
-    const accessToken = sessionStorage.getItem('access-token');
+
 
     useEffect(() => {
         console.log("Pido la lista de tickets con mi token de sesión");
-        getTickets(setTickets);
+        getTicketsProject(setTickets);
     }, []);
 
     const[data,setData] = React.useState([]);
     //const token = sessionStorage.getItem('access-token');
     React.useEffect(() =>{
         const fetchData = async() =>{
-            const data = await getTickets();
+            const data = await getTicketsProject();
             setData(data);
         };
             fetchData();
