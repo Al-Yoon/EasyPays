@@ -7,29 +7,34 @@ import TableUsers from "../components/utils/Table/TableUsers.jsx";
 import DeleteButton from '../components/utils/Buttons/DeleteButton.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 import {getTicketsProject,getProject} from '../api/project_alone_api.js'; 
-
+import {getUsers} from '../api/users_project';
 
 const NewProject = () => {
     const navigate = useNavigate();
     const [tickets, setTickets] = useState([]);
     const [members, setMembers] = useState([]);
     const [paidAmount, setPaidAmount] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [projectName, setProjectName] = React.useState();
     const { id } = useParams();
 
     useEffect(() => {
-        const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
         const fetchData = async() =>{
             const project = await getProject(id);
             setProjectName(project.nombre);
             const dataTickets = await getTicketsProject(id);
             setTickets(dataTickets);
-            //const responseMembers = await getUsersByProject(id);
-            //setDataMembers(responseMembers)
+            const dataM = await getUsers(id);
+            setMembers(dataM);
         };
         fetchData();
         },[id]);
+    
+    useEffect(() => {
+        const total = tickets.reduce((sum, ticket) => sum + (ticket.monto || 0), 0);
+        setTotalAmount(total);
+    }, [tickets]);
 
     const addTicket = (newTicket) => {
         const existingTicket = tickets.find(ticket => ticket.ticketId === newTicket.ticketId);
@@ -71,7 +76,6 @@ const NewProject = () => {
         navigate('/myprojects');
     };
 
-    const totalAmount = tickets.reduce((sum, ticket) => sum + ticket.total, 0);
     const remainingAmount = totalAmount - paidAmount;
 
     return (
