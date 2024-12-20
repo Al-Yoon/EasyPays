@@ -8,18 +8,9 @@ import DeleteButton from '../components/utils/Buttons/DeleteButton';
 import { getProjectByUserId } from '../api/projects_api';
 
 const MyProjects = () => {
-    const initialProjects = [
-        { name: "Finde Pasado", description: "Finde Pasado", date: "9/18/2024", slug: "proyecto-finde-pasado" }
-    ];
     const user = localStorage.getItem('user');
     const userObj = JSON.parse(user);
 
-    /*
-    const [projects, setProjects] = useState(() => {
-        const savedProjects = JSON.parse(localStorage.getItem('projects'));
-        return savedProjects || initialProjects;
-    });
-    */
     const [projects, setProjects] = React.useState([]);
     const [userBalance, setUserBalance] = useState(() => {
         const savedBalance = localStorage.getItem('userBalance');
@@ -43,25 +34,23 @@ const MyProjects = () => {
         };
     
         fetchProjects(); // Llama a la función
-    }, []);
+    }, [userObj.id]);
 
     useEffect(() => {
         localStorage.setItem('userBalance', userBalance);
     }, [userBalance]);
 
     const getTotalAmount = (slug) => {
-        //const storedTotal = localStorage.getItem(`totalAmountFor${slug.replace(/-/g, '')}`);
-        //return storedTotal ? JSON.parse(storedTotal) : 0;
         return 0;
     };
 
     const getTotalProjectAmount = () => {
-        //return projects.reduce((sum, project) => sum + getTotalAmount(project.slug), 0);
         return 0;
     };
 
     const addProject = (newProject) => {
-        const projectSlug = newProject.name.trim().toLowerCase().replace(/\s+/g, '-');
+        const name = newProject?.name?.trim() || "proyecto-sin-nombre";
+        const projectSlug = name.toLowerCase().replace(/\s+/g, '-');
         setProjects([...projects, { ...newProject, slug: projectSlug }]);
     };
 
@@ -88,7 +77,6 @@ const MyProjects = () => {
                 <p className="max-w-auto mx-auto md:text-2xl sm:text-1xl text-xl pl-4">Mis</p>
                 <h1 className="font-bold md:text-3xl sm:text-2xl text-xl pb-3 pl-4">Proyectos</h1>      
                 <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                
                     <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg">
                         <h2 className='text-2xl font-bold text-center py-8'>Crear Proyecto</h2>
                         <p className='text-center text-[#38bdf8] text-4xl font-bold'><TransitionsModal addProject={addProject}/></p>
@@ -127,6 +115,7 @@ const MyProjects = () => {
                             </button>
                             <button className='bg-[#e57373] text-red-700 w-2/3 rounded-md font-medium my-6 mx-auto px-6 py-3 flex justify-center'
                                 onClick={() => {
+                                    setSelectedProjectSlug(project.slug);
                                     setShowDeleteModal(true);
                                 }}>
                                 Eliminar Proyecto
@@ -135,7 +124,6 @@ const MyProjects = () => {
                     ))}
 
                     {showDeleteModal && (<DeleteButton onDelete={handleDeleteProject} onCancel={() => setShowDeleteModal(false)}/>)}
-                
                 </div>
             </div>
         </div>
