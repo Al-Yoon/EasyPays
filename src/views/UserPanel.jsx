@@ -7,11 +7,10 @@ import TicketsHistoryTable from '../components/utils/Table/TicketsHistoryTable';
 import { AuthContext } from "../components/utils/AuthContextPrueba";
 import {getUser, updateUser } from "../api/profile_api"
 
-const ticketsData = [
-    
-];
 
 const UserPanel = () => {
+    
+    const ticketsData = [];
     const { user } = useContext(AuthContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();

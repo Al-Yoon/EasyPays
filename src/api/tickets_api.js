@@ -1,4 +1,4 @@
-const getTickets = async(setTickets) => {
+export const getTickets = async(setTickets) => {
     console.log("Obtenemos el token de la sesión una vez logueado");
     const accessToken = sessionStorage.getItem('access-token');
 
@@ -19,4 +19,20 @@ const getTickets = async(setTickets) => {
     console.log(jsonData);
 }
 
-export default getTickets;
+export const createTicket = async(ticket) =>{
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(ticket);
+
+    const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+    };
+
+    const response = await fetch("http://localhost:8080/api/tickets/", requestOptions);
+    const data = response.json();
+    return data;
+}
